@@ -1,0 +1,43 @@
+Salida, 0, 0, go
+Paseo Bolivar, 25000, 30000, ownership
+Arca, 0, 0, card
+Vía 40, 30000, 35000, ownership
+Tombos, 0, 100000, taxes
+Transmetro, 2500, 2500, transport
+Calle 30, 35000, 4000, ownership
+Fortuna, 0, 0, luck
+Murillo, 40000, 45000, ownership
+Circunvalar, 40000, 45000, ownership
+Cárcel Modelo, 0, 0, jail
+Puente Pumarejo, 80000, 90000, ownership
+Electricaribe, 50000, 0, service
+Centro, 55000, 60000, ownership
+Aereopuerto, 90000, 100000, ownership
+Coolitoral, 2500, 2500, transport
+Mercado, 55000, 60000, ownership
+Arca, 0, 0, card
+Corredor Universitario, 95000, 100000, ownership
+Soledad 2mil, 2000, 2000, ownership
+Parada libre, 0, 0, free stop
+Estadio Metropolitano, 300000, 450000, ownership
+Fortuna, 0, 0, luck
+CC Metrocentro, 100000, 150000, ownership 
+CC Buenavista, 200000, 300000, ownership
+Coochofal, 2500, 2500, transport
+CC Viva, 190000, 240000, ownership
+Malecón del Río, 250000, 300000, ownership
+Triple A, 50000, 0, service
+Parque Alegra, 280000, 350000, ownership
+Váyase a la cárcel, 0, 0, go to jail
+Parque Muvdi, 180000, 230000, ownership
+Estadio Romelio Martinez, 150000, 200000, ownership
+Arca, 0, 0, card
+Zoológico, 56000, 70000, ownership
+Sobusa, 2500, 2500, transport
+Fortuna, 0, 0, luck
+Ciudad de Hierro, 300000, 400000, ownership
+Tombos, 0, 100000, taxes
+Calle del Hambre, 45000, 55000, ownership
+
+
+

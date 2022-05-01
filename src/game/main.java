@@ -50,7 +50,7 @@ public class main {
         board.addBox("", 0, 0);
         board.addBox("", 0, 0);
 
-        Player player1 = new Player("Elkin",0,1);
+        Player player1 = new Player("Elkin",0);
         player1.x += dice;
         
     }

@@ -7,13 +7,16 @@ public class Player {
     float money;
     int x;
     boolean prisoner;
+    Player  next;
+    Player prev;
 
-    public Player(String name, float money, int turno) {
+    public Player(String name, float money) {
         this.name = name;
         this.money = money;
-        this.turno = turno;
         this.prisoner = false;
         this.x = 0;
+        prev = this;
+        next = this;
     }
 
     public void giveMoney(float amount) {
