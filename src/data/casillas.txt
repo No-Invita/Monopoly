@@ -17,7 +17,7 @@ Coolitoral,2500,2500,transport
 Mercado,55000,60000,ownership
 Arca,0,0,card
 Corredor Universitario,95000,100000,ownership
-Soledad 2mil,2000,2000,ownership
+Soledad 2000,2000,2000,ownership
 Parada libre,0,0,free stop
 Estadio Metropolitano,300000,450000,ownership
 Fortuna,0,0,luck
@@ -28,7 +28,7 @@ CC Viva,190000,240000,ownership
 Malecon del Río,250000,300000,ownership
 Triple A,50000,0,service
 Parque Alegra,280000,350000,ownership
-Vayase a la cárcel,0,0,go to jail
+Vayase a la carcel,0,0,go to jail
 Parque Muvdi,180000,230000,ownership
 Estadio Romelio Martinez,150000,200000,ownership
 Arca,0,0,card

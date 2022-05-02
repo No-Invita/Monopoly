@@ -3,7 +3,7 @@ package game.cards;
 public class Jail extends Card {
 
     public Jail() {
-        this.name = "jail";
+        this.name = "Carcel Modelo";
         this.isOwnable = false;
         this.isOwned = false;
         this.owner = null;
