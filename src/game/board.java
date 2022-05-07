@@ -43,8 +43,8 @@ public class Board {
             }
 
             // case "card": {
-            //     // box = new Card();
-            //     break;
+            // // box = new Card();
+            // break;
             // }
 
             case "jail": {
@@ -53,28 +53,28 @@ public class Board {
             }
 
             // case "taxes": {
-            //     // box = new Taxes();
-            //     break;
+            // // box = new Taxes();
+            // break;
             // }
 
             // case "transport": {
-            //     // box = new Transport();
-            //     break;
+            // // box = new Transport();
+            // break;
             // }
 
             // case "luck": {
-            //     // box = new Luck();
-            //     break;
+            // // box = new Luck();
+            // break;
             // }
 
             // case "free stop": {
-            //     // box = new FreeStop();
-            //     break;
+            // // box = new FreeStop();
+            // break;
             // }
 
             // case "service": {
-            //     // box = new Service();
-            //     break;
+            // // box = new Service();
+            // break;
             // }
             default: {
                 box = new Ownership(name, selling_price, rental_price);
@@ -89,7 +89,8 @@ public class Board {
             addBox(
                     piece[0],
                     Integer.parseInt(piece[1]),
-                    Integer.parseInt(piece[2]), piece[3]);
+                    Integer.parseInt(piece[2]),
+                    piece[3]);
         }
     }
 
@@ -103,6 +104,7 @@ public class Board {
             System.out.print(current.name + " -> ");
             current = current.next;
         } while (current != tablero.start);
+        System.out.println(tablero.end.next.name);
 
     }
 }
