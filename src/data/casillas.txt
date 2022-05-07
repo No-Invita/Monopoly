@@ -1,43 +1,43 @@
-Salida,0,0,go
-Paseo Bolivar,25000,30000,ownership
+Sincelejo,0,0,go
+Plaza Majagual,25000,30000,ownership
 Arca,0,0,card
-Via 40,30000,35000,ownership
+Parque Santander,30000,35000,ownership
 Tombos,0,100000,taxes
-Transmetro,2500,2500,transport
-Calle 30,35000,4000,ownership
-Fortuna,0,0,luck
-Murillo,40000,45000,ownership
-Circunvalar,40000,45000,ownership
+Asosciacion de mototaxis,2500,2500,transport
+Parque los libertadores,35000,4000,ownership
+Suerte,0,0,luck
+Plaza majagual,40000,45000,ownership
+Estadio 20 de Enero,40000,45000,ownership
 Carcel Modelo,0,0,jail
-Puente Pumarejo,80000,90000,ownership
+Ciudad Amurallada,80000,90000,ownership
 Electricaribe,50000,0,service
-Centro,55000,60000,ownership
-Aereopuerto,90000,100000,ownership
-Coolitoral,2500,2500,transport
-Mercado,55000,60000,ownership
+Castillo de San Felipe,55000,60000,ownership
+Torre del Reloj,90000,100000,ownership
+Transcaribe,2500,2500,transport
+Mercado de Bazurto,55000,60000,ownership
 Arca,0,0,card
-Corredor Universitario,95000,100000,ownership
-Soledad 2000,2000,2000,ownership
-Parada libre,0,0,free stop
+La Plazuela,95000,100000,ownership
+Estatua India Catalina,2000,2000,ownership
+Volcan del totumo,0,0,free stop
 Estadio Metropolitano,300000,450000,ownership
-Fortuna,0,0,luck
-CC Metrocentro,100000,150000,ownership 
-CC Buenavista,200000,300000,ownership
-Coochofal,2500,2500,transport
-CC Viva,190000,240000,ownership
-Malecon del Río,250000,300000,ownership
+Suerte,0,0,luck
+Ventana al Mundo,100000,150000,ownership 
+Elias Chewing,200000,300000,ownership
+Transmetro,2500,2500,transport
+La casa del carnaval,190000,240000,ownership
+Malecon del Rio,250000,300000,ownership
 Triple A,50000,0,service
-Parque Alegra,280000,350000,ownership
+Puente Pumarejo,280000,350000,ownership
 Vayase a la carcel,0,0,go to jail
-Parque Muvdi,180000,230000,ownership
-Estadio Romelio Martinez,150000,200000,ownership
+Bahia,180000,230000,ownership
+Estadio El Pibe,150000,200000,ownership
 Arca,0,0,card
-Zoologico,56000,70000,ownership
-Sobusa,2500,2500,transport
-Fortuna,0,0,luck
-Ciudad de Hierro,300000,400000,ownership
+Avenida del ferrocarril,56000,70000,ownership
+Setp,2500,2500,transport
+Suerte,0,0,luck
+Avenida al rio,300000,400000,ownership
 Tombos,0,100000,taxes
-Calle del Hambre,45000,55000,ownership
+El Rodadero,45000,55000,ownership
 
 
 
