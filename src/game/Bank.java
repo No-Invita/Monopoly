@@ -18,12 +18,18 @@ public class Bank {
         player.giveMoney(amount);
     }
 
-    public void pay(float amount, Player player) {
-        player.getMoney(amount);
+    public void demortgageProperty(Card property, Player player) {
+        if (property.isMortgable && (property.isMortgabled) && property.owner == player) {
+            property.isMortgabled = false;
+
+        }
     }
 
-    public void payGo(Player player) {
-        this.pay(810000, player);
+    public void mortgageProperty(Card property, Player player) {
+        if (property.isMortgable && !(property.isMortgabled) && property.owner == player) {
+            property.isMortgabled = true;
+            pay(property.selling_price / 2, player);
+        }
     }
 
     public void offerProperty(Card property, Player player) throws IOException {
@@ -34,28 +40,54 @@ public class Bank {
         }
     }
 
-    public void tranferProperty(Card property, Player player) throws IOException {
-        demandMoney(property.selling_price, player);
-        property.owner = player;
-        property.isOwned = true;
-        player.buyProperty(property.name);
+    public void pay(float amount, Player player) {
+        player.getMoney(amount);
+    }
+
+    public void payGo(Player player) {
+        this.pay(810000, player);
     }
 
     public void removeProperty(Card property, Player player) {
         property.owner = null;
     }
 
-    public void mortgageProperty(Card property, Player player) {
-        if (property.isMortgable && !(property.isMortgabled) && property.owner == player) {
-            property.isMortgabled = true;
-            pay(property.selling_price / 2, player);
+    public void request(String type, Player player) throws IOException {
+        switch (type) {
+            case "buy": {
+                if (player.position.owner == null) {
+                    offerProperty(player.position, player);
+                } else {
+                    transferMoney(player, player.position.owner, player.position.rental_price);
+                    System.out.println(player.name + "transfiere " + player.position.rental_price + "a "
+                            + player.position.owner.name);
+                }
+                break;
+            }
+            case "go": {
+                payGo(player);
+            }
         }
     }
 
-    public void demortgageProperty(Card property, Player player) {
-        if (property.isMortgable && (property.isMortgabled) && property.owner == player) {
-            property.isMortgabled = false;
-
+    public void transferMoney(Player payer, Player receiver, int amount) throws IOException {
+        if (payer.money >= amount) {
+            payer.giveMoney(amount);
+            receiver.getMoney(amount);
+        } else {
+            System.out.println("not enough money");
         }
     }
+
+    public void tranferProperty(Card property, Player player) throws IOException {
+        if (player.money >= property.selling_price) {
+            demandMoney(property.selling_price, player);
+            property.owner = player;
+            property.isOwned = true;
+            player.buyProperty(property.name);
+        } else {
+            System.out.println("not enough money");
+        }
+    }
+
 }

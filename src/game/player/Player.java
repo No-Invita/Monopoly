@@ -2,6 +2,7 @@ package game.player;
 
 import java.io.IOException;
 
+import game.Bank;
 import game.Board;
 import game.cards.Card;
 import game.dices.dices;
@@ -19,12 +20,14 @@ public class Player {
     public Player prev;
     public dicesResult result;
     public String properties;
+    public Bank bank;
 
-    public Player(String name, Board board) {
+    public Player(String name, Board board, Bank bank) {
         this.name = name;
         this.money = 6000000;
         this.prisoner = false;
         this.position = board.start;
+        this.bank = bank;
         this.properties = "src/data/playersproperties/" + name;
         prev = this;
         next = this;
@@ -51,22 +54,23 @@ public class Player {
         return position.index == 0;
     }
 
-    public void moveAround() {
+    public void moveAround() throws IOException {
         rollDices();
         for (int i = 0; i < result.result; i++) {
             moveForward();
         }
+        bank.request("buy", this);
     }
 
     public void moveBackward() {
         position = position.prev;
     }
 
-    public void moveForward() {
+    public void moveForward() throws IOException {
         position = position.next;
         if (isInGo()) {
+            bank.request("go", this);
             System.out.println("pase por salida");
-            money += 810000;
         }
     }
 
