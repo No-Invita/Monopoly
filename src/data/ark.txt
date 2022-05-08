@@ -1,0 +1,22 @@
+Te sientes solo y vas a hablar con los mototaxis en Sincelejo (Cobra pasaje si aplica) | moverse a | Asociacion de mototaxis
+Eres mototaxi por un dia y recaudas 100.000 | recibir | 100000
+Esta carta no te quita ni te da dinero, solo te recuerda que por cada taza de arroz son 2 de agua ;) | na | na
+Vas a la Ventana al Mundo para ver si en verdad es una ventana que muestra el mundo (Cobra pasaje si aplica) | moverse a | Ventana al Mundo 
+Los secuaces de Fico te pagan 75.000 por tu voto | recibir | 75000
+El celular que sacaste a cuotas no se va a pagar solo, paga 250.000 | dar | 250000
+Tienes filo y quieres probar comida de mar. El mercado de Bazurto es una buena opcion (Cobra pasaje si aplica) | moverse a | Mercado de Bazurto 
+Comienzas un emprendimiento y el resto de jugadores te colaboran con 200.000 c/u | recibir de todos | 200000
+El cobradiario esta de malas hoy y te cobra varias tarifas en una. Suelta 335.000 | dar | 335000
+Dirigete al servicio de transporte mas cercano (Cobra pasaje si aplica) | moverse a | transport
+Fuiste a reclamar la devolucion del iva. Cobra 200.000 | recibir | 200000
+Te toca pagar 75.000 por los fritos que compraste en el barrio pupi con tu compañero | dar | 75000
+Te tropezaste y de casualidad apareciste en el Volcan del Totumo (Cobra pasaje si aplica) | moverse a | Volcan del totumo
+El dinero no cae del cielo, pero esta vez si. Dile al cajero que te de 50.000 de mi parte, todo bien | recibir | 50000
+Devuelvete 3 casillas | mover atras | 3
+Hiciste la primera comunion y vas a pedir dinero de casa en casa. Reclama 80.000 | recibir | 80000
+Ya eres mayor de edad, colabora con los recibos. Suelta 265.000 | dar | 26500
+Te encuentras en el bolso los 50.000 que se te perdieron hace un mes | recibir | 500000
+Te toca comprar las boletas del clasico costeño, ponte la 10 con 300.0000 | dar | 300000
+
+
+
