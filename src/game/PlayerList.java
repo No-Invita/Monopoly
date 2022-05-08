@@ -36,18 +36,4 @@ public class PlayerList {
         } while (current != head);
     }
 
-    public static void main(String[] args) {
-        Player player1 = new Player("Elkin");
-        Player player2 = new Player("Luis");
-        Player player3 = new Player("Johan");
-        Player player4 = new Player("Fabian");
-        PlayerList list = new PlayerList();
-        list.addPlayer(player1);
-        list.addPlayer(player2);
-        list.addPlayer(player3);
-        list.addPlayer(player4);
-        list.display();
-
-    }
-
 }

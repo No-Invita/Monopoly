@@ -13,17 +13,17 @@ public class Player {
     public boolean prisoner;
     public Player next;
     public Player prev;
-	public dicesResult result;
+    public dicesResult result;
 
-    public Player(String name) {
+    public Player(String name, Board board) {
         this.name = name;
         this.money = 6000000;
         this.prisoner = false;
-        this.position = null;
+        this.position = board.start;
         prev = this;
         next = this;
     }
-    
+
     public void getMoney(float amount) {
         this.money += amount;
     }
@@ -48,7 +48,6 @@ public class Player {
 
     public void moveAround() {
         rollDices();
-        result.display();
         for (int i = 0; i < result.result; i++) {
             moveForward();
         }
@@ -61,11 +60,12 @@ public class Player {
     public void moveForward() {
         position = position.next;
         if (isInGo()) {
-            // cobrar dinero al pasar por salida
+            System.out.println("pase por salida");
+            money += 810000;
         }
     }
 
-    public void rollDices(){
+    public void rollDices() {
         dicesResult result = dices.rollDices();
         this.result = result;
     }
