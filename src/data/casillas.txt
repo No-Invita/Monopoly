@@ -3,7 +3,7 @@ Plaza Majagual,240000,36500,ownership
 Arca,0,0,card
 Parque Santander,240000,44600,ownership
 Tombos,0,810000,taxes
-Asosciacion de mototaxis,810000,100000,transport
+Asociacion de mototaxis,810000,100000,transport
 Parque los libertadores,400000,69000,ownership
 Suerte,0,0,luck
 Plaza majagual,400000,69000,ownership
