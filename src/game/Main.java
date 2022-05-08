@@ -13,16 +13,28 @@ public class Main {
         // create the players list
         PlayerList players = new PlayerList();
         // Add the players to the players list
-        Player player1 = new Player("Elkin", 0);
-        Player player2 = new Player("Luis", 0);
-        Player player3 = new Player("Johan", 0);
-        Player player4 = new Player("Fabian", 0);
+        Player player1 = new Player("Elkin");
+        Player player2 = new Player("Luis");
+        Player player3 = new Player("Johan");
+        Player player4 = new Player("Fabian");
         players.addPlayer(player1);
         players.addPlayer(player2);
         players.addPlayer(player3);
         players.addPlayer(player4);
         // start game
-
+        // iterate players list
+        Player current = players.head;
+        boolean ended = false;
+        // while(!ended){
+            for(int i = 0; i<10; i++){
+            current.moveAround();
+            System.out.println("Hola, soy "+ current.name + "y estoy en " + current.position.name + "y tengo " + current.money);
+            if(current.result.isPair){
+                System.out.println("saqué par");
+            }else{
+                current = current.next;
+            }
+        }
     }
 
 }

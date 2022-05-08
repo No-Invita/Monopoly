@@ -37,10 +37,10 @@ public class PlayerList {
     }
 
     public static void main(String[] args) {
-        Player player1 = new Player("Elkin", 0);
-        Player player2 = new Player("Luis", 0);
-        Player player3 = new Player("Johan", 0);
-        Player player4 = new Player("Fabian", 0);
+        Player player1 = new Player("Elkin");
+        Player player2 = new Player("Luis");
+        Player player3 = new Player("Johan");
+        Player player4 = new Player("Fabian");
         PlayerList list = new PlayerList();
         list.addPlayer(player1);
         list.addPlayer(player2);

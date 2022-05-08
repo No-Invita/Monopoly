@@ -1,43 +1,43 @@
 Sincelejo,0,0,go
-Plaza Majagual,25000,30000,ownership
+Plaza Majagual,240000,36500,ownership
 Arca,0,0,card
-Parque Santander,30000,35000,ownership
-Tombos,0,100000,taxes
-Asosciacion de mototaxis,2500,2500,transport
-Parque los libertadores,35000,4000,ownership
+Parque Santander,240000,44600,ownership
+Tombos,0,810000,taxes
+Asosciacion de mototaxis,810000,100000,transport
+Parque los libertadores,400000,69000,ownership
 Suerte,0,0,luck
-Plaza majagual,40000,45000,ownership
-Estadio 20 de Enero,40000,45000,ownership
+Plaza majagual,400000,69000,ownership
+Estadio 20 de Enero,490000,85000,ownership
 Carcel Modelo,0,0,jail
-Ciudad Amurallada,80000,90000,ownership
-Electricaribe,50000,0,service
-Castillo de San Felipe,55000,60000,ownership
-Torre del Reloj,90000,100000,ownership
-Transcaribe,2500,2500,transport
-Mercado de Bazurto,55000,60000,ownership
+Ciudad Amurallada,570000,44600,ownership
+Electricaribe,610000,0,service
+Castillo de San Felipe,570000,44600,ownership
+Torre del Reloj,650000,56700,ownership
+Transcaribe,810000,100000,transport
+Mercado de Bazurto,730000,68900,ownership
 Arca,0,0,card
-La Plazuela,95000,100000,ownership
-Estatua India Catalina,2000,2000,ownership
+La Plazuela,730000,68900,ownership
+Estatua India Catalina,810000,81000,ownership
 Volcan del totumo,0,0,free stop
-Estadio Metropolitano,300000,450000,ownership
+Estadio Metropolitano,890000,93000,ownership
 Suerte,0,0,luck
-Ventana al Mundo,100000,150000,ownership 
-Elias Chewing,200000,300000,ownership
-Transmetro,2500,2500,transport
-La casa del carnaval,190000,240000,ownership
-Malecon del Rio,250000,300000,ownership
-Triple A,50000,0,service
-Puente Pumarejo,280000,350000,ownership
+Ventana al Mundo,890000,93000,ownership 
+Elias Chewing,970000,105000,ownership
+Transmetro,810000,100000,transport
+La casa del carnaval,1053000,130000,ownership
+Malecon del Rio,1053000,130000,ownership
+Triple A,607000,0,service
+Puente Pumarejo,1130000,154000,ownership
 Vayase a la carcel,0,0,go to jail
-Bahia,180000,230000,ownership
-Estadio El Pibe,150000,200000,ownership
+Bahia,1210000,182000,ownership
+Estadio El Pibe,1210000,182000,ownership
 Arca,0,0,card
-Avenida del ferrocarril,56000,70000,ownership
-Setp,2500,2500,transport
+Avenida del ferrocarril,1300000,222000,ownership
+SETP Santa Marta,810000,100000,transport
 Suerte,0,0,luck
-Avenida al rio,300000,400000,ownership
-Tombos,0,100000,taxes
-El Rodadero,45000,55000,ownership
+Avenida al Rio,1420000,324000,ownership
+Tombos,0,400000,taxes
+El Rodadero,1620000,364000,ownership
 
 
 

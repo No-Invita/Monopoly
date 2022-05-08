@@ -1,25 +1,31 @@
 package game;
 
 import game.cards.Card;
+import game.dices.dices;
 import game.dices.dicesResult;
 
 public class Player {
 
-    String name;
-    int turno;
-    float money;
-    Card position;
-    boolean prisoner;
-    Player next;
-    Player prev;
+    public String name;
+    public int turno;
+    public float money;
+    public Card position;
+    public boolean prisoner;
+    public Player next;
+    public Player prev;
+	public dicesResult result;
 
-    public Player(String name, float money) {
+    public Player(String name) {
         this.name = name;
-        this.money = money;
+        this.money = 6000000;
         this.prisoner = false;
         this.position = null;
         prev = this;
         next = this;
+    }
+    
+    public void getMoney(float amount) {
+        this.money += amount;
     }
 
     public void giveMoney(float amount) {
@@ -31,23 +37,25 @@ public class Player {
         }
     }
 
-    public void getMoney(float amount) {
-        this.money += amount;
-    }
-
     public void goJail() {
         this.prisoner = true;
         // this.position = 10;
     }
 
-    public void moveAround(dicesResult result) {
+    public boolean isInGo() {
+        return position.index == 0;
+    }
+
+    public void moveAround() {
+        rollDices();
+        result.display();
         for (int i = 0; i < result.result; i++) {
             moveForward();
         }
     }
 
-    public boolean isInGo() {
-        return position.index == 0;
+    public void moveBackward() {
+        position = position.prev;
     }
 
     public void moveForward() {
@@ -57,7 +65,8 @@ public class Player {
         }
     }
 
-    public void moveBackward() {
-        position = position.prev;
+    public void rollDices(){
+        dicesResult result = dices.rollDices();
+        this.result = result;
     }
 }
