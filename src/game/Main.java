@@ -1,11 +1,17 @@
 package game;
 
+import java.io.IOException;
+
+import game.player.Player;
+import game.player.PlayerList;
 import game.util.ReadFile;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         // Create the board
         Board board = new Board();
+        // Create Bank
+        Bank bank = new Bank();
         // Read the data file
         String[] data = ReadFile.read("src/data/casillas");
         // Load the board
@@ -26,17 +32,24 @@ public class Main {
         Player current = players.head;
         boolean ended = false;
         // while(!ended){
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 10; i++) {
             current.moveAround();
             System.out.println(
                     "Hola, soy " + current.name + " y estoy en " + current.position.name + " y tengo "
                             + current.money);
             current.result.display();
-            if (current.result.isPair) {
-                System.out.println("saqué par");
-            } else {
-                current = current.next;
+            if (current.position.isOwnable && !current.position.isOwned) {
+                bank.offerProperty(current.position, current);
+                System.out.println(current.position.selling_price);
+                // System.out.println(current.position.owner.name);
+                System.out.println(current.money);
             }
+            if (current)
+                if (current.result.isPair) {
+                    System.out.println("saqué par");
+                } else {
+                    current = current.next;
+                }
         }
 
     }
