@@ -1,15 +1,15 @@
 package game.cards;
 
 public class Transports extends Card {
-    public int selling_price;
-    public int rental_price;
 
-    public Transports(String name) {
+    public Transports(String name, int selling_price, int rental_price) {
         this.name = name;
         this.isOwnable = true;
         this.owner = null;
         this.isOwned = false;
-        this.selling_price = 50000;
-        this.rental_price = 2500;
+        this.selling_price = selling_price;
+        this.rental_price = rental_price;
+        this.isMortgable = true;
+        this.isMortgabled = false;
     }
 }
