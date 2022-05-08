@@ -4,6 +4,7 @@ public class Taxes extends Card {
 
     public Taxes(String name, int rental_price) {
         this.name = name;
+        this.type = "taxe";
         this.rental_price = rental_price;
         this.isOwnable = false;
         this.isOwned = false;

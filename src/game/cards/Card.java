@@ -10,6 +10,7 @@ public abstract class Card {
     public boolean isMortgabled = false;
     public int selling_price = 0;
     public int rental_price = 0;
+    public String type;
     public Player owner;
     public int index;
     public Card next = this;

@@ -6,6 +6,7 @@ public class Go extends Card {
 
     public Go() {
         this.name = "Go";
+        this.type = "go";
         this.isOwnable = false;
         this.isOwned = false;
         this.owner = null;

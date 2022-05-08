@@ -7,6 +7,7 @@ public class FreeStop extends Card {
         this.isOwnable = false;
         this.isOwned = false;
         this.owner = null;
+        this.type = "freestop";
 
     }
 }

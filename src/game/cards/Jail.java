@@ -4,6 +4,7 @@ public class Jail extends Card {
 
     public Jail() {
         this.name = "Carcel Modelo";
+        this.type = "jail";
         this.isOwnable = false;
         this.isOwned = false;
         this.owner = null;
