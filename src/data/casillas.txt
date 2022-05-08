@@ -6,7 +6,7 @@ Tombos,0,810000,taxes
 Asociacion de mototaxis,810000,100000,transport
 Parque los libertadores,400000,69000,ownership
 Suerte,0,0,luck
-Plaza majagual,400000,69000,ownership
+Pozo majagual,400000,69000,ownership
 Estadio 20 de Enero,490000,85000,ownership
 Carcel Modelo,0,0,jail
 Ciudad Amurallada,570000,44600,ownership
