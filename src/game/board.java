@@ -5,9 +5,9 @@ import game.util.ReadFile;
 
 public class Board {
 
-    Card start = null;
-    Card end = null;
-    int index = -1;
+    public Card start = null;
+    public Card end = null;
+    public int index = -1;
 
     public void addBox(String name, int selling_price, int rental_price, String cardType) {
         index++;
@@ -37,13 +37,8 @@ public class Board {
                 break;
             }
 
-            case "ownership": {
-                box = new Ownership(name, selling_price, rental_price);
-                break;
-            }
-
             // case "card": {
-            // // box = new Card();
+            // box = new Card();
             // break;
             // }
 
@@ -52,30 +47,31 @@ public class Board {
                 break;
             }
 
-            // case "taxes": {
-            // // box = new Taxes();
-            // break;
-            // }
+            case "taxes": {
+                box = new Taxes(name, rental_price);
+                break;
+            }
 
-            // case "transport": {
-            // // box = new Transport();
-            // break;
-            // }
+            case "transport": {
+                box = new Transports(name, selling_price, rental_price);
+                break;
+            }
 
             // case "luck": {
-            // // box = new Luck();
+            // box = new Luck();
             // break;
             // }
 
-            // case "free stop": {
-            // // box = new FreeStop();
-            // break;
-            // }
+            case "free stop": {
+                box = new FreeStop(name);
+                break;
+            }
 
             // case "service": {
-            // // box = new Service();
+            // box = new Service();
             // break;
             // }
+
             default: {
                 box = new Ownership(name, selling_price, rental_price);
             }
@@ -101,7 +97,7 @@ public class Board {
 
         Card current = tablero.start;
         do {
-            System.out.print(current.name + " -> ");
+            System.out.println(current.name + " " + current.selling_price + " " + current.rental_price + " -> ");
             current = current.next;
         } while (current != tablero.start);
         System.out.println(tablero.end.next.name);

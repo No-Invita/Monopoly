@@ -59,6 +59,7 @@ public class Player {
         for (int i = 0; i < result.result; i++) {
             moveForward();
         }
+        System.out.println(position.name);
         bank.request("buy", this);
     }
 
