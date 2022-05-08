@@ -1,10 +1,10 @@
-package game;
+package game.player;
 
 public class PlayerList {
 
-    int playersNumber;
-    Player head;
-    Player tail;
+    public int playersNumber;
+    public Player head;
+    public Player tail;
 
     public PlayerList() {
         this.playersNumber = 0;

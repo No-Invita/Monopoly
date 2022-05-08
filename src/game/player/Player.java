@@ -1,8 +1,12 @@
-package game;
+package game.player;
 
+import java.io.IOException;
+
+import game.Board;
 import game.cards.Card;
 import game.dices.dices;
 import game.dices.dicesResult;
+import game.util.WriteFile;
 
 public class Player {
 
@@ -14,12 +18,14 @@ public class Player {
     public Player next;
     public Player prev;
     public dicesResult result;
+    public String properties;
 
     public Player(String name, Board board) {
         this.name = name;
         this.money = 6000000;
         this.prisoner = false;
         this.position = board.start;
+        this.properties = "src/data/playersproperties/" + name;
         prev = this;
         next = this;
     }
@@ -30,9 +36,8 @@ public class Player {
 
     public void giveMoney(float amount) {
         if (amount < this.money) {
-            // Here go the action selling ownerships or go bankrupt
-        } else {
             this.money -= amount;
+        } else {
 
         }
     }
@@ -68,5 +73,9 @@ public class Player {
     public void rollDices() {
         dicesResult result = dices.rollDices();
         this.result = result;
+    }
+
+    public void buyProperty(String name) throws IOException {
+        WriteFile.write(properties, name);
     }
 }
