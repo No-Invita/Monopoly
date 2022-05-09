@@ -22,7 +22,7 @@ public class Player {
     public String properties;
     public Bank bank;
 
-    public Player(String name, Board board, Bank bank) {
+    public Player(String name, Board board, Bank bank) throws IOException {
         this.name = name;
         this.money = 6000000;
         this.prisoner = false;
@@ -31,6 +31,7 @@ public class Player {
         this.properties = "src/data/playersproperties/" + name;
         prev = this;
         next = this;
+        WriteFile.createFile(properties);
     }
 
     public void getMoney(float amount) {

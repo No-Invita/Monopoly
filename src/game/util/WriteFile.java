@@ -1,6 +1,5 @@
 package game.util;
 
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,6 +11,17 @@ public class WriteFile {
             FileWriter writer = new FileWriter(fileName + ".txt", true);
             PrintWriter out = new PrintWriter(writer);
             out.println(content);
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    };
+
+    public static void createFile(String fileName) throws IOException {
+        try {
+            FileWriter writer = new FileWriter(fileName + ".txt", false);
+            PrintWriter out = new PrintWriter(writer);
+            out.print("");
             out.close();
         } catch (IOException e) {
             e.printStackTrace();
