@@ -56,12 +56,21 @@ public class Player {
     }
 
     public void moveAround() throws IOException {
+        System.out.println("Saque");
         rollDices();
         for (int i = 0; i < result.result; i++) {
             moveForward();
         }
         System.out.println(position.name);
-        bank.request("buy", this);
+        if (!position.name.equals("Arca") && !position.name.equals("Suerte") && !position.name.equals("Tombos")
+                && !position.name.equals("Sincelejo") && !position.name.equals("Carcel Modelo")
+                && !position.name.equals("Vayase a la carcel") && !position.name.equals("Volcan del totumo")) {
+            bank.request("buy", this);
+        }else{
+            //Here go the code when the player falls on a luck or arca or carcel or Sinecelejo or tomobos
+            // or vayase a la carcel or volcan del totumo
+        }
+
     }
 
     public void moveBackward() {
@@ -72,13 +81,14 @@ public class Player {
         position = position.next;
         if (isInGo()) {
             bank.request("go", this);
-            System.out.println("pase por salida");
+            System.out.println("pasé por salida");
         }
     }
 
     public void rollDices() {
         dicesResult result = dices.rollDices();
         this.result = result;
+        result.display();
     }
 
     public void buyProperty(String name) throws IOException {
