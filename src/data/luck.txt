@@ -1,19 +1,19 @@
-Mi llave, saliste de la modelo, celebralo curramba. Puedes guardar esta tarjeta o puedes negociarla. 
-No te tocaba. Te vas preso | mover a | Carcel Modelo
-Pagaron familias en accion, cobra 80.000 en el efecty mas cercano | recibir | 80000
-El banquero esta de buenas hoy, pidele 405.000 | recibir | 405000
-Llego el cheque de la luz, paga 202.000 | dar | 202000
-Uy, estamos de afan, ve a sincelejo y cobra el pasaje | mover a | Sincelejo
-Estan arreglando las calles (otra vez), colabora con la causa y dona 162.000 | dar | 162000
-Nequi esta fallando, tu cuenta debe consignar 810.000 al     banco | dar | 810000
-Dejaste la llave abierta y la Trilpe A no perdona, paga 202.000 | dar | 202000
-Magicamente te encuentras 405.000 que se le cayeron a un viejito | recibir | 405000 | 
-Jugaste el numero de Diomedes en el chance y ganaste 405.000 | recibir | 405000
-Tus amigos juntaron 100.000 para el perro con perro pero te llevas la plata | recibir | 100000
-Entraste a un Dollarcity y te gastas 47.500 en un momento. Ni modo, te toca pagar | dar | 47500 
-Te pillaron los de transito, pero como el dinero lo resulve todo pagas 60.000 para resolver el problema | dar | 60000
-La casa esta en obra negra, no seas tacaño e invierte 410.000 | dar | 410000
-Tronco e vivo, te haces pasar por muerto y cobras un seguro por 1.000.000 | recibir | 1000000
-Te metiste a un link sospechoso que te mandaron y como los hackers son buena gente solo te quitan 500.000 | dar | 500000
+Mi llave, saliste de la modelo, celebralo curramba. Puedes guardar esta tarjeta o puedes negociarla. ; na ; 0
+No te tocaba. Te vas preso ; mover a ; 0
+Pagaron familias en accion, cobra 80.000 en el efecty mas cercano ; recibir ; 80000
+El banquero esta de buenas hoy, pidele 405.000 ; recibir ; 405000
+Llego el cheque de la luz, paga 202.000 ; dar ; 202000
+Uy, estamos de afan, ve a sincelejo y cobra el pasaje ; mover a ; 0
+Estan arreglando las calles (otra vez), colabora con la causa y dona 162.000 ; dar ; 162000
+Nequi esta fallando, tu cuenta debe consignar 810.000 al     banco ; dar ; 810000
+Dejaste la llave abierta y la Triple A no perdona, paga 202.000 ; dar ; 202000
+Magicamente te encuentras 405.000 que se le cayeron a un viejito ; recibir ; 405000 ; 
+Jugaste el numero de Diomedes en el chance y ganaste 405.000 ; recibir ; 405000
+Tus amigos juntaron 100.000 para el perro con perro pero te llevas la plata ; recibir ; 100000
+Entraste a un Dollarcity y te gastas 47.500 en un momento. Ni modo, te toca pagar ; dar ; 47500 
+Te pillaron los de transito, pero como el dinero lo resulve todo pagas 60.000 para resolver el problema ; dar ; 60000
+La casa esta en obra negra, no seas tacaño e invierte 410.000 ; dar ; 410000
+Tronco e vivo, te haces pasar por muerto y cobras un seguro por 1.000.000 ; recibir ; 1000000
+Te metiste a un link sospechoso que te mandaron y como los hackers son buena gente solo te quitan 500.000 ; dar ; 500000
 
 
