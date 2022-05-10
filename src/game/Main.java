@@ -4,18 +4,24 @@ import java.io.IOException;
 
 import game.player.Player;
 import game.player.PlayerList;
+import game.specialcards.LuckList;
 import game.util.ReadFile;
 
 public class Main {
     public static void main(String[] args) throws IOException {
         // Create the board
         Board board = new Board();
+        // create the luck mass
+        LuckList luck = new LuckList();
         // Create Bank
-        Bank bank = new Bank();
-        // Read the data file
+        Bank bank = new Bank(luck);
+        // Read the data files
         String[] data = ReadFile.read("src/data/casillas");
+        String[] luckdata = ReadFile.read("src/data/luck");
         // Load the board
         board.loadBoard(data);
+        // load the luck cards
+        luck.loadList(luckdata);
         // create the players list
         PlayerList players = new PlayerList();
         // Add the players to the players list
@@ -34,10 +40,10 @@ public class Main {
         // while(!ended){
         for (int i = 0; i < 20; i++) {
             System.out.println(
-                "Hola, soy " + current.name + " y estoy en " + current.position.name + " y tengo "
-                        + current.money);
+                    "Hola, soy " + current.name + " y estoy en " + current.position.name + " y tengo "
+                            + current.money);
             current.moveAround();
-            //current.result.display();
+            // current.result.display();
             // if (current.position.isOwnable && !current.position.isOwned) {
             // bank.offerProperty(current.position, current);
             // System.out.println(current.position.selling_price);
