@@ -57,10 +57,10 @@ public class Board {
                 break;
             }
 
-            // case "luck": {
-            // box = new Luck();
-            // break;
-            // }
+            case "luck": {
+                box = new Luck();
+                break;
+            }
 
             case "free stop": {
                 box = new FreeStop(name);
