@@ -55,34 +55,29 @@ public class Bank {
     public void request(String type, Player player) throws IOException {
         switch (type) {
             case "buy": {
-
-                if (player.position.owner == null) {
-                    offerProperty(player.position, player);
+                if (player.position.isOwnable) {
+                    if (player.position.owner == null) {
+                        offerProperty(player.position, player);
+                    } else {
+                        transferMoney(player, player.position.owner, player.position.rental_price);
+                        System.out.println(player.name + "transfiere " + player.position.rental_price + "a "
+                                + player.position.owner.name);
+                    }
                 } else {
-                    transferMoney(player, player.position.owner, player.position.rental_price);
-                    System.out.println(player.name + " transfiere " + player.position.rental_price + " a "
-                            + player.position.owner.name + " Por caer en " + player.position + " Propiedad de "
-                            + player.position.owner);
+                    switch (player.position.type) {
+                        case "taxe": {
+                            demandMoney(player.position.rental_price, player);
+                            System.out.println(player.name + " pago impuesto a los tombos");
+                            break;
+                        }
+                    }
                 }
                 break;
             }
-            case "taxe": {
-                demandMoney(player.position.rental_price, player);
-                System.out.println(player.name + " pago impuesto a los tombos");
-                break;
-            }
-            case "luck": {
-                // Here go when the player falls on luck
-            }
-            case "Arca": {
-                // Here go when the player falls on Arca
-            }
-
             case "go": {
                 payGo(player);
             }
         }
-
     }
 
     public void transferMoney(Player payer, Player receiver, int amount) throws IOException {
