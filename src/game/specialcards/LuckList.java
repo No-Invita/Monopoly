@@ -45,6 +45,16 @@ public class LuckList {
         }
     }
 
+    public LuckNode pickRandomNode() {
+        int random = (int) Math.ceil(Math.random() * size);
+
+        LuckNode p = head;
+        for (int i = 0; i < random; i++) {
+            p = p.next;
+        }
+        return p;
+    }
+
     public static void main(String[] args) {
         String[] leer = ReadFile.read("src/data/luck");
 
