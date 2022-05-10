@@ -5,7 +5,7 @@ El banquero esta de buenas hoy, pidele 405.000 | recibir | 405000
 Llego el cheque de la luz, paga 202.000 | dar | 202000
 Uy, estamos de afan, ve a sincelejo y cobra el pasaje | mover a | Sincelejo
 Estan arreglando las calles (otra vez), colabora con la causa y dona 162.000 | dar | 162000
-Nequi esta fallando, tu cuenta debe consignar 810.000 al banco | dar | 810000
+Nequi esta fallando, tu cuenta debe consignar 810.000 al     banco | dar | 810000
 Dejaste la llave abierta y la Trilpe A no perdona, paga 202.000 | dar | 202000
 Magicamente te encuentras 405.000 que se le cayeron a un viejito | recibir | 405000 | 
 Jugaste el numero de Diomedes en el chance y ganaste 405.000 | recibir | 405000

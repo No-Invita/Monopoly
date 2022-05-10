@@ -60,8 +60,8 @@ public class Bank {
                         offerProperty(player.position, player);
                     } else {
                         transferMoney(player, player.position.owner, player.position.rental_price);
-                        System.out.println(player.name + "transfiere " + player.position.rental_price + "a "
-                                + player.position.owner.name);
+                        System.out.println(player.name + " transfiere " + player.position.rental_price + " a "
+                                + player.position.owner.name + " Por caer en " + player.position.name);
                     }
                 } else {
                     switch (player.position.type) {
@@ -69,6 +69,17 @@ public class Bank {
                             demandMoney(player.position.rental_price, player);
                             System.out.println(player.name + " pago impuesto a los tombos");
                             break;
+                        }
+                        case "luck":{
+                            //Leees la tarjeta de fortuna
+                            //switch(luck.type){
+                            //  case "dar":{
+                            //      demandMoney(player,luck.param)
+                            //     }
+                            //  case "recibir":{
+                            //      giveMoney(player,luck.param)
+                            //     }
+                            // }
                         }
                     }
                 }
