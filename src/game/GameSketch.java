@@ -1,23 +1,28 @@
 package game;
 
 import processing.core.PApplet;
+import processing.core.PImage;
 
-public class GameSketch extends PApplet{
-
-
+public class GameSketch extends PApplet {
+    PImage img;
     @Override
     public void settings() {
-        size(500, 500);
+        size(1366, 768);
+        fullScreen();
     }
 
     @Override
     public void setup() {
+        
+        img = loadImage("src/images/monopoly.png");
+        img.resize(1000, 768);
 
     }
-
     @Override
     public void draw() {
         
+        image(img,365,0);
+    
     }
 
     public void run() {

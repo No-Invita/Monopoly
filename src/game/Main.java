@@ -33,11 +33,11 @@ public class Main {
         boolean ended = false;
         // while(!ended){
         for (int i = 0; i < 20; i++) {
-            current.moveAround();
             System.out.println(
-                    "Hola, soy " + current.name + " y estoy en " + current.position.name + " y tengo "
-                            + current.money);
-            current.result.display();
+                "Hola, soy " + current.name + " y estoy en " + current.position.name + " y tengo "
+                        + current.money);
+            current.moveAround();
+            //current.result.display();
             // if (current.position.isOwnable && !current.position.isOwned) {
             // bank.offerProperty(current.position, current);
             // System.out.println(current.position.selling_price);
