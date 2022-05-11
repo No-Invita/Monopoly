@@ -1,6 +1,6 @@
 Sincelejo,0,0,go
 Plaza Majagual,240000,36500,ownership
-Arca,0,0,card
+Arca,0,0,ark
 Parque Santander,240000,44600,ownership
 Tombos,0,810000,taxes
 Asociacion de mototaxis,810000,100000,transport
@@ -15,7 +15,7 @@ Castillo de San Felipe,570000,44600,ownership
 Torre del Reloj,650000,56700,ownership
 Transcaribe,810000,100000,transport
 Mercado de Bazurto,730000,68900,ownership
-Arca,0,0,card
+Arca,0,0,ark
 La Plazuela,730000,68900,ownership
 Estatua India Catalina,810000,81000,ownership
 Volcan del totumo,0,0,free stop
@@ -31,7 +31,7 @@ Puente Pumarejo,1130000,154000,ownership
 Vayase a la carcel,0,0,go to jail
 Bahia,1210000,182000,ownership
 Estadio El Pibe,1210000,182000,ownership
-Arca,0,0,card
+Arca,0,0,ark
 Avenida del ferrocarril,1300000,222000,ownership
 SETP Santa Marta,810000,100000,transport
 Suerte,0,0,luck

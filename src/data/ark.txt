@@ -1,6 +1,6 @@
 Te sientes solo y vas a hablar con los mototaxis en Sincelejo (Cobra pasaje si aplica) ; moverse a ; 5
 Eres mototaxi por un dia y recaudas 100.000 ; recibir ; 100000
-Esta carta no te quita ni te da dinero, solo te recuerda que por cada taza de arroz son 2 de agua ;) ; na ; 0
+Esta carta no te quita ni te da dinero, solo te recuerda que por cada taza de arroz son 2 de agua ) ; na ; 0
 Vas a la Ventana al Mundo para ver si en verdad es una ventana que muestra el mundo (Cobra pasaje si aplica) ; moverse a ; 23 
 Los secuaces de Fico te pagan 75.000 por tu voto ; recibir ; 75000
 El celular que sacaste a cuotas no se va a pagar solo, paga 250.000 ; dar ; 250000
