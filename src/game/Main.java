@@ -56,7 +56,7 @@ public class Main {
                 // // System.out.println(current.money);
                 // }
                 if (current.result.isPair) {
-                    // System.out.println("saqué par");
+                    System.out.println("saqué par");
                 } else {
                     current = current.next;
                 }

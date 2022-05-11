@@ -121,13 +121,16 @@ public class Bank {
                                         demandMoney(card.param, other);
                                         pay(card.param, player);
                                     }
+                                    break;
                                 }
                             }
+                            break;
                         }
                         case "gotojail": {
                             System.out.println("te vas pa la carcel");
                             player.goJail();
                         }
+
                     }
                 }
                 break;
