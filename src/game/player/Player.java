@@ -50,6 +50,9 @@ public class Player {
 
     public void goJail() {
         this.isPrisoner = true;
+        while (position.index != 10) {
+            position = position.next;
+        }
         // this.position = 10;
     }
 

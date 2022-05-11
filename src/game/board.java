@@ -47,6 +47,11 @@ public class Board {
                 break;
             }
 
+            case "go to jail": {
+                box = new GoToJail();
+                break;
+            }
+
             case "taxes": {
                 box = new Taxes(name, rental_price);
                 break;
@@ -97,7 +102,9 @@ public class Board {
 
         Card current = tablero.start;
         do {
-            System.out.println(current.name + " " + current.selling_price + " " + current.rental_price + " -> ");
+            System.out.println(
+                    current.name + " " + current.selling_price + " " + current.rental_price + " " + current.index
+                            + " -> ");
             current = current.next;
         } while (current != tablero.start);
         System.out.println(tablero.end.next.name);

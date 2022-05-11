@@ -124,6 +124,10 @@ public class Bank {
                                 }
                             }
                         }
+                        case "gotojail": {
+                            System.out.println("te vas pa la carcel");
+                            player.goJail();
+                        }
                     }
                 }
                 break;
