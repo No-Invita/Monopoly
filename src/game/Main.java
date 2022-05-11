@@ -4,24 +4,27 @@ import java.io.IOException;
 
 import game.player.Player;
 import game.player.PlayerList;
-import game.specialcards.LuckList;
+import game.specialcards.CardList;
 import game.util.ReadFile;
 
 public class Main {
     public static void main(String[] args) throws IOException {
         // Create the board
         Board board = new Board();
-        // create the luck mass
-        LuckList luck = new LuckList();
+        // create the luck and Ark mass
+        CardList luck = new CardList();
+        CardList ark = new CardList();
         // Create Bank
-        Bank bank = new Bank(luck);
+        Bank bank = new Bank(luck, ark);
         // Read the data files
         String[] data = ReadFile.read("src/data/casillas");
         String[] luckdata = ReadFile.read("src/data/luck");
+        String[] arkdata = ReadFile.read("src/data/ark");
         // Load the board
         board.loadBoard(data);
-        // load the luck cards
+        // load the luck and ark cards
         luck.loadList(luckdata);
+        ark.loadList(arkdata);
         // create the players list
         PlayerList players = new PlayerList();
         // Add the players to the players list
@@ -55,6 +58,7 @@ public class Main {
             } else {
                 current = current.next;
             }
+            System.out.println();
         }
 
     }

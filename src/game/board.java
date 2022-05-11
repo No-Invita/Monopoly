@@ -37,10 +37,10 @@ public class Board {
                 break;
             }
 
-            // case "card": {
-            // box = new Card();
-            // break;
-            // }
+            case "ark": {
+                box = new Ark();
+                break;
+            }
 
             case "jail": {
                 box = new Jail();

@@ -1,14 +1,13 @@
 package game.specialcards;
 
-public class LuckNode {
+public class CardNode {
     public String description;
     public String type;
     public int param;
-    public LuckNode next;
-    public LuckNode prev;
+    public CardNode next;
+    public CardNode prev;
 
-
-    public LuckNode(String description, String type, int param){
+    public CardNode(String description, String type, int param) {
         this.description = description;
         this.type = type;
         this.param = param;

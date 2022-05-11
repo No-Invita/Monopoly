@@ -2,13 +2,13 @@ package game.specialcards;
 
 import game.util.ReadFile;
 
-public class LuckList {
-    public LuckNode head;
-    public LuckNode tail;
+public class CardList {
+    public CardNode head;
+    public CardNode tail;
     int size = 0;
 
     public void add(String description, String type, int param) {
-        LuckNode p = new LuckNode(description, type, param);
+        CardNode p = new CardNode(description, type, param);
 
         if (head == null) {
             head = tail = p;
@@ -24,7 +24,7 @@ public class LuckList {
         if (head == null) {
             System.out.println("Lista vacia");
         } else {
-            LuckNode p = head;
+            CardNode p = head;
             System.out.println("The nodes of the singly linked list are: ");
             do {
                 System.out.print(p.type + " -> ");
@@ -45,10 +45,10 @@ public class LuckList {
         }
     }
 
-    public LuckNode pickRandomNode() {
+    public CardNode pickRandomNode() {
         int random = (int) Math.ceil(Math.random() * size);
 
-        LuckNode p = head;
+        CardNode p = head;
         for (int i = 0; i < random; i++) {
             p = p.next;
         }
@@ -58,7 +58,7 @@ public class LuckList {
     public static void main(String[] args) {
         String[] leer = ReadFile.read("src/data/luck");
 
-        LuckList x = new LuckList();
+        CardList x = new CardList();
         x.loadList(leer);
         x.display();
     }

@@ -2,6 +2,8 @@ package game;
 
 import game.cards.Card;
 import game.player.Player;
+import game.specialcards.CardList;
+import game.specialcards.CardNode;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -9,8 +11,12 @@ import java.util.Scanner;
 public class Bank {
     float taxeMoney;
     Scanner Leer = new Scanner(System.in);
+    CardList luck;
+    CardList ark;
 
-    public Bank() {
+    public Bank(CardList luck, CardList ark) {
+        this.luck = luck;
+        this.ark = ark;
         this.taxeMoney = 0;
     }
 
@@ -70,16 +76,25 @@ public class Bank {
                             System.out.println(player.name + " pago impuesto a los tombos");
                             break;
                         }
-                        case "luck":{
-                            //Leees la tarjeta de fortuna
-                            //switch(luck.type){
-                            //  case "dar":{
-                            //      demandMoney(player,luck.param)
-                            //     }
-                            //  case "recibir":{
-                            //      giveMoney(player,luck.param)
-                            //     }
+                        case "luck": {
+                            // Leees la tarjeta de fortuna
+                            System.out.println("Estas en suerte");
+                            String card = luck.pickRandomNode().description;
+                            System.out.println(card);
+                            // switch(luck.type){
+                            // case "dar":{
+                            // demandMoney(player,luck.param)
                             // }
+                            // case "recibir":{
+                            // giveMoney(player,luck.param)
+                            // }
+                            // }
+                            break;
+                        }
+                        case "ark": {
+                            System.out.println("Estas en arca");
+                            String card = ark.pickRandomNode().description;
+                            System.out.println(card);
                         }
                     }
                 }
