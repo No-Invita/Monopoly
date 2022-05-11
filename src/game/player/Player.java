@@ -15,7 +15,8 @@ public class Player {
     public int turno;
     public float money;
     public Card position;
-    public boolean prisoner;
+    public boolean isPrisoner;
+    public boolean isBroken;
     public Player next;
     public Player prev;
     public dicesResult result;
@@ -25,7 +26,8 @@ public class Player {
     public Player(String name, Board board, Bank bank) throws IOException {
         this.name = name;
         this.money = 6000000;
-        this.prisoner = false;
+        this.isPrisoner = false;
+        this.isBroken = false;
         this.position = board.start;
         this.bank = bank;
         this.properties = "src/data/playersproperties/" + name;
@@ -47,7 +49,7 @@ public class Player {
     }
 
     public void goJail() {
-        this.prisoner = true;
+        this.isPrisoner = true;
         // this.position = 10;
     }
 
@@ -74,6 +76,12 @@ public class Player {
             bank.request("go", this);
             System.out.println("pase por salida");
         }
+    }
+
+    public void moveTo(int pos) throws IOException {
+        do {
+            moveForward();
+        } while (position.index != pos);
     }
 
     public void rollDices() {

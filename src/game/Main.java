@@ -41,24 +41,27 @@ public class Main {
         Player current = players.head;
         boolean ended = false;
         // while(!ended){
-        for (int i = 0; i < 20; i++) {
-            System.out.println(
-                    "Hola, soy " + current.name + " y estoy en " + current.position.name + " y tengo "
-                            + current.money);
-            current.moveAround();
-            // current.result.display();
-            // if (current.position.isOwnable && !current.position.isOwned) {
-            // bank.offerProperty(current.position, current);
-            // System.out.println(current.position.selling_price);
-            // // System.out.println(current.position.owner.name);
-            // // System.out.println(current.money);
-            // }
-            if (current.result.isPair) {
-                // System.out.println("saqué par");
-            } else {
-                current = current.next;
+        for (int i = 0; i < 30; i++) {
+            if (!current.isBroken) {
+
+                System.out.println(
+                        "Hola, soy " + current.name + " y estoy en " + current.position.name + " y tengo "
+                                + current.money);
+                current.moveAround();
+                // current.result.display();
+                // if (current.position.isOwnable && !current.position.isOwned) {
+                // bank.offerProperty(current.position, current);
+                // System.out.println(current.position.selling_price);
+                // // System.out.println(current.position.owner.name);
+                // // System.out.println(current.money);
+                // }
+                if (current.result.isPair) {
+                    // System.out.println("saqué par");
+                } else {
+                    current = current.next;
+                }
+                System.out.println();
             }
-            System.out.println();
         }
 
     }
