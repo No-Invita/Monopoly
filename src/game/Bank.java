@@ -79,22 +79,50 @@ public class Bank {
                         case "luck": {
                             // Leees la tarjeta de fortuna
                             System.out.println("Estas en suerte");
-                            String card = luck.pickRandomNode().description;
-                            System.out.println(card);
-                            // switch(luck.type){
-                            // case "dar":{
-                            // demandMoney(player,luck.param)
-                            // }
-                            // case "recibir":{
-                            // giveMoney(player,luck.param)
-                            // }
-                            // }
+                            CardNode card = luck.pickRandomNode();
+                            System.out.println(card.description);
+                            switch (card.type) {
+                                case "dar": {
+                                    demandMoney(card.param, player);
+                                    System.out.println("pagué " + card.param);
+                                    break;
+                                }
+                                case "recibir": {
+                                    pay(card.param, player);
+                                    System.out.println("recibí " + card.param);
+                                    break;
+                                }
+                            }
                             break;
                         }
                         case "ark": {
                             System.out.println("Estas en arca");
-                            String card = ark.pickRandomNode().description;
-                            System.out.println(card);
+                            CardNode card = ark.pickRandomNode();
+                            System.out.println(card.description);
+                            switch (card.type) {
+                                case "moverse a": {
+                                    player.moveTo(card.param);
+                                    System.out.println("me moví hasta " + player.position.name);
+                                    break;
+                                }
+                                case "dar": {
+                                    demandMoney(card.param, player);
+                                    System.out.println("pagué " + card.param);
+                                    break;
+                                }
+                                case "recibir": {
+                                    pay(card.param, player);
+                                    System.out.println("recibí " + card.param);
+                                    break;
+                                }
+                                case "recibir de todos": {
+                                    for (int i = 0; i < 3; i++) {
+                                        Player other = player.next;
+                                        demandMoney(card.param, other);
+                                        pay(card.param, player);
+                                    }
+                                }
+                            }
                         }
                     }
                 }
