@@ -6,9 +6,11 @@ import game.player.Player;
 import game.player.PlayerList;
 import game.specialcards.CardList;
 import game.util.ReadFile;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws IOException {
+        Scanner Leer = new Scanner(System.in);
         // Create the board
         Board board = new Board();
         // create the luck and Ark mass
@@ -27,15 +29,28 @@ public class Main {
         ark.loadList(arkdata);
         // create the players list
         PlayerList players = new PlayerList();
-        // Add the players to the players list
-        Player player1 = new Player("Elkin", board, bank);
-        Player player2 = new Player("Luis", board, bank);
-        Player player3 = new Player("Johan", board, bank);
-        Player player4 = new Player("Fabian", board, bank);
+        System.out.println("Escribe los nombres de los jugadores");
+        // Add the players to the players list and we sort the orden to play
+        String name1 = Leer.nextLine();
+        Player player1 = new Player(name1, board, bank);
         players.addPlayer(player1);
+
+        String name2 = Leer.nextLine();
+        Player player2 = new Player(name2, board, bank);
         players.addPlayer(player2);
+
+        String name3 = Leer.nextLine();
+        Player player3 = new Player(name3, board, bank);
         players.addPlayer(player3);
+        String name4 = Leer.nextLine();
+
+        Player player4 = new Player(name4, board, bank);
         players.addPlayer(player4);
+
+        // show the orden to play
+        System.out.println("El orden a jugar es:\n");
+        players.display();
+        System.out.println("");
         // start game
         // iterate players list
         Player current = players.head;
@@ -43,27 +58,24 @@ public class Main {
         // while(!ended){
         for (int i = 0; i < 30; i++) {
             if (!current.isBroken) {
-
-                System.out.println(
-                        "Hola, soy " + current.name + " y estoy en " + current.position.name + " y tengo "
-                                + current.money);
+                System.out.println("Hola, soy " + current.name + " y estoy en " + current.position.name + " y tengo "
+                        + current.money);
                 current.moveAround();
-                // current.result.display();
-                // if (current.position.isOwnable && !current.position.isOwned) {
-                // bank.offerProperty(current.position, current);
-                // System.out.println(current.position.selling_price);
-                // // System.out.println(current.position.owner.name);
-                // // System.out.println(current.money);
-                // }
-                if (current.result.isPair) {
-                    System.out.println("saqué par");
-                } else {
-                    current = current.next;
-                }
-                System.out.println();
             }
+            // Is pair result?
+            if (current.result.isPair) {
+                System.out.println("saqué par");
+            } else {
+                current = current.next;
+            }
+            System.out.println();
         }
-
     }
+    // // current.result.display();
+    // // if (current.position.isOwnable && !current.position.isOwned) {
+    // // bank.offerProperty(current.position, current);
+    // // System.out.println(current.position.selling_price);
+    // // // System.out.println(current.position.owner.name);
+    // // // System.out.println(current.money);
 
 }

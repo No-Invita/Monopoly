@@ -12,8 +12,7 @@ public class dicesResult {
     }
 
     public void display() {
-        System.out.println(results[0] + " " + results[1] + " " + isPair);
-        System.out.println(result);
+        System.out.println(results[0] + " " + results[1] + " " + isPair + " "+result);
     }
 
 }

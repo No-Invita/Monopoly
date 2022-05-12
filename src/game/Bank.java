@@ -39,7 +39,7 @@ public class Bank {
     }
 
     public void offerProperty(Card property, Player player) throws IOException {
-        System.out.println("¿Deseeas comprar esta propiedad?\n1.Si\n2.No");
+        System.out.println("¿Deseeas comprar esta propiedad?(Destino)\n1.Si\n2.No");
         int comprar = Leer.nextInt();
         if (comprar == 1) {
             this.tranferProperty(property, player);
@@ -92,6 +92,22 @@ public class Bank {
                                     System.out.println("recibí " + card.param);
                                     break;
                                 }
+                                case "salir": {
+                                    if (player.isPrisoner) {
+                                        System.out.println(
+                                                "¿Deseas usar esta tarjeta o conservarla?\n1.Usar\2.Conservar");
+                                        int choose = Leer.nextInt();
+                                        if (choose == 1) {
+                                            player.isPrisoner = false;
+                                            System.out.println("Has salido de la carcel, celebralo curramba");
+                                        }else{
+                                            player.buyProperty(card.description);
+                                        }
+                                    }else{
+                                        System.out.println("Como no estas preso, te la guardas, ojo se te cae");
+                                        player.buyProperty(card.description);
+                                    }
+                                }
                             }
                             break;
                         }
@@ -127,7 +143,7 @@ public class Bank {
                             break;
                         }
                         case "gotojail": {
-                            System.out.println("te vas pa la carcel");
+                            System.out.println("Te vas pa la carcel");
                             player.goJail();
                         }
 

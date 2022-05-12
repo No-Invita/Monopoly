@@ -1,4 +1,4 @@
-Mi llave, saliste de la modelo, celebralo curramba. Puedes guardar esta tarjeta o puedes negociarla. ; na ; 0
+Mi llave, saliste de la modelo, celebralo curramba. Puedes guardar esta tarjeta o puedes negociarla. ; salir ; 0
 No te tocaba. Te vas preso ; apresar ; 0
 Pagaron familias en accion, cobra 80.000 en el efecty mas cercano ; recibir ; 80000
 El banquero esta de buenas hoy, pidele 405.000 ; recibir ; 405000

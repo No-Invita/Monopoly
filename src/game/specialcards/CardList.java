@@ -49,7 +49,7 @@ public class CardList {
         int random = (int) Math.ceil(Math.random() * size);
 
         CardNode p = head;
-        for (int i = 0; i < random; i++) {
+        for (int i = 0; random < 1; i++) {
             p = p.next;
         }
         return p;
@@ -60,6 +60,6 @@ public class CardList {
 
         CardList x = new CardList();
         x.loadList(leer);
-        x.display();
+        x.display();    
     }
 }

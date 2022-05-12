@@ -65,7 +65,7 @@ public class Player {
         for (int i = 0; i < result.result; i++) {
             moveForward();
         }
-        System.out.println(position.name);
+        System.out.println("Destino: " + position.name);
         bank.request("buy", this);
     }
 
@@ -77,7 +77,7 @@ public class Player {
         position = position.next;
         if (isInGo()) {
             bank.request("go", this);
-            System.out.println("pase por salida");
+            System.out.println("pasé por salida");
         }
     }
 
@@ -89,6 +89,7 @@ public class Player {
 
     public void rollDices() {
         dicesResult result = dices.rollDices();
+        result.display();
         this.result = result;
     }
 
