@@ -69,10 +69,15 @@ public class Bank {
                     } else {
                         switch (player.position.type) {
                             case "transport": {
-                                //Here go the code when de player falls on transport
+                                transferMoney(player, player.position.owner,
+                                        player.position.rental_price * player.position.owner.transport);
+                                        System.out.println(player.name + " transfiere " + player.position.rental_price*player.position.owner.transport + " a "
+                                        + player.position.owner.name + " Por tener " + player.position.owner.transport+" trasnportes");
+                                break;
                             }
                             case "service": {
-                                //Here go the code when de player falls on service
+                                // Here go the code when de player falls on service
+                                break;
                             }
                             default: {
                                 transferMoney(player, player.position.owner, player.position.rental_price);
@@ -105,20 +110,21 @@ public class Bank {
                                     break;
                                 }
                                 case "salir": {
-                                    if (player.isPrisoner) {
-                                        System.out.println(
-                                                "¿Deseas usar esta tarjeta o conservarla?\n1.Usar\2.Conservar");
-                                        int choose = Leer.nextInt();
-                                        if (choose == 1) {
-                                            player.isPrisoner = false;
-                                            System.out.println("Has salido de la carcel, celebralo curramba");
-                                        } else {
-                                            player.buyProperty(card.description);
-                                        }
-                                    } else {
-                                        System.out.println("Como no estas preso, te la guardas, ojo se te cae");
-                                        player.buyProperty(card.description);
-                                    }
+                                    player.outjail = 1;
+                                    // if (player.isPrisoner) {
+                                    //     System.out.println(
+                                    //             "¿Deseas usar esta tarjeta o conservarla?\n1.Usar\2.Conservar");
+                                    //     int choose = Leer.nextInt();
+                                    //     if (choose == 1) {
+                                    //         player.isPrisoner = false;
+                                    //         System.out.println("Has salido de la carcel, celebralo curramba");
+                                    //     } else {
+                                    //         player.buyProperty(card.description);
+                                    //     }
+                                    // } else {
+                                    //     System.out.println("Como no estas preso, te la guardas, ojo se te cae");
+                                    //     player.buyProperty(card.description);
+                                    // }
                                 }
                             }
                             break;
@@ -173,6 +179,7 @@ public class Bank {
         if (payer.money >= amount) {
             payer.giveMoney(amount);
             receiver.getMoney(amount);
+            
         } else {
             System.out.println("not enough money");
         }
@@ -180,10 +187,23 @@ public class Bank {
 
     public void tranferProperty(Card property, Player player) throws IOException {
         if (player.money >= property.selling_price) {
+
             demandMoney(property.selling_price, player);
             property.owner = player;
             property.isOwned = true;
             player.buyProperty(property.name);
+            switch (property.type) {
+                case "transport": {
+                    player.transport++;
+                    System.out.println("Tengo "+player.transport+" Transportes");
+                    break;
+                }
+                case "service": {
+                    player.services++;
+                    System.out.println("Tengo "+player.services+" Services");
+                    break;
+                }
+            }
         } else {
             System.out.println("not enough money");
         }

@@ -22,6 +22,9 @@ public class Player {
     public dicesResult result;
     public String properties;
     public Bank bank;
+    public int services;
+    public int transport;
+    public int outjail;
 
     public Player(String name, Board board, Bank bank) throws IOException {
         this.name = name;
@@ -31,6 +34,9 @@ public class Player {
         this.position = board.start;
         this.bank = bank;
         this.properties = "src/data/playersproperties/" + name;
+        this.services = 0;
+        this.transport = 0;
+        this.outjail = 0;
         prev = this;
         next = this;
         WriteFile.createFile(properties);
@@ -38,7 +44,7 @@ public class Player {
 
     public void getMoney(float amount) {
         this.money += amount;
-        System.out.println("Ahora tengo " + this.money);
+
     }
 
     public void giveMoney(float amount) {
