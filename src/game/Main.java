@@ -68,7 +68,7 @@ public class Main {
             } else {
                 current = current.next;
             }
-            System.out.println();
+            System.out.println("");
         }
     }
     // // current.result.display();

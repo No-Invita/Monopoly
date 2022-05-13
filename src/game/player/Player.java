@@ -38,11 +38,13 @@ public class Player {
 
     public void getMoney(float amount) {
         this.money += amount;
+        System.out.println("Ahora tengo " + this.money);
     }
 
     public void giveMoney(float amount) {
         if (amount < this.money) {
             this.money -= amount;
+            System.out.println("Ahora tengo " + this.money);
         } else {
 
         }

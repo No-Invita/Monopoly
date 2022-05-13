@@ -39,7 +39,8 @@ public class Bank {
     }
 
     public void offerProperty(Card property, Player player) throws IOException {
-        System.out.println("¿Deseeas comprar esta propiedad?(Destino)\n1.Si\n2.No");
+        System.out
+                .println("¿Deseeas comprar esta propiedad por " + property.selling_price + " ? (Destino)\n1.Si\n2.No");
         int comprar = Leer.nextInt();
         if (comprar == 1) {
             this.tranferProperty(property, player);
@@ -62,12 +63,23 @@ public class Bank {
         switch (type) {
             case "buy": {
                 if (player.position.isOwnable) {
+
                     if (player.position.owner == null) {
                         offerProperty(player.position, player);
                     } else {
-                        transferMoney(player, player.position.owner, player.position.rental_price);
-                        System.out.println(player.name + " transfiere " + player.position.rental_price + " a "
-                                + player.position.owner.name + " Por caer en " + player.position.name);
+                        switch (player.position.type) {
+                            case "transport": {
+                                //Here go the code when de player falls on transport
+                            }
+                            case "service": {
+                                //Here go the code when de player falls on service
+                            }
+                            default: {
+                                transferMoney(player, player.position.owner, player.position.rental_price);
+                                System.out.println(player.name + " transfiere " + player.position.rental_price + " a "
+                                        + player.position.owner.name + " Por caer en " + player.position.name);
+                            }
+                        }
                     }
                 } else {
                     switch (player.position.type) {
@@ -100,10 +112,10 @@ public class Bank {
                                         if (choose == 1) {
                                             player.isPrisoner = false;
                                             System.out.println("Has salido de la carcel, celebralo curramba");
-                                        }else{
+                                        } else {
                                             player.buyProperty(card.description);
                                         }
-                                    }else{
+                                    } else {
                                         System.out.println("Como no estas preso, te la guardas, ojo se te cae");
                                         player.buyProperty(card.description);
                                     }
