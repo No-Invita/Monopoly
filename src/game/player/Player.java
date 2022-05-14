@@ -130,6 +130,7 @@ public class Player {
 				} else {
 					rollDices();
 					if (result.isPair) {
+						bank.request("exitjailfree", this);
 						moveAround(true);
 					} else {
 						System.out.println("ni modo no saliste de la carcel");
@@ -140,7 +141,24 @@ public class Player {
 				System.out.println("deseas usar la tarjeta de salir de la carcel? \t1: si \t2:no");
 				int salir = Leer.nextInt();
 				if (salir == 1) {
-
+					bank.request("exitjailwithcard", this);
+					moveForward();
+				} else if (salir == 2) {
+					System.out.println("¿desea salir de la carcel pagando 200000? \t1: si \t2:no");
+					salir = Leer.nextInt();
+					if (salir == 1) {
+						bank.request("exitjail", this);
+						System.out.println("saliste de la carcel");
+					} else {
+						rollDices();
+						if (result.isPair) {
+							bank.request("exitjailfree", this);
+							moveAround(true);
+						} else {
+							System.out.println("ni modo no saliste de la carcel");
+							turnsInJail++;
+						}
+					}
 				}
 			}
 		} else {
@@ -150,13 +168,14 @@ public class Player {
 		}
 	}
 
-	public void rollDices() {
+	public dicesResult rollDices() {
 		dicesResult result = dices.rollDices();
 		result.display();
-		this.result = result;
+		return this.result = result;
 	}
 
 	public void buyProperty(String name) throws IOException {
-		WriteFile.write(properties, name);
+		this.num_properties++;
+		WriteFile.write(properties, name, this.num_properties);
 	}
 }

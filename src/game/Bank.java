@@ -4,7 +4,8 @@ import game.cards.Card;
 import game.player.Player;
 import game.specialcards.CardList;
 import game.specialcards.CardNode;
-
+import game.util.DeleteRegister;
+import game.util.WriteFile;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -81,7 +82,13 @@ public class Bank {
 								break;
 							}
 							case "service": {
-								// Here go the code when de player falls on service
+								int paying = player.position.rental_price * player.position.owner.services
+										* player.rollDices().result;
+								transferMoney(player, player.position.owner,
+										paying);
+								System.out.println(player + " transfiere " + paying + " a " + player.position.owner
+										+ " porque tiene " + player.position.owner.services
+										+ "servicios y el resultado de los dados fue " + player.result.result);
 								break;
 							}
 							default: {
@@ -115,7 +122,11 @@ public class Bank {
 									break;
 								}
 								case "salir": {
-									player.outjail = 1;
+									if (!luck.isPicked) {
+										player.outjail = 1;
+									} else {
+										request("luck", player);
+									}
 									// if (player.isPrisoner) {
 									// System.out.println(
 									// "¿Deseas usar esta tarjeta o conservarla?\n1.Usar\2.Conservar");
@@ -183,7 +194,8 @@ public class Bank {
 				payGo(player);
 				break;
 			}
-			case "goJail": {
+			case "gojail": {
+				System.out.println("encarcelado");
 				player.isPrisoner = true;
 				player.turnsInJail = 0;
 				while (player.position.index != 10) {
@@ -192,9 +204,24 @@ public class Bank {
 				break;
 			}
 			case "exitjail": {
+				System.out.println("saliste de la carcel");
 				demandMoneyForJailExit(player);
 				player.isPrisoner = false;
 				player.turnsInJail = 0;
+				break;
+			}
+			case "exitjailfree": {
+				System.out.println("saliste de la carcel gratis");
+				player.isPrisoner = false;
+				player.turnsInJail = 0;
+				break;
+			}
+			case "exitjailwithcard": {
+				System.out.println("saliste de la carcel gratis con tarjeta");
+				player.isPrisoner = false;
+				player.turnsInJail = 0;
+				player.outjail = 0;
+				luck.isPicked = false;
 				break;
 			}
 
@@ -235,9 +262,10 @@ public class Bank {
 		}
 	}
 
-	public void negociar(Player emisor, Player receptor, int index_ownwership_emisor, int index_ownwership_receptor,
-			float amount_emisor, float amount_receptor) {
-
+	public void negociar(Player emisor, Player receptor, String index_ownwership_emisor, int index_ownwership_receptor,
+			float amount_emisor, float amount_receptor) throws IOException {
+		String proper = DeleteRegister.deleteRegister(emisor.properties, index_ownwership_emisor);
+		WriteFile.write(receptor.properties, proper, receptor.num_properties);
 	}
 
 }
