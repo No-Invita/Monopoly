@@ -127,25 +127,18 @@ public class Bank {
 									} else {
 										request("luck", player);
 									}
-									// if (player.isPrisoner) {
-									// System.out.println(
-									// "¿Deseas usar esta tarjeta o conservarla?\n1.Usar\2.Conservar");
-									// int choose = Leer.nextInt();
-									// if (choose == 1) {
-									// player.isPrisoner = false;
-									// System.out.println("Has salido de la carcel, celebralo curramba");
-									// } else {
-									// player.buyProperty(card.description);
-									// }
-									// } else {
-									// System.out.println("Como no estas preso, te la guardas, ojo se te cae");
-									// player.buyProperty(card.description);
-									// }
+
 									break;
 
 								}
 								case "apresar": {
 									player.goJail();
+									break;
+								}
+								case "mover a": {
+									player.moveTo(card.param);
+									System.out.println("Me moví hasta " + player.position.name);
+									break;
 								}
 							}
 							break;
