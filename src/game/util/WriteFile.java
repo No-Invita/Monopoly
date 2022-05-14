@@ -5,13 +5,12 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 public class WriteFile {
-	public static int index = 0;
 
-	public static void write(String fileName, String content) throws IOException {
+	public static void write(String fileName, String content, int num) throws IOException {
 		try {
 			FileWriter writer = new FileWriter(fileName + ".txt", true);
 			PrintWriter out = new PrintWriter(writer);
-			out.println(index + ", " + content);
+			out.println(num + ", " + content);
 			out.close();
 		} catch (IOException e) {
 			e.printStackTrace();
