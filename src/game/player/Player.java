@@ -1,107 +1,162 @@
 package game.player;
 
 import java.io.IOException;
-
+import java.util.Scanner;
 import game.Bank;
 import game.Board;
 import game.cards.Card;
 import game.dices.dices;
 import game.dices.dicesResult;
 import game.util.WriteFile;
+import game.util.ReadFile;
+import game.util.DeleteRegister;
 
 public class Player {
 
-    public String name;
-    public int turno;
-    public float money;
-    public Card position;
-    public boolean isPrisoner;
-    public boolean isBroken;
-    public Player next;
-    public Player prev;
-    public dicesResult result;
-    public String properties;
-    public Bank bank;
-    public int services;
-    public int transport;
-    public int outjail;
+	public String name;
+	public int turno;
+	public float money;
+	public Card position;
+	public boolean isPrisoner;
+	public int turnsInJail;
+	public boolean isBroken;
+	public Player next;
+	public Player prev;
+	public dicesResult result;
+	public String properties;
+	public Bank bank;
+	public int services;
+	public int transport;
+	public int outjail;
+	public int num_properties;
+	Scanner Leer = new Scanner(System.in);
 
-    public Player(String name, Board board, Bank bank) throws IOException {
-        this.name = name;
-        this.money = 6000000;
-        this.isPrisoner = false;
-        this.isBroken = false;
-        this.position = board.start;
-        this.bank = bank;
-        this.properties = "src/data/playersproperties/" + name;
-        this.services = 0;
-        this.transport = 0;
-        this.outjail = 0;
-        prev = this;
-        next = this;
-        WriteFile.createFile(properties);
-    }
+	public Player(String name, Board board, Bank bank) throws IOException {
+		this.name = name;
+		this.money = 6000000;
+		this.isPrisoner = false;
+		this.isBroken = false;
+		this.position = board.start;
+		this.bank = bank;
+		this.properties = "src/data/playersproperties/" + name;
+		this.services = 0;
+		this.transport = 0;
+		this.outjail = 0;
+		this.prev = this;
+		this.num_properties = 0;
+		next = this;
+		WriteFile.createFile(properties);
+	}
 
-    public void getMoney(float amount) {
-        this.money += amount;
+	public void getMoney(float amount) {
+		this.money += amount;
 
-    }
+	}
 
-    public void giveMoney(float amount) {
-        if (amount < this.money) {
-            this.money -= amount;
-            System.out.println("Ahora tengo " + this.money);
-        } else {
+	public void giveMoney(float amount) {
+		if (amount <= this.money) {
+			this.money -= amount;
+			System.out.println("Ahora tengo " + this.money);
+		} else {
+			System.out.println("No tienedes suficiente dinero. Debes vender propiedades o hipotecarlas");
+			if (this.num_properties > 0) {
+				System.out.println("¿Deseas  negociar o hipotecar?\n1.Negociar\n2.Hipotecar");
+				int choose = Leer.nextInt();
+				switch (choose) {
+					case 1: {
 
-        }
-    }
+						break;
+					}
+					default:
+						break;
+				}
+			}
 
-    public void goJail() {
-        this.isPrisoner = true;
-        while (position.index != 10) {
-            position = position.next;
-        }
-        // this.position = 10;
-    }
+		}
+	}
 
-    public boolean isInGo() {
-        return position.index == 0;
-    }
+	public void goJail() throws IOException {
+		bank.request("gojail", this);
+		// this.position = 10;
+	}
 
-    public void moveAround() throws IOException {
-        rollDices();
-        for (int i = 0; i < result.result; i++) {
-            moveForward();
-        }
-        System.out.println("Destino: " + position.name);
-        bank.request("buy", this);
-    }
+	public boolean isInGo() {
+		return position.index == 0;
+	}
 
-    public void moveBackward() {
-        position = position.prev;
-    }
+	public void moveAround() throws IOException {
+		rollDices();
+		for (int i = 0; i < result.result; i++) {
+			moveForward();
+		}
+		System.out.println("Destino: " + position.name);
+		bank.request("buy", this);
+	}
 
-    public void moveForward() throws IOException {
-        position = position.next;
-        if (isInGo()) {
-            bank.request("go", this);
-            System.out.println("Pasé por salida");
-        }
-    }
+	public void moveAround(boolean x) throws IOException {
+		for (int i = 0; i < result.result; i++) {
+			moveForward();
+		}
+		System.out.println("Destino: " + position.name);
+		bank.request("buy", this);
+	}
 
-    public void moveTo(int pos) throws IOException {
-        do {
-            moveForward();
-        } while (position.index != pos);
-    }
+	public void moveBackward() {
+		position = position.prev;
+	}
 
-    public void rollDices() {
-        dicesResult result = dices.rollDices();
-        result.display();
-        this.result = result;
-    }
+	public void moveForward() throws IOException {
+		position = position.next;
+		if (isInGo()) {
+			bank.request("go", this);
+			System.out.println("pasé por salida");
+		}
+	}
 
-    public void buyProperty(String name) throws IOException {
-        WriteFile.write(properties, name);
-    }
+	public void moveTo(int pos) throws IOException {
+		do {
+			moveForward();
+		} while (position.index != pos);
+	}
+
+	public void playInJail() throws IOException {
+		if (this.turnsInJail < 3) {
+			if (this.outjail != 1) {
+				System.out.println("¿desea salir de la carcel pagando 200000? \t1: si \t2:no");
+				int salir = Leer.nextInt();
+				if (salir == 1) {
+					bank.request("exitjail", this);
+					System.out.println("saliste de la carcel");
+				} else {
+					rollDices();
+					if (result.isPair) {
+						moveAround(true);
+					} else {
+						System.out.println("ni modo no saliste de la carcel");
+						turnsInJail++;
+					}
+				}
+			} else {
+				System.out.println("deseas usar la tarjeta de salir de la carcel? \t1: si \t2:no");
+				int salir = Leer.nextInt();
+				if (salir == 1) {
+
+				}
+			}
+		} else {
+			System.out.println("te toca salir de la carcel pagando 200000");
+			bank.request("exitjail", this);
+			this.moveForward();
+		}
+	}
+
+	public void rollDices() {
+		dicesResult result = dices.rollDices();
+		result.display();
+		this.result = result;
+	}
+
+	public void buyProperty(String name) throws IOException {
+		WriteFile.write(properties, name);
+	}
 }
