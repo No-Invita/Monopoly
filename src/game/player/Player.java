@@ -85,7 +85,7 @@ public class Player {
         position = position.next;
         if (isInGo()) {
             bank.request("go", this);
-            System.out.println("pasé por salida");
+            System.out.println("Pasé por salida");
         }
     }
 

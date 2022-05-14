@@ -71,8 +71,10 @@ public class Bank {
                             case "transport": {
                                 transferMoney(player, player.position.owner,
                                         player.position.rental_price * player.position.owner.transport);
-                                        System.out.println(player.name + " transfiere " + player.position.rental_price*player.position.owner.transport + " a "
-                                        + player.position.owner.name + " Por tener " + player.position.owner.transport+" trasnportes");
+                                System.out.println(player.name + " transfiere "
+                                        + player.position.rental_price * player.position.owner.transport + " a "
+                                        + player.position.owner.name + " Por tener " + player.position.owner.transport
+                                        + " trasnportes");
                                 break;
                             }
                             case "service": {
@@ -112,19 +114,24 @@ public class Bank {
                                 case "salir": {
                                     player.outjail = 1;
                                     // if (player.isPrisoner) {
-                                    //     System.out.println(
-                                    //             "¿Deseas usar esta tarjeta o conservarla?\n1.Usar\2.Conservar");
-                                    //     int choose = Leer.nextInt();
-                                    //     if (choose == 1) {
-                                    //         player.isPrisoner = false;
-                                    //         System.out.println("Has salido de la carcel, celebralo curramba");
-                                    //     } else {
-                                    //         player.buyProperty(card.description);
-                                    //     }
+                                    // System.out.println(
+                                    // "¿Deseas usar esta tarjeta o conservarla?\n1.Usar\2.Conservar");
+                                    // int choose = Leer.nextInt();
+                                    // if (choose == 1) {
+                                    // player.isPrisoner = false;
+                                    // System.out.println("Has salido de la carcel, celebralo curramba");
                                     // } else {
-                                    //     System.out.println("Como no estas preso, te la guardas, ojo se te cae");
-                                    //     player.buyProperty(card.description);
+                                    // player.buyProperty(card.description);
                                     // }
+                                    // } else {
+                                    // System.out.println("Como no estas preso, te la guardas, ojo se te cae");
+                                    // player.buyProperty(card.description);
+                                    // }
+                                    break;
+
+                                }
+                                case "apresar": {
+                                    player.goJail();
                                 }
                             }
                             break;
@@ -136,7 +143,7 @@ public class Bank {
                             switch (card.type) {
                                 case "moverse a": {
                                     player.moveTo(card.param);
-                                    System.out.println("me moví hasta " + player.position.name);
+                                    System.out.println("Me moví hasta " + player.position.name);
                                     break;
                                 }
                                 case "dar": {
@@ -179,7 +186,7 @@ public class Bank {
         if (payer.money >= amount) {
             payer.giveMoney(amount);
             receiver.getMoney(amount);
-            
+
         } else {
             System.out.println("not enough money");
         }
@@ -195,12 +202,12 @@ public class Bank {
             switch (property.type) {
                 case "transport": {
                     player.transport++;
-                    System.out.println("Tengo "+player.transport+" Transportes");
+                    System.out.println("Tengo " + player.transport + " Transportes");
                     break;
                 }
                 case "service": {
                     player.services++;
-                    System.out.println("Tengo "+player.services+" Services");
+                    System.out.println("Tengo " + player.services + " Services");
                     break;
                 }
             }
