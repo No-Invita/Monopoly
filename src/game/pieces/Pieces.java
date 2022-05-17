@@ -1,7 +1,7 @@
 package game.pieces;
 
 import game.player.Player;
-
+import game.GameSketch;
 public class Pieces {
 
   public int distance;

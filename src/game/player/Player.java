@@ -10,6 +10,7 @@ import game.dices.dicesResult;
 import game.util.WriteFile;
 import game.util.ReadFile;
 import game.util.DeleteRegister;
+import game.pieces.Pieces;
 
 public class Player {
 
@@ -29,9 +30,10 @@ public class Player {
 	public int transport;
 	public int outjail;
 	public int num_properties;
+	public Pieces piece;
 	Scanner Leer = new Scanner(System.in);
 
-	public Player(String name, Board board, Bank bank) throws IOException {
+	public Player(String name, Board board, Bank bank, int x, int y, String path) throws IOException {
 		this.name = name;
 		this.money = 6000000;
 		this.isPrisoner = false;
@@ -44,6 +46,7 @@ public class Player {
 		this.outjail = 0;
 		this.prev = this;
 		this.num_properties = 0;
+		this.piece = new Pieces(x, y, path);
 		next = this;
 		WriteFile.createFile(properties);
 	}
@@ -107,9 +110,22 @@ public class Player {
 
 	public void moveForward() throws IOException {
 		position = position.next;
+		this.movePiece();
 		if (isInGo()) {
 			bank.request("go", this);
 			System.out.println("pasé por salida");
+		}
+	}
+
+	public void movePiece() throws IOException {
+		if (this.piece.posx > 19 && this.piece.posy == 681) {
+			this.piece.posx--;
+		} else if (this.piece.posy > 16 && this.piece.posx == 19) {
+			this.piece.posy--;
+		} else if (this.piece.posx < 686 && this.piece.posy == 16) {
+			this.piece.posx++;
+		} else {
+			this.piece.posy++;
 		}
 	}
 

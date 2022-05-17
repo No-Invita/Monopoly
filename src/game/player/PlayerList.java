@@ -9,6 +9,7 @@ public class PlayerList {
     public Player tail;
     public dicesResult result;
     int mayor = 0;
+    
 
     public PlayerList() {
         this.playersNumber = 0;

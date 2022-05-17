@@ -2,6 +2,7 @@ package game;
 
 import game.cards.Card;
 import game.player.Player;
+import game.player.PlayerList;
 import game.specialcards.CardList;
 import game.specialcards.CardNode;
 import game.util.DeleteRegister;
@@ -14,11 +15,13 @@ public class Bank {
 	Scanner Leer = new Scanner(System.in);
 	CardList luck;
 	CardList ark;
+	PlayerList playerList;
 
-	public Bank(CardList luck, CardList ark) {
+	public Bank(CardList luck, CardList ark, PlayerList playerList) {
 		this.luck = luck;
 		this.ark = ark;
 		this.taxeMoney = 0;
+		this.playerList = playerList;
 	}
 
 	public void demandMoney(float amount, Player player) {
