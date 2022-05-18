@@ -31,9 +31,19 @@ public class Player {
 	public int outjail;
 	public int num_properties;
 	public Pieces piece;
+	public boolean boleano = false;
+	boolean left = true;;
+	public int destino = 0;
 	Scanner Leer = new Scanner(System.in);
+	private boolean ingo;
+	private String move;
+	private boolean right;
+	private boolean up;
+	private boolean down;
+	private boolean activate;
 
-	public Player(String name, Board board, Bank bank, int x, int y, String path) throws IOException {
+	public Player(String name, Board board, Bank bank, int x, int y, String path)
+			throws IOException {
 		this.name = name;
 		this.money = 6000000;
 		this.isPrisoner = false;
@@ -93,7 +103,7 @@ public class Player {
 			moveForward();
 		}
 		System.out.println("Destino: " + position.name);
-		bank.request("buy", this);
+		// bank.request("buy", this);
 	}
 
 	public void moveAround(boolean x) throws IOException {
@@ -101,7 +111,7 @@ public class Player {
 			moveForward();
 		}
 		System.out.println("Destino: " + position.name);
-		bank.request("buy", this);
+		// bank.request("buy", this);
 	}
 
 	public void moveBackward() {
@@ -109,8 +119,8 @@ public class Player {
 	}
 
 	public void moveForward() throws IOException {
-		position = position.next;
 		this.movePiece();
+		position = position.next;
 		if (isInGo()) {
 			bank.request("go", this);
 			System.out.println("pasé por salida");
@@ -118,15 +128,105 @@ public class Player {
 	}
 
 	public void movePiece() throws IOException {
-		if (this.piece.posx > 19 && this.piece.posy == 681) {
-			this.piece.posx--;
-		} else if (this.piece.posy > 16 && this.piece.posx == 19) {
-			this.piece.posy--;
-		} else if (this.piece.posx < 686 && this.piece.posy == 16) {
-			this.piece.posx++;
-		} else {
-			this.piece.posy++;
+		activate = false;
+		if (!activate) {
+			right = true;
+			up = true;
+			down = true;
+			left = true;
+			activate = true;
 		}
+		System.out.println("Method");
+		System.out.println(this.piece.posx + " " + this.piece.posy);
+		System.out.println(this.piece.topex + " " + this.piece.topey);
+		if (this.piece.posx > this.piece.topex && left) {
+			right = false;
+			up = false;
+			down = false;
+			this.move = "Left";
+		} else {
+			if (this.piece.posy > this.piece.topey && up) {
+				right = false;
+				left = false;
+				down = false;
+				this.move = "Up";
+			} else {
+				if (this.piece.posx < 689 && right) {
+					up = false;
+					left = false;
+					down = false;
+					this.move = "Right";
+				} else {
+					if (this.piece.posy < this.piece.topey + 668 && down) {
+						right = false;
+						up = false;
+						left = false;
+						this.move = "Down";
+					}
+				}
+			}
+		}
+		System.out.println(this.move);
+		switch (this.move) {
+			case "Left": {
+				System.out.println("Estoy entrando, soy sapo");
+				if (left) {
+					//this.piece.posx -= 0.5;
+					System.out.println("Estoy moviendo left");
+				}
+
+				// bo leano = true;
+				// if (boleano) {
+				// this.destino = this.piece.posx - this.piece.distancex;
+				// boleano = false;
+				// }
+				// while (this.piece.posx > this.destino) {
+
+				// }
+
+			}
+				break;
+			case "Up": {
+				// boleano = true;
+				// if (boleano) {
+				// this.destino = this.piece.posy - this.piece.distancey;
+				// boleano = false;
+				// }
+				// while (this.piece.posy > this.destino) {
+				this.piece.posy -= 0.5;
+				// }
+
+			}
+				break;
+			case "Right": {
+				left = false;
+				this.piece.posx += 0.5;
+				System.out.println("Entro y mi posision es " + this.piece.posx);
+				// boleano = true;
+				// if (boleano) {
+				// this.destino = this.piece.posx + this.piece.distancex;
+				// boleano = false;
+				// }
+				// while (this.piece.posx < this.destino) {
+				;
+				// }
+
+			}
+				break;
+			case "Down": {
+				// boleano = true;
+				// if (boleano) {
+				// this.destino = this.piece.posy + this.piece.distancey;
+				// boleano = false;
+				// }
+				// while (this.piece.posy < this.destino) {
+				this.piece.posy++;
+				// }
+			}
+				break;
+
+		}
+
 	}
 
 	public void moveTo(int pos) throws IOException {

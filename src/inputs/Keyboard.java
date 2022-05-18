@@ -3,29 +3,17 @@ package inputs;
 import game.GameSketch;
 
 public class Keyboard {
-	GameSketch sketch;
-	Console c;
-	String x = "";
+	public GameSketch sketch;
+	public Console console;
+	
+	public boolean keyPressed = false;
 
 	public Keyboard(GameSketch sketch, Console consola) {
 		this.sketch = sketch;
-		this.c = consola;
+		this.console = consola;
 	}
 
-	public void keyPressed() {
-		if (keyAnalyzer(sketch.key).compareTo("LETTER") == 0 || keyAnalyzer(sketch.key).compareTo("NUMBER") == 0) {
-			c.addChar(sketch.key);
-		}
-		if (sketch.keyCode == GameSketch.BACKSPACE) {
-			c.deleteChar();
-		}
-
-		if (sketch.keyCode == GameSketch.ENTER) {
-			x = c.chars;
-			System.out.println(x);
-			c.reset();
-		}
-	}
+	
 
 	public String keyAnalyzer(char c) {
 		if (c == '0' || c == '1' || c == '2' || c == '3' || c == '4' || c == '5' || c == '6' || c == '7' || c == '8'

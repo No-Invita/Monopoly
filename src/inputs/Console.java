@@ -1,30 +1,31 @@
 package inputs;
-
 import game.GameSketch;
 
 public class Console {
-	float x;
-	float y;
-	String chars;
-	int numChars;
-	boolean active;
-	int font;
-	GameSketch sketch;
+	public float x;
+	public float y;
+	public String chars;
+	public int numChars;
+	public boolean active;
+	public int font;
+	public GameSketch sketch;
+	public String output = "";
 
-	public Console(float x, float y, int font, GameSketch sketch) {
+	public Console(float x, float y, int font,GameSketch sketch) {
 		this.x = x;
 		this.y = y;
 		active = false;
 		this.font = font;
-		chars = "";
-		numChars = 0;
+		this.chars = "";
+		this.numChars = 0;
 		this.sketch = sketch;
 	}
 
 	public void display() {
 		sketch.line(x, y, x, y + font);
 		sketch.textSize(font);
-		sketch.text(chars, x, y);
+		sketch.text(this.chars, x, y);
+		
 	}
 
 	public void addChar(char c) {
@@ -49,12 +50,14 @@ public class Console {
 	}
 
 	public void reset() {
-		chars = "";
+		System.out.println(this.numChars);
+		System.out.println(this.chars);
+		this.chars = "";
 	}
 
 	public void deleteChar() {
 		if (numChars > 0) {
-			chars = chars.substring(0, chars.length() - 1);
+			this.chars = this.chars.substring(0, this.chars.length() - 1);
 			numChars -= 1;
 		}
 	}
