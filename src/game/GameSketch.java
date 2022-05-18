@@ -41,7 +41,7 @@ public class GameSketch extends PApplet {
 
 	@Override
 	public void setup() {
-
+		
 		surface.setSize(960, 768);
 		//console.activate();
 		bg = loadImage("src/images/bg.png");
@@ -60,13 +60,16 @@ public class GameSketch extends PApplet {
 		image(piece2, lista.head.next.piece.posx, lista.head.next.piece.posy);
 		image(piece3, lista.head.next.next.piece.posx, lista.head.next.next.piece.posy);
 		image(piece4, lista.tail.piece.posx, lista.tail.piece.posy);
-		try {
+		if(visible){
+			try {
 
-			lista.head.moveAround();
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+				lista.head.moveAround();
+	
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			visible = false;
 		}
 
 	}

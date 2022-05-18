@@ -32,14 +32,14 @@ public class Player {
 	public int num_properties;
 	public Pieces piece;
 	public boolean boleano = false;
-	boolean left = true;;
+	boolean left;
 	public int destino = 0;
 	Scanner Leer = new Scanner(System.in);
 	private boolean ingo;
 	private String move;
-	private boolean right;
-	private boolean up;
-	private boolean down;
+	private boolean right = true;;
+	private boolean up = true;;
+	private boolean down = true;;
 	private boolean activate;
 
 	public Player(String name, Board board, Bank bank, int x, int y, String path)
@@ -57,6 +57,7 @@ public class Player {
 		this.prev = this;
 		this.num_properties = 0;
 		this.piece = new Pieces(x, y, path);
+		this.left = true;
 		next = this;
 		WriteFile.createFile(properties);
 	}
@@ -119,8 +120,8 @@ public class Player {
 	}
 
 	public void moveForward() throws IOException {
-		this.movePiece();
 		position = position.next;
+		this.movePiece();
 		if (isInGo()) {
 			bank.request("go", this);
 			System.out.println("pasé por salida");
@@ -128,105 +129,163 @@ public class Player {
 	}
 
 	public void movePiece() throws IOException {
-		activate = false;
 		if (!activate) {
-			right = true;
-			up = true;
-			down = true;
 			left = true;
+			up = true;
+			right = true;
+			down = true;
 			activate = true;
 		}
 		System.out.println("Method");
 		System.out.println(this.piece.posx + " " + this.piece.posy);
 		System.out.println(this.piece.topex + " " + this.piece.topey);
 		if (this.piece.posx > this.piece.topex && left) {
-			right = false;
-			up = false;
-			down = false;
+
 			this.move = "Left";
 		} else {
+			left = false;
 			if (this.piece.posy > this.piece.topey && up) {
-				right = false;
-				left = false;
-				down = false;
+
 				this.move = "Up";
 			} else {
-				if (this.piece.posx < 689 && right) {
-					up = false;
-					left = false;
-					down = false;
+				up = false;
+				if (this.piece.posx < this.piece.topex + 676 && right) {
+
 					this.move = "Right";
 				} else {
+					right = false;
 					if (this.piece.posy < this.piece.topey + 668 && down) {
-						right = false;
-						up = false;
-						left = false;
+
 						this.move = "Down";
+					} else {
+						activate = false;
+						down = false;
 					}
 				}
 			}
 		}
 		System.out.println(this.move);
-		switch (this.move) {
-			case "Left": {
-				System.out.println("Estoy entrando, soy sapo");
-				if (left) {
-					//this.piece.posx -= 0.5;
-					System.out.println("Estoy moviendo left");
+
+		if (this.move.equals("Left")) {
+			if ((this.piece.posx == 699 || this.piece.posx == 722 || this.piece.posx == 726)
+					&& (this.piece.posy == 689 || this.piece.posy == 714)) {
+				boleano = true;
+				if (boleano) {
+					this.destino = this.piece.posx - 92;
+					boleano = false;
 				}
-
-				// bo leano = true;
-				// if (boleano) {
-				// this.destino = this.piece.posx - this.piece.distancex;
-				// boleano = false;
-				// }
-				// while (this.piece.posx > this.destino) {
-
-				// }
-
+			} else {
+				boleano = true;
+				if (boleano) {
+					this.destino = this.piece.posx - this.piece.distancex;
+					boleano = false;
+				}
 			}
-				break;
-			case "Up": {
-				// boleano = true;
-				// if (boleano) {
-				// this.destino = this.piece.posy - this.piece.distancey;
-				// boleano = false;
-				// }
-				// while (this.piece.posy > this.destino) {
-				this.piece.posy -= 0.5;
-				// }
-
+			while(this.piece.posx > this.destino){
+				if (this.piece.posx > this.destino) {
+					this.piece.posx = this.piece.posx - 1;
+				}
 			}
-				break;
-			case "Right": {
-				left = false;
-				this.piece.posx += 0.5;
-				System.out.println("Entro y mi posision es " + this.piece.posx);
-				// boleano = true;
-				// if (boleano) {
-				// this.destino = this.piece.posx + this.piece.distancex;
-				// boleano = false;
-				// }
-				// while (this.piece.posx < this.destino) {
-				;
-				// }
-
+			
+			System.out.println("Estoy moviendo left");
+		} else if (this.move.equals("Up")) {
+			if ((this.piece.posx == 23 || this.piece.posx == 46 || this.piece.posx == 50)
+					&& (this.piece.posy == 689 || this.piece.posy == 714)) {
+				boleano = true;
+				if (boleano) {
+					this.destino = this.piece.posy - 84;
+					boleano = false;
+				}
+			} else {
+				boleano = true;
+				if (boleano) {
+					this.destino = this.piece.posy - this.piece.distancey;
+					boleano = false;
+				}
 			}
-				break;
-			case "Down": {
-				// boleano = true;
-				// if (boleano) {
-				// this.destino = this.piece.posy + this.piece.distancey;
-				// boleano = false;
-				// }
-				// while (this.piece.posy < this.destino) {
-				this.piece.posy++;
-				// }
+			if (this.piece.posy > this.destino) {
+				this.piece.posy = this.piece.posy - 1;
 			}
-				break;
+			System.out.println("Estoy moviendo Up");
 
+		} else if (this.move.equals("Right")) {
+			if ((this.piece.posx == 23 || this.piece.posx == 46 || this.piece.posx == 50)
+					&& (this.piece.posy == 22 || this.piece.posy == 45)) {
+				boleano = true;
+				if (boleano) {
+					this.destino = this.piece.posx + 92;
+					boleano = false;
+				}
+			} else {
+				boleano = true;
+				if (boleano) {
+					this.destino = this.piece.posx + this.piece.distancex;
+					boleano = false;
+				}
+			}
+			if (this.piece.posx < this.destino) {
+				this.piece.posx = this.piece.posx + 1;
+			}
+			System.out.println("Estoy moviendo Right");
+		} else if (this.move.equals("Down")) {
+			if ((this.piece.posx == 699 || this.piece.posx == 722 || this.piece.posx == 726)
+					&& (this.piece.posy == 22 || this.piece.posy == 45)) {
+				boleano = true;
+				if (boleano) {
+					this.destino = this.piece.posy + 84;
+					boleano = false;
+				}
+			} else {
+				boleano = true;
+				if (boleano) {
+					this.destino = this.piece.posy + this.piece.distancey;
+					boleano = false;
+				}
+			}
+			if (this.piece.posy < this.destino) {
+				this.piece.posy = this.piece.posy + 1;
+			
+			System.out.println("Estoy moviendo Down");
 		}
 
+		// bo leano = true;
+		// if (boleano) {
+		// this.destino = this.piece.posx - this.piece.distancex;
+		// boleano = false;
+		// }
+		// while (this.piece.posx > this.destino) {
+
+		// }
+
+		// boleano = true;
+		// if (boleano) {
+		// this.destino = this.piece.posy - this.piece.distancey;
+		// boleano = false;
+		// }
+		// while (this.piece.posy > this.destino) {
+
+		// }
+
+	}
+
+	// boleano = true;
+	// if (boleano) {
+	// this.destino = this.piece.posx + this.piece.distancex;
+	// boleano = false;
+	// }
+	// while (this.piece.posx < this.destino) {
+	;
+	// }
+
+	
+		// boleano = true;
+		// if (boleano) {
+		// this.destino = this.piece.posy + this.piece.distancey;
+		// boleano = false;
+		// }
+		// while (this.piece.posy < this.destino) {
+
+		// }
 	}
 
 	public void moveTo(int pos) throws IOException {
