@@ -17,10 +17,10 @@ public class Pieces {
     this.posx = x;
     this.posy = y;
     this.path += path;
-    this.distancex = 60;
-    this.distancey = 63;
+    this.distancex = 63;
+    this.distancey = 62 ;
     this.topex = this.posx - 676;
-    this.topey = this.posy - 668;
+    this.topey = this.posy - 667;
   }
 
 }

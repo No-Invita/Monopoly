@@ -32,7 +32,7 @@ public class Player {
 	public int num_properties;
 	public Pieces piece;
 	public boolean boleano = false;
-	boolean left;
+	boolean left = true;
 	public int destino = 0;
 	Scanner Leer = new Scanner(System.in);
 	private boolean ingo;
@@ -129,18 +129,15 @@ public class Player {
 	}
 
 	public void movePiece() throws IOException {
-		if (!activate) {
-			left = true;
-			up = true;
-			right = true;
-			down = true;
-			activate = true;
-		}
-		System.out.println("Method");
-		System.out.println(this.piece.posx + " " + this.piece.posy);
-		System.out.println(this.piece.topex + " " + this.piece.topey);
-		if (this.piece.posx > this.piece.topex && left) {
 
+		if (!activate) {
+		left = true;
+		up = true;
+		right = true;
+		down = true;
+		activate = true;
+		}
+		if (this.piece.posx > this.piece.topex && left) {
 			this.move = "Left";
 		} else {
 			left = false;
@@ -150,16 +147,14 @@ public class Player {
 			} else {
 				up = false;
 				if (this.piece.posx < this.piece.topex + 676 && right) {
-
 					this.move = "Right";
 				} else {
 					right = false;
-					if (this.piece.posy < this.piece.topey + 668 && down) {
-
+					if (this.piece.posy < this.piece.topey + 667 && down) {
 						this.move = "Down";
 					} else {
+						this.move = "Left";
 						activate = false;
-						down = false;
 					}
 				}
 			}
@@ -171,7 +166,14 @@ public class Player {
 					&& (this.piece.posy == 689 || this.piece.posy == 714)) {
 				boleano = true;
 				if (boleano) {
-					this.destino = this.piece.posx - 92;
+					this.destino = this.piece.posx - 90;
+					boleano = false;
+				}
+			} else if ((this.piece.posx == 105 || this.piece.posx == 128 || this.piece.posx == 132)
+					&& (this.piece.posy == 689 || this.piece.posy == 714)) {
+				boleano = true;
+				if (boleano) {
+					this.destino = this.piece.posx - 82;
 					boleano = false;
 				}
 			} else {
@@ -181,19 +183,27 @@ public class Player {
 					boleano = false;
 				}
 			}
-			while(this.piece.posx > this.destino){
+			while (this.piece.posx > this.destino) {
 				if (this.piece.posx > this.destino) {
 					this.piece.posx = this.piece.posx - 1;
 				}
 			}
-			
+
 			System.out.println("Estoy moviendo left");
+
 		} else if (this.move.equals("Up")) {
 			if ((this.piece.posx == 23 || this.piece.posx == 46 || this.piece.posx == 50)
 					&& (this.piece.posy == 689 || this.piece.posy == 714)) {
 				boleano = true;
 				if (boleano) {
-					this.destino = this.piece.posy - 84;
+					this.destino = this.piece.posy - 86;
+					boleano = false;
+				}
+			} else if ((this.piece.posx == 23 || this.piece.posx == 46 || this.piece.posx == 50)
+					&& (this.piece.posy == 107 || this.piece.posy == 132)) {
+				boleano = true;
+				if (boleano) {
+					this.destino = this.piece.posy - 85;
 					boleano = false;
 				}
 			} else {
@@ -203,8 +213,11 @@ public class Player {
 					boleano = false;
 				}
 			}
-			while(this.piece.posy > this.destino) {
-				this.piece.posy = this.piece.posy - 1;
+			while (this.piece.posy > this.destino) {
+				if (this.piece.posy > this.destino) {
+					this.piece.posy = this.piece.posy - 1;
+
+				}
 			}
 			System.out.println("Estoy moviendo Up");
 
@@ -213,7 +226,14 @@ public class Player {
 					&& (this.piece.posy == 22 || this.piece.posy == 45)) {
 				boleano = true;
 				if (boleano) {
-					this.destino = this.piece.posx + 92;
+					this.destino = this.piece.posx + 82;
+					boleano = false;
+				}
+			} else if ((this.piece.posx == 609 || this.piece.posx == 632 || this.piece.posx == 636)
+					&& (this.piece.posy == 22 || this.piece.posy == 45)) {
+				boleano = true;
+				if (boleano) {
+					this.destino = this.piece.posx + 90;
 					boleano = false;
 				}
 			} else {
@@ -227,12 +247,20 @@ public class Player {
 				this.piece.posx = this.piece.posx + 1;
 			}
 			System.out.println("Estoy moviendo Right");
+
 		} else if (this.move.equals("Down")) {
 			if ((this.piece.posx == 699 || this.piece.posx == 722 || this.piece.posx == 726)
 					&& (this.piece.posy == 22 || this.piece.posy == 45)) {
 				boleano = true;
 				if (boleano) {
-					this.destino = this.piece.posy + 84;
+					this.destino = this.piece.posy + 85;
+					boleano = false;
+				}
+			} else if ((this.piece.posx == 699 || this.piece.posx == 722 || this.piece.posx == 626)
+					&& (this.piece.posy == 603 || this.piece.posy == 626)) {
+				boleano = true;
+				if (boleano) {
+					this.destino = this.piece.posy + 86;
 					boleano = false;
 				}
 			} else {
@@ -242,50 +270,14 @@ public class Player {
 					boleano = false;
 				}
 			}
-			while(this.piece.posy < this.destino) {
+			while (this.piece.posy < this.destino) {
 				this.piece.posy = this.piece.posy + 1;
-			
-			System.out.println("Estoy moviendo Down");
+
+				System.out.println("Estoy moviendo Down");
+			}
+
 		}
-
-		// bo leano = true;
-		// if (boleano) {
-		// this.destino = this.piece.posx - this.piece.distancex;
-		// boleano = false;
-		// }
-		// while (this.piece.posx > this.destino) {
-
-		// }
-
-		// boleano = true;
-		// if (boleano) {
-		// this.destino = this.piece.posy - this.piece.distancey;
-		// boleano = false;
-		// }
-		// while (this.piece.posy > this.destino) {
-
-		// }
-
-	}
-
-	// boleano = true;
-	// if (boleano) {
-	// this.destino = this.piece.posx + this.piece.distancex;
-	// boleano = false;
-	// }
-	// while (this.piece.posx < this.destino) {
-	;
-	// }
-
-	
-		// boleano = true;
-		// if (boleano) {
-		// this.destino = this.piece.posy + this.piece.distancey;
-		// boleano = false;
-		// }
-		// while (this.piece.posy < this.destino) {
-
-		// }
+		System.out.println(this.piece.posx+" "+this.piece.posy);
 	}
 
 	public void moveTo(int pos) throws IOException {
