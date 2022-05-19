@@ -34,22 +34,22 @@ public class Main {
 		// // Create Bank
 		Bank bank = new Bank(luck, ark, players);
 		GameSketch Sketch = new GameSketch(bank);
-		System.out.println("Escribe los nombres de los jugadores");
+		//System.out.println("Escribe los nombres de los jugadores");
 		// // Add the players to the players list and we sort the orden to play
-		String name1 = Leer.nextLine();
-		Player player1 = new Player(name1, board, bank,699,689,"piece1.png");
+		//String name1 = Leer.nextLine();
+		Player player1 = new Player("Elkin", board, bank,699,689,"piece1.png");
 		players.addPlayer(player1);
 
-		String name2 = Leer.nextLine();
-		Player player2 = new Player(name2, board, bank,722, 689,"piece2.png");
+		//String name2 = Leer.nextLine();
+		Player player2 = new Player("Luis", board, bank,722, 689,"piece2.png");
 		players.addPlayer(player2);
 
-		String name3 = Leer.nextLine();
-		Player player3 = new Player(name3, board, bank, 699, 714,"piece3.png");
+		//String name3 = Leer.nextLine();
+		Player player3 = new Player("Johan", board, bank, 699, 714,"piece3.png");
 		players.addPlayer(player3);
 		
-		String name4 = Leer.nextLine();
-		Player player4 = new Player(name4, board, bank,726, 714,"piece4.png");
+		//String name4 = Leer.nextLine();
+		Player player4 = new Player("Fabian", board, bank,726, 714,"piece4.png");
 		players.addPlayer(player4);
 
 		// // show the orden to play

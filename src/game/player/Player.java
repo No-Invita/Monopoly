@@ -203,7 +203,7 @@ public class Player {
 					boleano = false;
 				}
 			}
-			if (this.piece.posy > this.destino) {
+			while(this.piece.posy > this.destino) {
 				this.piece.posy = this.piece.posy - 1;
 			}
 			System.out.println("Estoy moviendo Up");
@@ -223,7 +223,7 @@ public class Player {
 					boleano = false;
 				}
 			}
-			if (this.piece.posx < this.destino) {
+			while (this.piece.posx < this.destino) {
 				this.piece.posx = this.piece.posx + 1;
 			}
 			System.out.println("Estoy moviendo Right");
@@ -242,7 +242,7 @@ public class Player {
 					boleano = false;
 				}
 			}
-			if (this.piece.posy < this.destino) {
+			while(this.piece.posy < this.destino) {
 				this.piece.posy = this.piece.posy + 1;
 			
 			System.out.println("Estoy moviendo Down");
