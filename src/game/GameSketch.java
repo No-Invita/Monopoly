@@ -11,10 +11,19 @@ import game.dices.dices;
 import game.Main;;
 
 public class GameSketch extends PApplet {
+	int scene = 1;
+	int numPlayers = 1;
+	int index = 1;
 	float timeexecute;
 	float timedices;
 	float capturetime;
+
+	String input = "";
+
 	PImage bg;
+	PImage sceneStart;
+	PImage sceneChoosePLayers;
+	PImage sceneInputNames;
 	PImage[] dados = new PImage[6];
 	PImage piece1;
 	PImage piece2;
@@ -23,15 +32,13 @@ public class GameSketch extends PApplet {
 
 	int distance = 61;
 	boolean visible = true;
-	// Todo esto es para leer datos atravez del teclado
-	// Trasladar a una clase aparte
-	Console console = new Console(10, 100, 48, this);
+
+	Console console = new Console(360, 386, 24, this);
 	Keyboard teclado = new Keyboard(this, console);
 	PlayerList lista = new PlayerList();
 
 	String x = "";
-	String space = " ";
-	char spaces = space.charAt(0);
+
 	Bank banco;
 	int prueba = 50;
 
@@ -49,10 +56,11 @@ public class GameSketch extends PApplet {
 	public void setup() {
 		surface.setResizable(true);
 		surface.setSize(960, 768);
-		// console.activate();
+		console.activate();
 		bg = loadImage("src/images/bg.png");
-		bg.resize(960, 768);
-
+		sceneStart = loadImage("src/images/scene_start.png");
+		sceneInputNames = loadImage("src/images/scene _inputnames.png");
+		sceneChoosePLayers = loadImage("src/images/choosePlayers.png");
 		piece1 = loadImage(lista.head.piece.path);
 		piece2 = loadImage(lista.head.next.piece.path);
 		piece3 = loadImage(lista.head.next.next.piece.path);
@@ -67,17 +75,43 @@ public class GameSketch extends PApplet {
 	@Override
 	public void draw() {
 		timeexecute = millis() / 1000;
+		switch (scene) {
+			case 1: {
+				image(sceneStart, 0, 0);
+				fill(0);
+				textSize(28);
+				text("Presiona ESPACIO para empezar", 270, 723);
+				break;
+			}
+			case 2: {
+				image(sceneChoosePLayers, 0, 0);
+				break;
+			}
+			case 3: {
+
+				image(sceneInputNames, 0, 0);
+				fill(0);
+				textSize(28);
+				text(index, 680, 350);
+				console.display();
+
+				break;
+			}
+			case 4: {
+				image(bg, 0, 0);
+				// Display the pieces
+				image(piece1, lista.head.piece.posx, lista.head.piece.posy);
+				image(piece2, lista.head.next.piece.posx, lista.head.next.piece.posy);
+				image(piece3, lista.head.next.next.piece.posx, lista.head.next.next.piece.posy);
+				image(piece4, lista.tail.piece.posx, lista.tail.piece.posy);
+				// Display the dice
+				image(dados[lista.head.result.results[0] - 1], 793, 622);
+				image(dados[lista.head.result.results[1] - 1], 869, 622);
+				break;
+			}
+		}
 
 		// Displey de board
-		image(bg, 0, 0);
-		// Display the pieces
-		image(piece1, lista.head.piece.posx, lista.head.piece.posy);
-		image(piece2, lista.head.next.piece.posx, lista.head.next.piece.posy);
-		image(piece3, lista.head.next.next.piece.posx, lista.head.next.next.piece.posy);
-		image(piece4, lista.tail.piece.posx, lista.tail.piece.posy);
-		// Display the dice
-		image(dados[lista.head.result.results[0] - 1], 793, 622);
-		image(dados[lista.head.result.results[1] - 1], 869, 622);
 
 		// try {
 
@@ -100,29 +134,42 @@ public class GameSketch extends PApplet {
 		}
 
 		if (keyCode == ENTER) {
-			x = console.chars;
-			System.out.println(x);
 			console.reset();
+			index++;
+			if (index > 4) {
+				scene = 4;
+			}
+
+		}
+		if (key == ' ') {
+			scene = 2;
 		}
 	}
 
 	@Override
 	public void mouseClicked() {
+		if (scene == 2) {
+			if (mouseX > 54 && mouseX < 276 && mouseY > 67 && mouseY < 195) {
+				numPlayers = 2;
+				scene = 3;
+			} else if (mouseX > 54 && mouseX < 276 && mouseY > 306 && mouseY < 434) {
+				numPlayers = 3;
+				scene = 3;
+			} else if (mouseX > 54 && mouseX < 276 && mouseY > 545 && mouseY < 673) {
+				numPlayers = 4;
+				scene = 3;
+			}
 
+		}
 		if (mouseX > 793 && mouseX < 939 && mouseY > 702 && mouseY < 718) {
-			// capturetime = true;
 
-			// if (timedices < 5) {
 			try {
 				lista.head.moveAround();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
-			// }
 		}
-
 	}
 
 	public void run() {

@@ -22,9 +22,11 @@ public class Console {
 	}
 
 	public void display() {
-		sketch.line(x, y, x, y + font);
+		
+		sketch.fill(0);
+		//sketch.line(x, y, x, y + font);
 		sketch.textSize(font);
-		sketch.text(this.chars, x, y);
+		sketch.text(this.chars, x, y+20);
 		
 	}
 
@@ -50,8 +52,7 @@ public class Console {
 	}
 
 	public void reset() {
-		System.out.println(this.numChars);
-		System.out.println(this.chars);
+	
 		this.chars = "";
 	}
 
