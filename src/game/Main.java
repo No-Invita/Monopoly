@@ -33,45 +33,42 @@ public class Main {
 		// // create the players list
 		PlayerList players = new PlayerList();
 		// // Create Bank
-		Bank bank = new Bank(luck, ark, players);
+		Bank bank = new Bank(luck, ark, players,board);
 		GameSketch sketch = new GameSketch(bank);
 
-		Player player1 = new Player(sketch.input, board, bank, 699, 689, "piece1.png");
-		players.addPlayer(player1);
-		// // Add the players to the players list and we sort the orden to play
-		switch (sketch.numPlayers) {
-			case 2: {
-				Player player2 = new Player(sketch.input, board, bank, 722, 689, "piece2.png");
-				players.addPlayer(player2);
-				break;
-			}
-			case 3: {
-				Player player2 = new Player(sketch.input, board, bank, 722, 689, "piece2.png");
-				players.addPlayer(player2);
-				Player player3 = new Player(sketch.input, board, bank, 699, 714, "piece3.png");
-				players.addPlayer(player3);
+		// Player player1 = new Player("Elkin", board, bank, 699, 689, "piece1.png");
+		// players.addPlayer(player1);
+		// // // Add the players to the players list and we sort the orden to play
+		// switch (sketch.numPlayers) {
+		// 	case 2: {
+		// 		Player player2 = new Player("Johan", board, bank, 722, 689, "piece2.png");
+		// 		players.addPlayer(player2);
+		// 		break;
+		// 	}
+		// 	case 3: {
+		// 		Player player2 = new Player("Luis", board, bank, 722, 689, "piece2.png");
+		// 		players.addPlayer(player2);
+		// 		Player player3 = new Player("Fabian", board, bank, 699, 714, "piece3.png");
+		// 		players.addPlayer(player3);
 
-				break;
-			}
-			case 4: {
-				Player player2 = new Player(sketch.input, board, bank, 722, 689, "piece2.png");
-				players.addPlayer(player2);
-				Player player3 = new Player(sketch.input, board, bank, 699, 714, "piece3.png");
-				players.addPlayer(player3);
-				Player player4 = new Player(sketch.input, board, bank, 726, 714, "piece4.png");
-				players.addPlayer(player4);
-			}
-		}
+		// 		break;
+		// 	}
+		// 	case 4: {
+		// 		Player player2 = new Player("Johan", board, bank, 722, 689, "piece2.png");
+		// 		players.addPlayer(player2);
+		// 		Player player3 = new Player("Luis", board, bank, 699, 714, "piece3.png");
+		// 		players.addPlayer(player3);
+		// 		Player player4 = new Player("Fabian", board, bank, 726, 714, "piece4.png");
+		// 		players.addPlayer(player4);
+		// 	}
+		// }
 
 
 		// // show the orden to play
-		System.out.println("----"+sketch.numPlayers);
-		System.out.println("El orden a jugar es:\n");
-		players.display();
 		
 		// // start game
 		// // iterate players list
-		Player current = players.head;
+		//Player current = players.head;
 		sketch.run();
 
 		// boolean ended = false;

@@ -16,12 +16,14 @@ public class Bank {
 	CardList luck;
 	CardList ark;
 	PlayerList playerList;
+	Board board;
 
-	public Bank(CardList luck, CardList ark, PlayerList playerList) {
+	public Bank(CardList luck, CardList ark, PlayerList playerList, Board board) {
 		this.luck = luck;
 		this.ark = ark;
 		this.taxeMoney = 0;
 		this.playerList = playerList;
+		this.board = board;
 	}
 
 	public void demandMoney(float amount, Player player) {

@@ -18,7 +18,7 @@ public class GameSketch extends PApplet {
 	float timedices;
 	float capturetime;
 
-	String input = "";
+	String[] input = new String[5];
 
 	PImage bg;
 	PImage sceneStart;
@@ -32,18 +32,18 @@ public class GameSketch extends PApplet {
 
 	int distance = 61;
 	boolean visible = true;
-
+	boolean loadplayers = false;
 	Console console = new Console(360, 386, 24, this);
 	Keyboard teclado = new Keyboard(this, console);
 	PlayerList lista = new PlayerList();
 
 	String x = "";
 
-	Bank banco;
+	Bank bank;
 	int prueba = 50;
 
 	public GameSketch(Bank banco) {
-		this.banco = banco;
+		this.bank = banco;
 		this.lista = banco.playerList;
 	}
 
@@ -98,8 +98,13 @@ public class GameSketch extends PApplet {
 				break;
 			}
 			case 4: {
+				if (!loadplayers) {
+					thread("loadPlayer");
+					loadplayers = true;
+				}
+
 				image(bg, 0, 0);
-				// Display the pieces
+				//Display the pieces
 				image(piece1, lista.head.piece.posx, lista.head.piece.posy);
 				image(piece2, lista.head.next.piece.posx, lista.head.next.piece.posy);
 				image(piece3, lista.head.next.next.piece.posx, lista.head.next.next.piece.posy);
@@ -134,12 +139,16 @@ public class GameSketch extends PApplet {
 		}
 
 		if (keyCode == ENTER) {
+			if (index <= numPlayers) {
+				input[index] = console.chars;
+				System.out.println(input[index]);
+				if (index == numPlayers) {
+					scene = 4;
+				}
+
+			}
 			console.reset();
 			index++;
-			if (index > 4) {
-				scene = 4;
-			}
-
 		}
 		if (key == ' ') {
 			scene = 2;
@@ -170,6 +179,37 @@ public class GameSketch extends PApplet {
 			}
 
 		}
+	}
+
+	public void loadPlayer() throws IOException {
+		
+		Player player1 = new Player(input[1], bank.board, bank, 699, 689, "piece1.png");
+		lista.addPlayer(player1);
+		switch (numPlayers) {
+			case 2: {
+				Player player2 = new Player(input[2], bank.board, bank, 699, 689, "piece1.png");
+				lista.addPlayer(player2);
+				break;
+			}
+			case 3: {
+				Player player2 = new Player(input[2], bank.board, bank, 699, 689, "piece1.png");
+				lista.addPlayer(player2);
+				Player player3 = new Player(input[3], bank.board, bank, 699, 689, "piece1.png");
+				lista.addPlayer(player3);
+
+				break;
+			}
+			case 4: {
+				Player player2 = new Player(input[2], bank.board, bank, 699, 689, "piece1.png");
+				lista.addPlayer(player2);
+				Player player3 = new Player(input[3], bank.board, bank, 699, 689, "piece1.png");
+				lista.addPlayer(player3);
+				Player player4 = new Player(input[4], bank.board, bank, 699, 689, "piece1.png");
+				lista.addPlayer(player4);
+				break;
+			}
+		}
+		lista.display();
 	}
 
 	public void run() {
