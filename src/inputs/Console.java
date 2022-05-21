@@ -1,4 +1,5 @@
 package inputs;
+
 import game.GameSketch;
 
 public class Console {
@@ -11,7 +12,7 @@ public class Console {
 	public GameSketch sketch;
 	public String output = "";
 
-	public Console(float x, float y, int font,GameSketch sketch) {
+	public Console(float x, float y, int font, GameSketch sketch) {
 		this.x = x;
 		this.y = y;
 		active = false;
@@ -22,17 +23,20 @@ public class Console {
 	}
 
 	public void display() {
-		
+
 		sketch.fill(0);
-		//sketch.line(x, y, x, y + font);
+		// sketch.line(x, y, x, y + font);
 		sketch.textSize(font);
-		sketch.text(this.chars, x, y+20);
-		
+		sketch.text(this.chars, x, y + 20);
+
 	}
 
 	public void addChar(char c) {
-		chars += c;
-		numChars++;
+		if (this.isActive()) {
+			chars += c;
+			numChars++;
+		}
+		;
 	}
 
 	public String readString() {
@@ -52,7 +56,7 @@ public class Console {
 	}
 
 	public void reset() {
-	
+
 		this.chars = "";
 	}
 

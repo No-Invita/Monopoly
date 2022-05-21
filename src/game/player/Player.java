@@ -104,7 +104,7 @@ public class Player {
 			moveForward();
 		}
 		System.out.println("Destino: " + position.name);
-		// bank.request("buy", this);
+		bank.request("buy", this);
 	}
 
 	public void moveAround(boolean x) throws IOException {
@@ -159,8 +159,7 @@ public class Player {
 				}
 			}
 		}
-		System.out.println(this.move);
-
+		
 		if (this.move.equals("Left")) {
 			if ((this.piece.posx == 699 || this.piece.posx == 722 || this.piece.posx == 726)
 					&& (this.piece.posy == 689 || this.piece.posy == 714)) {
@@ -189,7 +188,6 @@ public class Player {
 				}
 			}
 
-			System.out.println("Estoy moviendo left");
 
 		} else if (this.move.equals("Up")) {
 			if ((this.piece.posx == 23 || this.piece.posx == 46 || this.piece.posx == 50)
@@ -219,7 +217,7 @@ public class Player {
 
 				}
 			}
-			System.out.println("Estoy moviendo Up");
+	
 
 		} else if (this.move.equals("Right")) {
 			if ((this.piece.posx == 23 || this.piece.posx == 46 || this.piece.posx == 50)
@@ -246,7 +244,6 @@ public class Player {
 			while (this.piece.posx < this.destino) {
 				this.piece.posx = this.piece.posx + 1;
 			}
-			System.out.println("Estoy moviendo Right");
 
 		} else if (this.move.equals("Down")) {
 			if ((this.piece.posx == 699 || this.piece.posx == 722 || this.piece.posx == 726)
@@ -273,7 +270,6 @@ public class Player {
 			while (this.piece.posy < this.destino) {
 				this.piece.posy = this.piece.posy + 1;
 
-				System.out.println("Estoy moviendo Down");
 			}
 
 		}

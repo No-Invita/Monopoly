@@ -8,16 +8,13 @@ import game.specialcards.CardList;
 import game.util.ReadFile;
 import processing.core.PImage;
 import inputs.Console;
-
 import java.util.Scanner;
 import game.GameSketch;
 
 public class Main {
 	public static void main(String[] args) throws IOException {
-		Scanner Leer = new Scanner(System.in);
 		// // Create the board
 		Board board = new Board();
-
 		// // create the luck and Ark mass
 		CardList luck = new CardList();
 		CardList ark = new CardList();
@@ -35,39 +32,6 @@ public class Main {
 		// // Create Bank
 		Bank bank = new Bank(luck, ark, players,board);
 		GameSketch sketch = new GameSketch(bank);
-
-		// Player player1 = new Player("Elkin", board, bank, 699, 689, "piece1.png");
-		// players.addPlayer(player1);
-		// // // Add the players to the players list and we sort the orden to play
-		// switch (sketch.numPlayers) {
-		// 	case 2: {
-		// 		Player player2 = new Player("Johan", board, bank, 722, 689, "piece2.png");
-		// 		players.addPlayer(player2);
-		// 		break;
-		// 	}
-		// 	case 3: {
-		// 		Player player2 = new Player("Luis", board, bank, 722, 689, "piece2.png");
-		// 		players.addPlayer(player2);
-		// 		Player player3 = new Player("Fabian", board, bank, 699, 714, "piece3.png");
-		// 		players.addPlayer(player3);
-
-		// 		break;
-		// 	}
-		// 	case 4: {
-		// 		Player player2 = new Player("Johan", board, bank, 722, 689, "piece2.png");
-		// 		players.addPlayer(player2);
-		// 		Player player3 = new Player("Luis", board, bank, 699, 714, "piece3.png");
-		// 		players.addPlayer(player3);
-		// 		Player player4 = new Player("Fabian", board, bank, 726, 714, "piece4.png");
-		// 		players.addPlayer(player4);
-		// 	}
-		// }
-
-
-		// // show the orden to play
-		
-		// // start game
-		// // iterate players list
 		//Player current = players.head;
 		sketch.run();
 

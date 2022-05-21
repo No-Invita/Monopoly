@@ -17,13 +17,15 @@ public class Bank {
 	CardList ark;
 	PlayerList playerList;
 	Board board;
-
+	boolean ofert;
+	boolean buy;
 	public Bank(CardList luck, CardList ark, PlayerList playerList, Board board) {
 		this.luck = luck;
 		this.ark = ark;
 		this.taxeMoney = 0;
 		this.playerList = playerList;
 		this.board = board;
+		this.ofert = false;
 	}
 
 	public void demandMoney(float amount, Player player) {
@@ -49,12 +51,8 @@ public class Bank {
 	}
 
 	public void offerProperty(Card property, Player player) throws IOException {
-		System.out
-				.println("¿Deseeas comprar esta propiedad por " + property.selling_price + " ? (Destino)\n1.Si\n2.No");
-		int comprar = Leer.nextInt();
-		if (comprar == 1) {
-			this.tranferProperty(property, player);
-		}
+		this.ofert = true;
+
 	}
 
 	public void pay(float amount, Player player) {
@@ -197,6 +195,7 @@ public class Bank {
 				player.isPrisoner = true;
 				player.turnsInJail = 0;
 				while (player.position.index != 10) {
+					player.movePiece();
 					player.position = player.position.next;
 				}
 				break;
