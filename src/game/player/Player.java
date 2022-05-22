@@ -9,7 +9,6 @@ import game.dices.dices;
 import game.dices.dicesResult;
 import game.util.WriteFile;
 import game.util.ReadFile;
-import game.util.DeleteRegister;
 import game.pieces.Pieces;
 
 public class Player {
@@ -35,14 +34,15 @@ public class Player {
 	boolean left = true;
 	public int destino = 0;
 	Scanner Leer = new Scanner(System.in);
-	private boolean ingo;
 	private String move;
 	private boolean right = true;;
 	private boolean up = true;;
 	private boolean down = true;;
-	private boolean activate;
+	private boolean activate = false;
+	public String[] coor = new String[40];
+	public String[] coords;
 
-	public Player(String name, Board board, Bank bank, int x, int y, String path)
+	public Player(String name, Board board, Bank bank, String path)
 			throws IOException {
 		this.name = name;
 		this.money = 6000000;
@@ -56,7 +56,7 @@ public class Player {
 		this.outjail = 0;
 		this.prev = this;
 		this.num_properties = 0;
-		this.piece = new Pieces(x, y, path);
+		this.piece = new Pieces(path);
 		this.left = true;
 		next = this;
 		WriteFile.createFile(properties);
@@ -99,12 +99,12 @@ public class Player {
 	}
 
 	public void moveAround() throws IOException {
-		rollDices();
-		for (int i = 0; i < result.result; i++) {
+		//rollDices();
+		for (int i = 0; i < 5; i++) {
 			moveForward();
 		}
 		System.out.println("Destino: " + position.name);
-		bank.request("buy", this);
+		// bank.request("buy", this);
 	}
 
 	public void moveAround(boolean x) throws IOException {
@@ -121,7 +121,6 @@ public class Player {
 
 	public void moveForward() throws IOException {
 		position = position.next;
-		this.movePiece();
 		if (isInGo()) {
 			bank.request("go", this);
 			System.out.println("pasé por salida");
@@ -130,12 +129,34 @@ public class Player {
 
 	public void movePiece() throws IOException {
 
+		switch (this.turno) {
+			case 1: {
+				coor = ReadFile.read("src/data/coordinatesRED");
+
+				break;
+			}
+			case 2: {
+				coor = ReadFile.read("src/data/coordinatesBLUE");
+
+				break;
+			}
+			case 3: {
+				coor = ReadFile.read("src/data/coordinatesGREEN");
+				break;
+			}
+			case 4: {
+				coor = ReadFile.read("src/data/coordinatesYELLOW");
+				break;
+			}
+		}
+		coords = coor[position.index].split(",");
+
 		if (!activate) {
-		left = true;
-		up = true;
-		right = true;
-		down = true;
-		activate = true;
+			left = true;
+			up = true;
+			right = true;
+			down = true;
+			activate = true;
 		}
 		if (this.piece.posx > this.piece.topex && left) {
 			this.move = "Left";
@@ -159,121 +180,32 @@ public class Player {
 				}
 			}
 		}
-		
-		if (this.move.equals("Left")) {
-			if ((this.piece.posx == 699 || this.piece.posx == 722 || this.piece.posx == 726)
-					&& (this.piece.posy == 689 || this.piece.posy == 714)) {
-				boleano = true;
-				if (boleano) {
-					this.destino = this.piece.posx - 90;
-					boleano = false;
-				}
-			} else if ((this.piece.posx == 105 || this.piece.posx == 128 || this.piece.posx == 132)
-					&& (this.piece.posy == 689 || this.piece.posy == 714)) {
-				boleano = true;
-				if (boleano) {
-					this.destino = this.piece.posx - 82;
-					boleano = false;
-				}
-			} else {
-				boleano = true;
-				if (boleano) {
-					this.destino = this.piece.posx - this.piece.distancex;
-					boleano = false;
-				}
-			}
-			while (this.piece.posx > this.destino) {
-				if (this.piece.posx > this.destino) {
-					this.piece.posx = this.piece.posx - 1;
-				}
-			}
 
+		if (this.move.equals("Left")) {
+			if (this.piece.posx > Integer.parseInt(coords[0])) {
+				this.piece.posx = this.piece.posx - 1;
+			}
 
 		} else if (this.move.equals("Up")) {
-			if ((this.piece.posx == 23 || this.piece.posx == 46 || this.piece.posx == 50)
-					&& (this.piece.posy == 689 || this.piece.posy == 714)) {
-				boleano = true;
-				if (boleano) {
-					this.destino = this.piece.posy - 86;
-					boleano = false;
-				}
-			} else if ((this.piece.posx == 23 || this.piece.posx == 46 || this.piece.posx == 50)
-					&& (this.piece.posy == 107 || this.piece.posy == 132)) {
-				boleano = true;
-				if (boleano) {
-					this.destino = this.piece.posy - 85;
-					boleano = false;
-				}
-			} else {
-				boleano = true;
-				if (boleano) {
-					this.destino = this.piece.posy - this.piece.distancey;
-					boleano = false;
-				}
-			}
-			while (this.piece.posy > this.destino) {
-				if (this.piece.posy > this.destino) {
-					this.piece.posy = this.piece.posy - 1;
 
-				}
+			if (this.piece.posy > Integer.parseInt(coords[1])) {
+				this.piece.posy = this.piece.posy - 1;
 			}
-	
 
 		} else if (this.move.equals("Right")) {
-			if ((this.piece.posx == 23 || this.piece.posx == 46 || this.piece.posx == 50)
-					&& (this.piece.posy == 22 || this.piece.posy == 45)) {
-				boleano = true;
-				if (boleano) {
-					this.destino = this.piece.posx + 82;
-					boleano = false;
-				}
-			} else if ((this.piece.posx == 609 || this.piece.posx == 632 || this.piece.posx == 636)
-					&& (this.piece.posy == 22 || this.piece.posy == 45)) {
-				boleano = true;
-				if (boleano) {
-					this.destino = this.piece.posx + 90;
-					boleano = false;
-				}
-			} else {
-				boleano = true;
-				if (boleano) {
-					this.destino = this.piece.posx + this.piece.distancex;
-					boleano = false;
-				}
-			}
-			while (this.piece.posx < this.destino) {
+
+			if (this.piece.posx < Integer.parseInt(coords[0])) {
 				this.piece.posx = this.piece.posx + 1;
 			}
 
 		} else if (this.move.equals("Down")) {
-			if ((this.piece.posx == 699 || this.piece.posx == 722 || this.piece.posx == 726)
-					&& (this.piece.posy == 22 || this.piece.posy == 45)) {
-				boleano = true;
-				if (boleano) {
-					this.destino = this.piece.posy + 85;
-					boleano = false;
-				}
-			} else if ((this.piece.posx == 699 || this.piece.posx == 722 || this.piece.posx == 626)
-					&& (this.piece.posy == 603 || this.piece.posy == 626)) {
-				boleano = true;
-				if (boleano) {
-					this.destino = this.piece.posy + 86;
-					boleano = false;
-				}
-			} else {
-				boleano = true;
-				if (boleano) {
-					this.destino = this.piece.posy + this.piece.distancey;
-					boleano = false;
-				}
-			}
-			while (this.piece.posy < this.destino) {
+
+			if (this.piece.posy < Integer.parseInt(coords[1])) {
 				this.piece.posy = this.piece.posy + 1;
 
 			}
-
 		}
-		System.out.println(this.piece.posx+" "+this.piece.posy);
+
 	}
 
 	public void moveTo(int pos) throws IOException {

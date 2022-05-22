@@ -5,7 +5,7 @@ import game.player.Player;
 public class Go extends Card {
 
     public Go() {
-        this.name = "Go";
+        this.name = "Sincelejo";
         this.type = "go";
         this.isOwnable = false;
         this.isOwned = false;

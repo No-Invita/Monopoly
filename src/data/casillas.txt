@@ -16,7 +16,7 @@ Torre del Reloj,650000,56700,ownership
 Transcaribe,810000,100000,transport
 Mercado de Bazurto,730000,68900,ownership
 Arca,0,0,ark
-La Plazuela,730000,68900,ownership
+La Serrezuela,730000,68900,ownership
 Estatua India Catalina,810000,81000,ownership
 Volcan del totumo,0,0,free stop
 Estadio Metropolitano,890000,93000,ownership
@@ -30,7 +30,7 @@ Triple A,607000,0,service
 Puente Pumarejo,1130000,154000,ownership
 Vayase a la carcel,0,0,go to jail
 Bahia,1210000,182000,ownership
-Estadio El Pibe,1210000,182000,ownership
+Estadio Sierra Nevada,1210000,182000,ownership
 Arca,0,0,ark
 Avenida del ferrocarril,1300000,222000,ownership
 SETP Santa Marta,810000,100000,transport

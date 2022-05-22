@@ -19,6 +19,11 @@ public class Bank {
 	Board board;
 	boolean ofert;
 	boolean buy;
+	boolean fallontransport;
+	boolean pay;
+	int paying = 0;
+	boolean fallonservices;
+
 	public Bank(CardList luck, CardList ark, PlayerList playerList, Board board) {
 		this.luck = luck;
 		this.ark = ark;
@@ -52,7 +57,6 @@ public class Bank {
 
 	public void offerProperty(Card property, Player player) throws IOException {
 		this.ofert = true;
-
 	}
 
 	public void pay(float amount, Player player) {
@@ -76,28 +80,37 @@ public class Bank {
 					} else {
 						switch (player.position.type) {
 							case "transport": {
-								transferMoney(player, player.position.owner,
-										player.position.rental_price * player.position.owner.transport);
-								System.out.println(player.name + " transfiere "
-										+ player.position.rental_price * player.position.owner.transport + " a "
-										+ player.position.owner.name + " Por tener " + player.position.owner.transport
-										+ " trasnportes");
+								if (player.position.owner != player) {
+									transferMoney(player, player.position.owner,
+											player.position.rental_price * player.position.owner.transport);
+									fallontransport = true;
+								}
 								break;
 							}
 							case "service": {
-								int paying = player.position.rental_price * player.position.owner.services
-										* player.rollDices().result;
+								switch (player.position.owner.services) {
+									case 1: {
+										paying = player.position.rental_price * 4
+												* player.rollDices().result;
+										break;
+									}
+									case 2: {
+										paying = player.position.rental_price * 10
+												* player.rollDices().result;
+										break;
+									}
+								}
 								transferMoney(player, player.position.owner,
 										paying);
-								System.out.println(player + " transfiere " + paying + " a " + player.position.owner
-										+ " porque tiene " + player.position.owner.services
-										+ "servicios y el resultado de los dados fue " + player.result.result);
+								fallonservices = true;
 								break;
 							}
 							default: {
-								transferMoney(player, player.position.owner, player.position.rental_price);
-								System.out.println(player.name + " transfiere " + player.position.rental_price + " a "
-										+ player.position.owner.name + " Por caer en " + player.position.name);
+								if (player.position.owner != player) {
+									transferMoney(player, player.position.owner, player.position.rental_price);
+									pay = true;
+								}
+								break;
 							}
 						}
 					}
@@ -105,7 +118,7 @@ public class Bank {
 					switch (player.position.type) {
 						case "taxe": {
 							demandMoney(player.position.rental_price, player);
-							System.out.println(player.name + " pago impuesto a los tombos");
+							pay = true;
 							break;
 						}
 						case "luck": {

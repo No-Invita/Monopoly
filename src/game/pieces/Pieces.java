@@ -13,14 +13,12 @@ public class Pieces {
   public int topex;
   public int topey;
 
-  public Pieces(int x, int y, String path) {
-    this.posx = x;
-    this.posy = y;
+  public Pieces(String path) {
+    
     this.path += path;
     this.distancex = 63;
     this.distancey = 62 ;
-    this.topex = this.posx - 676;
-    this.topey = this.posy - 667;
+    
   }
 
 }
