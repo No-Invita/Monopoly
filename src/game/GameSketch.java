@@ -34,7 +34,7 @@ public class GameSketch extends PApplet {
 	PImage piece4;
 	PImage dialog;
 	PImage ark;
-	PImage turn1D, turn2D, turn3D, turn4D;
+	PImage turn1D, turn2D, turn3D, turn4D, ofertexitjail;
 	PImage turn1L, turn2L, turn3L, turn4L;
 	PFont font;
 
@@ -42,7 +42,7 @@ public class GameSketch extends PApplet {
 	boolean loadplayers = false;
 	boolean move = false;
 	boolean launch = false;
-
+	boolean sleep = false;
 	Console console = new Console(360, 386, 24, this);
 	Keyboard teclado = new Keyboard(this, console);
 	PlayerList lista;
@@ -70,7 +70,7 @@ public class GameSketch extends PApplet {
 		sceneStart = loadImage("src/images/scene_start.png");
 		sceneInputNames = loadImage("src/images/scene _inputnames.png");
 		sceneChoosePLayers = loadImage("src/images/choosePlayers.png");
-
+		ofertexitjail = loadImage("src/images/ofertexitjail.png");
 		ofert = loadImage("src/images/ofert.png");
 		piece1 = loadImage("src/images/piece1.png");
 		piece2 = loadImage("src/images/piece2.png");
@@ -113,9 +113,9 @@ public class GameSketch extends PApplet {
 				textFont(font);
 				fill(255, 255, 255);
 				textSize(30);
-				text("2 Jugadores", 98, 124);
-				text("3 Jugadores", 98, 360);
-				text("4 Jugadores", 98, 602);
+				text("2 Jugadores", 98, 138);
+				text("3 Jugadores", 98, 378);
+				text("4 Jugadores", 98, 620);
 				break;
 			}
 			case 3: {
@@ -149,7 +149,7 @@ public class GameSketch extends PApplet {
 				textFont(font);
 				textSize(18);
 				text(lista.head.name, 812, 69);
-				text(lista.head.money, 830, 151);
+				text("$" + lista.head.money, 830, 151);
 				// Check the num of players
 
 				switch (numPlayers) {
@@ -161,7 +161,7 @@ public class GameSketch extends PApplet {
 						// name of player 2
 						text(lista.head.next.name, 812, 207);
 						// money of player 2
-						text(lista.head.next.money, 830, 289);
+						text("$" + lista.head.next.money, 830, 289);
 
 						image(turn1L, 775, 88);
 						image(turn2L, 775, 230);
@@ -186,11 +186,11 @@ public class GameSketch extends PApplet {
 						// name of player 2
 						text(lista.head.next.name, 812, 207);
 						// money player 2
-						text(lista.head.next.money, 830, 289);
+						text("$" + lista.head.next.money, 830, 289);
 						// piece of player 3
 						image(piece3, lista.tail.piece.posx, lista.tail.piece.posy);
 						// money player 3
-						text(lista.head.next.next.money, 830, 434);
+						text("$" + lista.head.next.next.money, 830, 434);
 						// name player 3
 						text(lista.tail.name, 812, 352);
 
@@ -231,11 +231,11 @@ public class GameSketch extends PApplet {
 						// name of player 4
 						text(lista.tail.name, 812, 497);
 						// money player 2
-						text(lista.head.next.money, 830, 289);
+						text("$" + lista.head.next.money, 830, 289);
 						// money player 3
-						text(lista.head.next.next.money, 830, 434);
+						text("$" + lista.head.next.next.money, 830, 434);
 						// money player 4
-						text(lista.tail.money, 830, 579);
+						text("$" + lista.tail.money, 830, 579);
 
 						image(turn1L, 775, 88);
 						image(turn2L, 775, 230);
@@ -285,16 +285,20 @@ public class GameSketch extends PApplet {
 				}
 
 				if (bank.ofert) {
-					fill(0);
-					textFont(font);
-					textSize(24);
-					image(ofert, 145, 253);
-					text("¿Deseas comprar " + current.position.name + " por \ntan solo "
-							+ current.position.selling_price + " barritas?", 190, 315);
-					{
-						fill(255, 255, 255);
-						text("Sisas", 223, 453);
-						text("Nega", 510, 453);
+					if (!current.isPrisoner) {
+						fill(0);
+						textFont(font);
+						textSize(24);
+						image(ofert, 145, 253);
+						text("¿Deseas comprar " + current.position.name + " por \ntan solo "
+								+ current.position.selling_price + " barritas?", 190, 315);
+						{
+							fill(255, 255, 255);
+							text("Sisas", 223, 453);
+							text("Nega", 510, 453);
+						}
+					} else {
+						image(ofertexitjail, 145, 253);
 					}
 				}
 
@@ -358,6 +362,12 @@ public class GameSketch extends PApplet {
 					textFont(font);
 					textSize(14);
 					text(bank.card.description, 273, 365);
+				}
+				if (sleep) {
+					fill(0);
+					textFont(font);
+					textSize(15);
+					text("Aja papa bello estas dormido\nSacaste doble, tira otra vez", 595, 160);
 				}
 				switch (current.position.type) {
 					case "gotojail": {
@@ -424,27 +434,60 @@ public class GameSketch extends PApplet {
 						if (!current.isPrisoner) {
 							if (!changeturn) {
 								try {
-
 									image(loadImage("src/images/launch.png"), 794, 704);
-									
+									current.moveAround();
+									sleep = false;
 									move = true;
 								} catch (IOException e) {
 									e.printStackTrace();
 								}
-								changeturn = true;
+								if (!current.result.isPair && !current.isPrisoner) {
+									changeturn = true;
+								}
+
 							}
 						}
 					}
 				}
 			}
 			if (bank.ofert && mouseX > 195 && mouseX < 283 && mouseY > 422 && mouseY < 472) {
-				try {
-					bank.tranferProperty(current.position, current);
-				} catch (IOException e) {
-					e.printStackTrace();
+				if (!current.isPrisoner) {
+					try {
+						bank.tranferProperty(current.position, current);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				} else {
+					try {
+						bank.request("exitjail", current);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+
 				}
 				bank.ofert = false;
 			} else if (bank.ofert && mouseX > 486 && mouseX < 574 && mouseY > 422 && mouseY < 472) {
+				bank.ofert = false;
+				current.rollDices();
+				if (current.result.isPair) {
+					try {
+						bank.request("exitjailfree", current);
+					} catch (IOException e) {
+
+						e.printStackTrace();
+					}
+					try {
+						current.moveAround(true);
+					} catch (IOException e) {
+
+						e.printStackTrace();
+					}
+				} else {
+					current.turnsInJail++;
+					System.out.println("f");
+					current = current.next;
+					changeturn = false;
+				}
 				bank.ofert = false;
 			}
 
@@ -458,7 +501,16 @@ public class GameSketch extends PApplet {
 					current = current.next;
 					current.result.results = current.prev.result.results;
 					changeturn = false;
+					if (current.isPrisoner) {
+						try {
+							current.playInJail();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
 
+				} else {
+					sleep = true;
 				}
 			}
 
@@ -470,6 +522,7 @@ public class GameSketch extends PApplet {
 				current.movearound = true;
 			}
 		}
+
 	}
 
 	public void loadPlayer() throws IOException {

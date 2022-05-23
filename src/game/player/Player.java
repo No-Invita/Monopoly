@@ -96,7 +96,7 @@ public class Player {
 
 	public void moveAround() throws IOException {
 		rollDices();
-		for (int i = 0; i < result.result; i++) {
+		for (int i = 0; i < 10; i++) {
 			moveForward();
 		}
 		System.out.println("Destino: " + position.name);
@@ -108,7 +108,7 @@ public class Player {
 			moveForward();
 		}
 		System.out.println("Destino: " + position.name);
-		bank.request("buy", this);
+		//bank.request("buy", this);
 	}
 
 	public void moveBackward() {
@@ -226,8 +226,7 @@ public class Player {
 
 			if (this.piece.posx < Integer.parseInt(coords[0])) {
 				this.piece.posx = this.piece.posx + 1;
-				System.out.println(this.piece.posx);
-				System.out.println(Integer.parseInt(coords[0]));
+			
 			}
 
 		} else if (this.move.equals("Down")) {
@@ -242,21 +241,7 @@ public class Player {
 	public void playInJail() throws IOException {
 		if (this.turnsInJail < 3) {
 			if (this.outjail != 1) {
-				System.out.println("¿desea salir de la carcel pagando 200000? \t1: si \t2:no");
-				int salir = Leer.nextInt();
-				if (salir == 1) {
-					bank.request("exitjail", this);
-					System.out.println("saliste de la carcel");
-				} else {
-					rollDices();
-					if (result.isPair) {
-						bank.request("exitjailfree", this);
-						moveAround(true);
-					} else {
-						System.out.println("ni modo no saliste de la carcel");
-						turnsInJail++;
-					}
-				}
+				bank.ofert = true;
 			} else {
 				System.out.println("deseas usar la tarjeta de salir de la carcel? \t1: si \t2:no");
 				int salir = Leer.nextInt();

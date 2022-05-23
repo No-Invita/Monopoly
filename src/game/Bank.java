@@ -17,7 +17,7 @@ public class Bank {
 	CardList ark;
 	PlayerList playerList;
 	Board board;
-	boolean ofert;
+	public boolean ofert;
 	boolean buy;
 	boolean fallontransport;
 	boolean pay;
@@ -286,7 +286,7 @@ public class Bank {
 	public void negociar(Player emisor, Player receptor, String index_ownwership_emisor, int index_ownwership_receptor,
 			int amount_emisor, float amount_receptor) throws IOException {
 		String proper = DeleteRegister.deleteRegister(emisor.properties, index_ownwership_emisor);
-		WriteFile.write(receptor.properties, proper, receptor.num_properties);
+		//WriteFile.write(receptor.properties, proper, receptor.num_properties,proper);
 	}
 
 }
