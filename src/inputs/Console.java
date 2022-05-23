@@ -56,8 +56,8 @@ public class Console {
 	}
 
 	public void reset() {
-
 		this.chars = "";
+		this.numChars= 0;
 	}
 
 	public void deleteChar() {

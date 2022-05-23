@@ -1,6 +1,6 @@
 package game.cards;
 
-import game.player.Player;
+
 
 public class Go extends Card {
 

@@ -15,7 +15,7 @@ public class Player {
 
 	public String name;
 	public int turno;
-	public float money;
+	public int money;
 	public Card position;
 	public boolean isPrisoner;
 	public int turnsInJail;
@@ -31,16 +31,13 @@ public class Player {
 	public int num_properties;
 	public Pieces piece;
 	public boolean boleano = false;
-	boolean left = true;
-	public int destino = 0;
+	public boolean movearound;
 	Scanner Leer = new Scanner(System.in);
 	private String move;
-	private boolean right = true;;
-	private boolean up = true;;
-	private boolean down = true;;
-	private boolean activate = false;
+
 	public String[] coor = new String[40];
 	public String[] coords;
+	public boolean teleport = false;
 
 	public Player(String name, Board board, Bank bank, String path)
 			throws IOException {
@@ -57,17 +54,17 @@ public class Player {
 		this.prev = this;
 		this.num_properties = 0;
 		this.piece = new Pieces(path);
-		this.left = true;
 		next = this;
+		this.movearound = true;
 		WriteFile.createFile(properties);
 	}
 
-	public void getMoney(float amount) {
+	public void getMoney(int amount) {
 		this.money += amount;
 
 	}
 
-	public void giveMoney(float amount) {
+	public void giveMoney(int amount) {
 		if (amount <= this.money) {
 			this.money -= amount;
 			System.out.println("Ahora tengo " + this.money);
@@ -91,7 +88,6 @@ public class Player {
 
 	public void goJail() throws IOException {
 		bank.request("gojail", this);
-		// this.position = 10;
 	}
 
 	public boolean isInGo() {
@@ -99,8 +95,8 @@ public class Player {
 	}
 
 	public void moveAround() throws IOException {
-		//rollDices();
-		for (int i = 0; i < 5; i++) {
+		rollDices();
+		for (int i = 0; i < result.result; i++) {
 			moveForward();
 		}
 		System.out.println("Destino: " + position.name);
@@ -112,11 +108,17 @@ public class Player {
 			moveForward();
 		}
 		System.out.println("Destino: " + position.name);
-		// bank.request("buy", this);
+		bank.request("buy", this);
 	}
 
 	public void moveBackward() {
 		position = position.prev;
+	}
+
+	public void moveBackward(int x) {
+		do {
+			position = position.prev;
+		} while (position.index != position.index - x);
 	}
 
 	public void moveForward() throws IOException {
@@ -127,55 +129,82 @@ public class Player {
 		}
 	}
 
+	public void moveTo(int pos) throws IOException {
+		Card aux = position;
+		Card search = position;
+		int i = 0;
+		int j = 0;
+		if (pos == 0) {
+			do {
+				aux = aux.next;
+				i++;
+
+			} while (!aux.type.equals("transport"));
+			do {
+				search = search.prev;
+				j++;
+				System.out.println("----" + aux.type + "----");
+			} while (!search.type.equals("transport"));
+			if (i <= j) {
+				do {
+					moveForward();
+				} while (position.index != aux.index);
+			} else {
+				do {
+					moveBackward();
+				} while (position.index != search.index);
+
+			}
+		} else {
+			do {
+				moveForward();
+			} while (position.index != pos);
+		}
+
+	}
+
 	public void movePiece() throws IOException {
 
 		switch (this.turno) {
 			case 1: {
-				coor = ReadFile.read("src/data/coordinatesRED");
+				coor = ReadFile.read("src/game/pieces/piecescoors/coordinatesRED");
 
 				break;
 			}
 			case 2: {
-				coor = ReadFile.read("src/data/coordinatesBLUE");
+				coor = ReadFile.read("src/game/pieces/piecescoors/coordinatesBLUE");
 
 				break;
 			}
 			case 3: {
-				coor = ReadFile.read("src/data/coordinatesGREEN");
+				coor = ReadFile.read("src/game/pieces/piecescoors/coordinatesGREEN");
 				break;
 			}
 			case 4: {
-				coor = ReadFile.read("src/data/coordinatesYELLOW");
+				coor = ReadFile.read("src/game/pieces/piecescoors/coordinatesYELLOW");
 				break;
 			}
 		}
 		coords = coor[position.index].split(",");
 
-		if (!activate) {
-			left = true;
-			up = true;
-			right = true;
-			down = true;
-			activate = true;
-		}
-		if (this.piece.posx > this.piece.topex && left) {
+		if (this.piece.posx > this.piece.topex && this.piece.posy == this.piece.topey + 670) {
 			this.move = "Left";
 		} else {
-			left = false;
-			if (this.piece.posy > this.piece.topey && up) {
 
+			if (this.piece.posy > this.piece.topey && this.piece.posx == this.piece.topex) {
 				this.move = "Up";
 			} else {
-				up = false;
-				if (this.piece.posx < this.piece.topex + 676 && right) {
+
+				if (this.piece.posx < this.piece.topex + 673 && this.piece.posy == this.piece.topey) {
 					this.move = "Right";
+
 				} else {
-					right = false;
-					if (this.piece.posy < this.piece.topey + 667 && down) {
+
+					if (this.piece.posy < this.piece.topey + 670 && this.piece.posx == this.piece.topex + 673) {
 						this.move = "Down";
 					} else {
 						this.move = "Left";
-						activate = false;
+
 					}
 				}
 			}
@@ -184,6 +213,7 @@ public class Player {
 		if (this.move.equals("Left")) {
 			if (this.piece.posx > Integer.parseInt(coords[0])) {
 				this.piece.posx = this.piece.posx - 1;
+
 			}
 
 		} else if (this.move.equals("Up")) {
@@ -196,22 +226,17 @@ public class Player {
 
 			if (this.piece.posx < Integer.parseInt(coords[0])) {
 				this.piece.posx = this.piece.posx + 1;
+				System.out.println(this.piece.posx);
+				System.out.println(Integer.parseInt(coords[0]));
 			}
 
 		} else if (this.move.equals("Down")) {
-
 			if (this.piece.posy < Integer.parseInt(coords[1])) {
 				this.piece.posy = this.piece.posy + 1;
 
 			}
 		}
 
-	}
-
-	public void moveTo(int pos) throws IOException {
-		do {
-			moveForward();
-		} while (position.index != pos);
 	}
 
 	public void playInJail() throws IOException {

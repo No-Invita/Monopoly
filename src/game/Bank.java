@@ -23,6 +23,8 @@ public class Bank {
 	boolean pay;
 	int paying = 0;
 	boolean fallonservices;
+	boolean launchluck, launchArk;
+	CardNode card;
 
 	public Bank(CardList luck, CardList ark, PlayerList playerList, Board board) {
 		this.luck = luck;
@@ -33,7 +35,7 @@ public class Bank {
 		this.ofert = false;
 	}
 
-	public void demandMoney(float amount, Player player) {
+	public void demandMoney(int amount, Player player) {
 		player.giveMoney(amount);
 	}
 
@@ -59,7 +61,7 @@ public class Bank {
 		this.ofert = true;
 	}
 
-	public void pay(float amount, Player player) {
+	public void pay(int amount, Player player) {
 		player.getMoney(amount);
 	}
 
@@ -124,8 +126,10 @@ public class Bank {
 						case "luck": {
 							// Leees la tarjeta de fortuna
 							System.out.println("Estas en suerte");
-							CardNode card = luck.pickRandomNode();
+							card = luck.pickRandomNode();
 							System.out.println(card.description);
+							launchluck = true;
+							player.movearound = false;
 							switch (card.type) {
 								case "dar": {
 									demandMoney(card.param, player);
@@ -141,11 +145,9 @@ public class Bank {
 									if (!luck.isPicked) {
 										player.outjail = 1;
 									} else {
-										request("luck", player);
+										request("buy", player);
 									}
-
 									break;
-
 								}
 								case "apresar": {
 									player.goJail();
@@ -161,8 +163,10 @@ public class Bank {
 						}
 						case "ark": {
 							System.out.println("Estas en arca");
-							CardNode card = ark.pickRandomNode();
+							card = ark.pickRandomNode();
 							System.out.println(card.description);
+							launchArk = true;
+							player.movearound = false;
 							switch (card.type) {
 								case "moverse a": {
 									player.moveTo(card.param);
@@ -187,6 +191,11 @@ public class Bank {
 									}
 									break;
 								}
+								case "moverse atras": {
+									player.moveTo(card.param);
+									System.out.println("Retrocedi hasta " + player.position.name);
+									break;
+								}
 							}
 							break;
 						}
@@ -204,13 +213,15 @@ public class Bank {
 				break;
 			}
 			case "gojail": {
-				System.out.println("encarcelado");
 				player.isPrisoner = true;
 				player.turnsInJail = 0;
 				while (player.position.index != 10) {
-					player.movePiece();
 					player.position = player.position.next;
 				}
+
+				player.piece.posx = Integer.parseInt(player.coor[player.position.index].split(",")[0]);
+				player.piece.posy = Integer.parseInt(player.coor[player.position.index].split(",")[1]);
+
 				break;
 			}
 			case "exitjail": {
@@ -273,7 +284,7 @@ public class Bank {
 	}
 
 	public void negociar(Player emisor, Player receptor, String index_ownwership_emisor, int index_ownwership_receptor,
-			float amount_emisor, float amount_receptor) throws IOException {
+			int amount_emisor, float amount_receptor) throws IOException {
 		String proper = DeleteRegister.deleteRegister(emisor.properties, index_ownwership_emisor);
 		WriteFile.write(receptor.properties, proper, receptor.num_properties);
 	}

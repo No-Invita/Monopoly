@@ -39,8 +39,13 @@ public class CardList {
 	public void loadList(String[] leer) {
 		for (String place : leer) {
 			String[] piece = place.split(";");
+			String[] extra = piece[0].split("&");
+			String description = "";
+			for (int i = 0; i < extra.length; i++) {
+				description += extra[i].trim() + "\n";
+			}
 			add(
-					piece[0].trim(),
+					description,
 					piece[1].trim(),
 					Integer.parseInt(piece[2].trim()));
 		}

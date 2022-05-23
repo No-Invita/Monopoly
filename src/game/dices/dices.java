@@ -13,7 +13,7 @@ public class dices {
 
     public static int max_value = 6;
 
-    public static dicesResult rollDices() {
+    public static dicesResult rollDices() {        
         int first = (int) Math.ceil(Math.random() * max_value);
         pahtDices[0] = dices[first - 1];
         int last = (int) Math.ceil(Math.random() * max_value);

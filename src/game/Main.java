@@ -17,7 +17,7 @@ public class Main {
 		// // Read the data files
 		String[] data = ReadFile.read("src/data/casillas");
 		String[] luckdata = ReadFile.read("src/data/luck");
-		String[] arkdata = ReadFile.read("src/data/ark");
+		String[] arkdata = ReadFile.read("src/data/ark");	
 		// // Load the board
 		board.loadBoard(data);
 		// // load the luck and ark cards

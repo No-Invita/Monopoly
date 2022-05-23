@@ -14,8 +14,8 @@ public class GameSketch extends PApplet {
 	int scene = 1;
 	int numPlayers = 1;
 	int index = 1;
-
 	float timeexecute;
+
 	float timedices;
 	float capturetime;
 
@@ -33,8 +33,10 @@ public class GameSketch extends PApplet {
 	PImage piece3;
 	PImage piece4;
 	PImage dialog;
-
-	PFont font, font2;
+	PImage ark;
+	PImage turn1D, turn2D, turn3D, turn4D;
+	PImage turn1L, turn2L, turn3L, turn4L;
+	PFont font;
 
 	boolean changeturn = false;
 	boolean loadplayers = false;
@@ -46,6 +48,7 @@ public class GameSketch extends PApplet {
 	PlayerList lista;
 	Bank bank;
 	Player current;
+	private PImage luck;
 
 	public GameSketch(Bank banco) {
 		this.bank = banco;
@@ -75,6 +78,16 @@ public class GameSketch extends PApplet {
 		piece4 = loadImage("src/images/piece4.png");
 		dialog = loadImage("src/images/dialog.png");
 		player = loadImage("src/images/player.png");
+		luck = loadImage("src/images/luck.png");
+		ark = loadImage("src/images/ark.png");
+		turn1D = loadImage("src/images/turn1Dark.png");
+		turn2D = loadImage("src/images/turn2Dark.png");
+		turn3D = loadImage("src/images/turn3Dark.png");
+		turn4D = loadImage("src/images/turn4Dark.png");
+		turn1L = loadImage("src/images/turn1Light.png");
+		turn2L = loadImage("src/images/turn2Light.png");
+		turn3L = loadImage("src/images/turn3Light.png");
+		turn4L = loadImage("src/images/turn4Light.png");
 		dices.upLoad();
 		for (int i = 0; i < dices.dices.length; i++) {
 			dados[i] = loadImage(dices.dices[i]);
@@ -92,18 +105,25 @@ public class GameSketch extends PApplet {
 				fill(0);
 				textFont(font);
 				textSize(35);
-				text("Presiona espacio para empezar", 270, 723);
+				text("Presiona espacio para empezar", 277, 729);
 				break;
 			}
 			case 2: {
 				image(sceneChoosePLayers, 0, 0);
+				textFont(font);
+				fill(255, 255, 255);
+				textSize(30);
+				text("2 Jugadores", 98, 124);
+				text("3 Jugadores", 98, 360);
+				text("4 Jugadores", 98, 602);
 				break;
 			}
 			case 3: {
 				image(sceneInputNames, 0, 0);
 				fill(0);
+				textSize(28);
 				textFont(font);
-				text(index, 680, 350);
+				text("Nombre del jugador #" + index, 289, 357);
 				console.display();
 				break;
 			}
@@ -120,56 +140,122 @@ public class GameSketch extends PApplet {
 				// dispaly te board
 				image(bg, 0, 0);
 				image(dialog, 452, 117);
-				// Display the pieces
+				// display piece of player 1
+				image(piece1, lista.head.piece.posx, lista.head.piece.posy);
+				// avatar of player 1
+				image(player, 809, 54);
+				// Display the money and name of player 1
 				fill(0);
 				textFont(font);
 				textSize(18);
-				image(piece1, lista.head.piece.posx, lista.head.piece.posy);
-				image(player, 809, 50);
-				text(lista.head.name, 845, 66);
+				text(lista.head.name, 812, 69);
+				text(lista.head.money, 830, 151);
+				// Check the num of players
+
 				switch (numPlayers) {
 					case 2: {
-						image(piece2, lista.head.next.piece.posx, lista.head.next.piece.posy);
-						image(player, 809, 102);
-						text(lista.head.next.name, 845, 207);
+						// diece of player 2
+						image(piece2, lista.tail.piece.posx, lista.tail.piece.posy);
+						// avatar of player 2
+						image(player, 809, 192);
+						// name of player 2
+						text(lista.head.next.name, 812, 207);
+						// money of player 2
+						text(lista.head.next.money, 830, 289);
+
+						image(turn1L, 775, 88);
+						image(turn2L, 775, 230);
+
+						switch (current.turno) {
+							case 1:
+								image(turn1D, 775, 88);
+								break;
+							case 2:
+								image(turn2D, 775, 230);
+								break;
+						}
 						break;
 					}
 					case 3: {
-						image(piece2, lista.head.next.piece.posx, lista.head.next.piece.posy);
-						image(piece3, lista.tail.prev.piece.posx, lista.tail.prev.piece.posy);
+						// avatar of player 2
 						image(player, 809, 192);
-						image(player, 809, 347);
-						text(lista.head.next.name, 845, 207);
-						text(lista.head.next.next.name, 845, 352);
+						// avatar player 3
+						image(player, 809, 337);
+						// display the piece of player 2
+						image(piece2, lista.head.next.piece.posx, lista.head.next.piece.posy);
+						// name of player 2
+						text(lista.head.next.name, 812, 207);
+						// money player 2
+						text(lista.head.next.money, 830, 289);
+						// piece of player 3
+						image(piece3, lista.tail.piece.posx, lista.tail.piece.posy);
+						// money player 3
+						text(lista.head.next.next.money, 830, 434);
+						// name player 3
+						text(lista.tail.name, 812, 352);
+
+						image(turn1L, 775, 88);
+						image(turn2L, 775, 230);
+						image(turn3L, 775, 375);
+
+						switch (current.turno) {
+							case 1:
+								image(turn1D, 775, 88);
+								break;
+							case 2:
+								image(turn2D, 775, 230);
+								break;
+							case 3:
+								image(turn3D, 775, 375);
+								break;
+						}
 						break;
 					}
 					case 4: {
-						try {
-							current.movePiece();
-						} catch (IOException e) {
-							e.printStackTrace();
-						}
-						if (move) {
-							if (current.piece.posx == Integer.parseInt(current.coords[0])
-									&& current.piece.posy == Integer.parseInt(current.coords[1])) {
-								try {
-									bank.request("buy", current);
-								} catch (IOException e1) {
-									e1.printStackTrace();
-								}
-								move = false;
-							}
-						}
-
+						// display the piece of player 2
 						image(piece2, lista.head.next.piece.posx, lista.head.next.piece.posy);
+						// display the piece of player 3
 						image(piece3, lista.tail.prev.piece.posx, lista.tail.prev.piece.posy);
+						// display the piece of player 4
 						image(piece4, lista.tail.piece.posx, lista.tail.piece.posy);
+						// avatar of player 2
 						image(player, 809, 192);
+						// avatar of player 3
 						image(player, 809, 337);
+						// avatar of player 4
 						image(player, 809, 482);
-						text(lista.head.next.name, 845, 207);
-						text(lista.head.next.next.name, 845, 352);
-						text(lista.tail.name, 845, 497);
+						// name of player 2
+						text(lista.head.next.name, 812, 207);
+						// name of player 3
+						text(lista.head.next.next.name, 812, 352);
+						// name of player 4
+						text(lista.tail.name, 812, 497);
+						// money player 2
+						text(lista.head.next.money, 830, 289);
+						// money player 3
+						text(lista.head.next.next.money, 830, 434);
+						// money player 4
+						text(lista.tail.money, 830, 579);
+
+						image(turn1L, 775, 88);
+						image(turn2L, 775, 230);
+						image(turn3L, 775, 375);
+						image(turn4L, 775, 520);
+
+						switch (current.turno) {
+							case 1:
+								image(turn1D, 775, 88);
+								break;
+							case 2:
+								image(turn2D, 775, 230);
+								break;
+							case 3:
+								image(turn3D, 775, 375);
+								break;
+							case 4:
+								image(turn4D, 775, 520);
+								break;
+						}
 
 						break;
 					}
@@ -179,55 +265,106 @@ public class GameSketch extends PApplet {
 				image(dados[current.result.results[0] - 1], 793, 622);
 				image(dados[current.result.results[1] - 1], 869, 622);
 
+				if (current.movearound) {
+					try {
+						current.movePiece();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+				if (move) {
+					if (current.piece.posx == Integer.parseInt(current.coords[0])
+							&& current.piece.posy == Integer.parseInt(current.coords[1])) {
+						try {
+							bank.request("buy", current);
+						} catch (IOException e1) {
+							e1.printStackTrace();
+						}
+						move = false;
+					}
+				}
+
 				if (bank.ofert) {
 					fill(0);
 					textFont(font);
-					textSize(21);
+					textSize(24);
 					image(ofert, 145, 253);
-					text("Deseas comprar " + current.position.name + " por tan solo\n"
-							+ current.position.selling_price, 187, 298);
+					text("¿Deseas comprar " + current.position.name + " por \ntan solo "
+							+ current.position.selling_price + " barritas?", 190, 315);
+					{
+						fill(255, 255, 255);
+						text("Sisas", 223, 453);
+						text("Nega", 510, 453);
+					}
 				}
+
 				if (bank.fallontransport) {
 					bank.buy = false;
 					bank.fallonservices = false;
 					fill(0);
 					textFont(font);
-					textSize(12);
-					text(current.name + " transfiere " //caer en transport
-							+ current.position.rental_price * current.position.owner.transport + " a\n" +
+					textSize(15);
+					text(current.name + " le transfiere \n " // caer en transport
+							+ current.position.rental_price * current.position.owner.transport + " barras a\n " +
 							current.position.owner.name
-							+ "porque tiene\n " + current.position.owner.transport
-							+ "\ntransportes", 503, 143);
+							+ " porque tiene\n " + current.position.owner.transport
+							+ " transportes", 512, 152);
 				}
-				if (bank.fallonservices) { //caer en servicios
+
+				if (bank.fallonservices) { // caer en servicios
 					bank.buy = false;
 					bank.fallontransport = false;
 					fill(0);
 					textFont(font);
-					textSize(12);
-					text(current.name + " transfiere " + bank.paying + " a\n" + 
-							current.position.owner
-							+ "porque tiene " + current.position.owner.services
-							+ "\nservicios y el resultado\n de los dados fue " + current.result.result, 503, 143);
+					textSize(14);
+					text(current.name + " paga " + bank.paying + " \na "
+							+ current.position.owner.name
+							+ " porque tiene " + current.position.owner.services
+							+ "\nservicios y el resultado\n de los dados fue " + current.result.result, 510, 152);
 				}
-				if (bank.pay) { //Aqui es cuando cae en algo que hay pagar en general
+
+				if (bank.pay) { // Aqui es cuando cae en algo que hay pagar en general
 					bank.fallonservices = false;
 					bank.fallontransport = false;
 					fill(0);
 					textFont(font);
-					textSize(12);
+					textSize(15);
 					switch (current.position.type) {
 						case "taxe": { /// Son inpuestos
-							text("Joa no te tocaba :(\nte toca pagar " + current.position.rental_price
-									+ " a los tombos", 493,
+							text("Joa no te tocaba, suelta\n" + current.position.rental_price
+									+ " barras pa \nlos tombos", 510,
 									160);
 							break;
 						}
-						default: { //A alguen por caer en algo
-							text(current.name + " transfiere " + current.position.rental_price + " a "
-									+ current.position.owner.name + "\nPor caer en " + current.position.name, 493, 160);
+						default: {
+							textSize(14); // A alguen por caer en algo
+							text(current.name + " transfiere " + current.position.rental_price + " \n barras a "
+									+ current.position.owner.name + " por \n meterse en patio ajeno", 508, 160);
 							break;
 						}
+					}
+				}
+				if (bank.launchluck) {
+					image(luck, 228, 306);
+					fill(0);
+					textFont(font);
+					textSize(14);
+					text(bank.card.description, 273, 375);
+				}
+
+				if (bank.launchArk) {
+					image(ark, 228, 306);
+					fill(0);
+					textFont(font);
+					textSize(14);
+					text(bank.card.description, 273, 365);
+				}
+				switch (current.position.type) {
+					case "gotojail": {
+						fill(0);
+						textFont(font);
+						textSize(15);
+						text(current.name + " anda salado hoy. \n Una patrulla se lo \n llevó pa' la modelo", 508, 160);
 					}
 				}
 				break;
@@ -245,16 +382,17 @@ public class GameSketch extends PApplet {
 		}
 
 		if (keyCode == ENTER) {
-			if (index <= numPlayers) {
-				input[index] = console.chars;
-				System.out.println(input[index]);
-				if (index == numPlayers) {
-					scene = 4;
-				}
+			if (!console.chars.equals("")) {
+				if (index <= numPlayers) {
+					input[index] = console.chars;
+					if (index == numPlayers) {
+						scene = 4;
+					}
 
+				}
+				console.reset();
+				index++;
 			}
-			console.reset();
-			index++;
 		}
 		if (key == ' ' && scene == 1) {
 			scene = 2;
@@ -279,13 +417,16 @@ public class GameSketch extends PApplet {
 		}
 		if (scene == 4) {
 			if (mouseX > 793 && mouseX < 939 && mouseY > 702 && mouseY < 718) {
+				bank.pay = false;
+				bank.fallontransport = false;
 				if (!bank.ofert) {
 					if (!current.isBroken) {
 						if (!current.isPrisoner) {
 							if (!changeturn) {
 								try {
+
 									image(loadImage("src/images/launch.png"), 794, 704);
-									current.moveAround();
+									
 									move = true;
 								} catch (IOException e) {
 									e.printStackTrace();
@@ -310,13 +451,23 @@ public class GameSketch extends PApplet {
 			if (mouseX > 793 && mouseX < 939 && mouseY > 729 && mouseY < 745) {
 				if (changeturn) {
 					image(loadImage("src/images/change.png"), 794, 731);
+					bank.launchluck = false;
 					bank.pay = false;
 					bank.fallontransport = false;
+					bank.launchArk = false;
 					current = current.next;
 					current.result.results = current.prev.result.results;
 					changeturn = false;
 
 				}
+			}
+
+			if ((bank.launchluck || bank.launchArk) && mouseX > 357 && mouseX < 440 && mouseY > 439 && mouseY < 464) {
+				bank.launchluck = false;
+				bank.launchArk = false;
+				current.piece.posx = Integer.parseInt(current.coor[current.position.index].split(",")[0]);
+				current.piece.posy = Integer.parseInt(current.coor[current.position.index].split(",")[1]);
+				current.movearound = true;
 			}
 		}
 	}
