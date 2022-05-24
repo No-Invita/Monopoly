@@ -12,7 +12,7 @@ Fuiste a reclamar la devolucion del iva. & Cobra 200.000 ; recibir ; 200000
 Te toca pagar 75.000 por los fritos que & compraste en el barrio pupi & con tu compañero ; dar ; 75000
 Te tropezaste y de casualidad apareciste & en el Volcan del Totumo (Cobra &pasaje si aplica) ; moverse a ; 20
 El dinero no cae del cielo, pero esta vez & si. Dile al cajero que te & de 50.000 de mi parte, todo bien ; recibir ; 50000
-Devuelvete 3 casillas ; mover atras ; 3
+Devuelvete 3 casillas ; moverse atras ; 3
 Hiciste la primera comunion y vas a pedir & dinero de casa en casa.& Reclama 80.000 ; recibir ; 80000
 Ya eres mayor de edad, colabora con los & recibos. Suelta 265.000 ; dar ; 26500
 Te encuentras en el bolso los 50.000 & que se te perdieron hace un mes ; recibir ; 500000

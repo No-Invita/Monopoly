@@ -5,8 +5,7 @@ import game.player.Player;
 import game.player.PlayerList;
 import game.specialcards.CardList;
 import game.specialcards.CardNode;
-import game.util.DeleteRegister;
-import game.util.WriteFile;
+//import game.util.DeleteRegister;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -25,6 +24,8 @@ public class Bank {
 	boolean fallonservices;
 	boolean launchluck, launchArk;
 	CardNode card;
+	public boolean launchjail;
+	public boolean launchwelcome;
 
 	public Bank(CardList luck, CardList ark, PlayerList playerList, Board board) {
 		this.luck = luck;
@@ -162,7 +163,6 @@ public class Bank {
 							break;
 						}
 						case "ark": {
-							System.out.println("Estas en arca");
 							card = ark.pickRandomNode();
 							System.out.println(card.description);
 							launchArk = true;
@@ -192,15 +192,14 @@ public class Bank {
 									break;
 								}
 								case "moverse atras": {
-									player.moveTo(card.param);
-									System.out.println("Retrocedi hasta " + player.position.name);
+									player.moveBackward(card.param);
 									break;
 								}
 							}
 							break;
 						}
 						case "gotojail": {
-							System.out.println("Te vas pa la carcel");
+							launchjail = true;
 							player.goJail();
 							break;
 						}
@@ -209,6 +208,7 @@ public class Bank {
 				break;
 			}
 			case "go": {
+				launchwelcome = true;
 				payGo(player);
 				break;
 			}
@@ -218,17 +218,16 @@ public class Bank {
 				while (player.position.index != 10) {
 					player.position = player.position.next;
 				}
-
 				player.piece.posx = Integer.parseInt(player.coor[player.position.index].split(",")[0]);
 				player.piece.posy = Integer.parseInt(player.coor[player.position.index].split(",")[1]);
 
 				break;
 			}
 			case "exitjail": {
-				System.out.println("saliste de la carcel");
 				demandMoneyForJailExit(player);
 				player.isPrisoner = false;
 				player.turnsInJail = 0;
+				player.moveAround();
 				break;
 			}
 			case "exitjailfree": {
@@ -283,10 +282,13 @@ public class Bank {
 		}
 	}
 
-	public void negociar(Player emisor, Player receptor, String index_ownwership_emisor, int index_ownwership_receptor,
-			int amount_emisor, float amount_receptor) throws IOException {
-		String proper = DeleteRegister.deleteRegister(emisor.properties, index_ownwership_emisor);
-		//WriteFile.write(receptor.properties, proper, receptor.num_properties,proper);
-	}
+	// public void negociar(Player emisor, Player receptor, String
+	// index_ownwership_emisor, int index_ownwership_receptor,
+	// int amount_emisor, float amount_receptor) throws IOException {
+	// //String proper = DeleteRegister.deleteRegister(emisor.properties,
+	// index_ownwership_emisor);
+	// //WriteFile.write(receptor.properties, proper,
+	// receptor.num_properties,proper);
+	// }
 
 }

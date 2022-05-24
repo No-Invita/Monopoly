@@ -12,7 +12,7 @@ Jugaste el numero de Diomedes en el chance & y ganaste 405.000 ; recibir ; 40500
 Tus amigos juntaron 100.000 para el perro & con perro & pero te llevas la plata ; recibir ; 100000
 Entraste a un Dollarcity y te gastas & 47.500 en un momento.Ni modo, te toca pagar ; dar ; 47500 
 Te pillaron los de transito, pero como & el dinero lo resulve todo pagas 60.000 & para resolver el problema ; dar ; 60000
-La casa esta en obra negra no seas tacaño  e invierte 410.000 ; dar ; 410000
+La casa esta en obra negra no seas duro & e invierte 410.000 ; dar ; 410000
 Tronco e vivo, te haces pasar por muerto & y cobras un seguro por 1.000.000 ; recibir ; 1000000
 Te metiste a un link sospechoso que te & mandaron  y como los hackers son buena & gente solo te quitan 500.000 ; dar ; 500000
 

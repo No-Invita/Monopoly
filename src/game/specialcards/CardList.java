@@ -55,7 +55,7 @@ public class CardList {
 		int random = (int) Math.ceil(Math.random() * size);
 
 		CardNode p = head;
-		for (int i = 0; i < random; i++) {
+		for (int i = 0; i < 14; i++) {
 			p = p.next;
 		}
 		return p;

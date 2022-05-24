@@ -11,44 +11,24 @@ import game.player.PlayerList;
 import game.dices.dices;
 
 public class GameSketch extends PApplet {
-	int scene = 1;
-	int numPlayers = 1;
-	int index = 1;
-	float timeexecute;
-
-	float timedices;
-	float capturetime;
+	int scene = 1, numPlayers = 1, index = 1;
 
 	String[] input = new String[5];
-
-	PImage bg;
-	PImage sceneStart;
-	PImage sceneChoosePLayers;
-	PImage sceneInputNames;
-	PImage ofert;
-	PImage player;
 	PImage[] dados = new PImage[6];
-	PImage piece1;
-	PImage piece2;
-	PImage piece3;
-	PImage piece4;
-	PImage dialog;
-	PImage ark;
-	PImage turn1D, turn2D, turn3D, turn4D, ofertexitjail;
-	PImage turn1L, turn2L, turn3L, turn4L;
-	PFont font;
+	PImage bg, sceneStart, sceneChoosePLayers, sceneInputNames, ofert, player;
 
-	boolean changeturn = false;
-	boolean loadplayers = false;
-	boolean move = false;
-	boolean launch = false;
-	boolean sleep = false;
+	PImage piece1, piece2, piece3, piece4, dialog, ark, turn1D, turn2D, turn3D, turn4D,
+			ofertexitjail, turn1L, turn2L, turn3L, turn4L, showownerships, luck;
+
+	boolean changeturn = false, loadplayers = false, move = false, launch = true, sleep = false,
+			ownerships = false;
+
 	Console console = new Console(360, 386, 24, this);
 	Keyboard teclado = new Keyboard(this, console);
 	PlayerList lista;
 	Bank bank;
 	Player current;
-	private PImage luck;
+	PFont font;;
 
 	public GameSketch(Bank banco) {
 		this.bank = banco;
@@ -62,6 +42,7 @@ public class GameSketch extends PApplet {
 
 	@Override
 	public void setup() {
+
 		surface.setResizable(true);
 		surface.setSize(960, 768);
 		console.deactivate();
@@ -88,17 +69,16 @@ public class GameSketch extends PApplet {
 		turn2L = loadImage("src/images/turn2Light.png");
 		turn3L = loadImage("src/images/turn3Light.png");
 		turn4L = loadImage("src/images/turn4Light.png");
+		showownerships = loadImage("src/images/showownerships.png");
 		dices.upLoad();
 		for (int i = 0; i < dices.dices.length; i++) {
 			dados[i] = loadImage(dices.dices[i]);
 		}
-
 	}
 
 	@Override
 	public void draw() {
 
-		timeexecute = millis() / 1000;
 		switch (scene) {
 			case 1: {
 				image(sceneStart, 0, 0);
@@ -298,7 +278,12 @@ public class GameSketch extends PApplet {
 							text("Nega", 510, 453);
 						}
 					} else {
+						fill(0);
+						textFont(font);
+						textSize(24);
 						image(ofertexitjail, 145, 253);
+						text("¿Deseas Salir de le carcel por \ntan solo "
+								+ 200000 + " barritas?", 190, 315);
 					}
 				}
 
@@ -308,14 +293,14 @@ public class GameSketch extends PApplet {
 					fill(0);
 					textFont(font);
 					textSize(15);
-					text(current.name + " le transfiere \n " // caer en transport
+					text(current.name + " le transfiere \n "
 							+ current.position.rental_price * current.position.owner.transport + " barras a\n " +
 							current.position.owner.name
 							+ " porque tiene\n " + current.position.owner.transport
 							+ " transportes", 512, 152);
 				}
 
-				if (bank.fallonservices) { // caer en servicios
+				if (bank.fallonservices) {
 					bank.buy = false;
 					bank.fallontransport = false;
 					fill(0);
@@ -327,21 +312,21 @@ public class GameSketch extends PApplet {
 							+ "\nservicios y el resultado\n de los dados fue " + current.result.result, 510, 152);
 				}
 
-				if (bank.pay) { // Aqui es cuando cae en algo que hay pagar en general
+				if (bank.pay) {
 					bank.fallonservices = false;
 					bank.fallontransport = false;
 					fill(0);
 					textFont(font);
 					textSize(15);
 					switch (current.position.type) {
-						case "taxe": { /// Son inpuestos
+						case "taxe": {
 							text("Joa no te tocaba, suelta\n" + current.position.rental_price
 									+ " barras pa \nlos tombos", 510,
 									160);
 							break;
 						}
 						default: {
-							textSize(14); // A alguen por caer en algo
+							textSize(14);
 							text(current.name + " transfiere " + current.position.rental_price + " \n barras a "
 									+ current.position.owner.name + " por \n meterse en patio ajeno", 508, 160);
 							break;
@@ -367,15 +352,22 @@ public class GameSketch extends PApplet {
 					fill(0);
 					textFont(font);
 					textSize(15);
-					text("Aja papa bello estas dormido\nSacaste doble, tira otra vez", 595, 160);
+					text("Aja papa bello estas dormido\nSacaste doble, tira otra vez", 485, 160);
 				}
-				switch (current.position.type) {
-					case "gotojail": {
-						fill(0);
-						textFont(font);
-						textSize(15);
-						text(current.name + " anda salado hoy. \n Una patrulla se lo \n llevó pa' la modelo", 508, 160);
-					}
+
+				if (bank.launchjail) {
+
+					fill(0);
+					textFont(font);
+					textSize(15);
+					text(current.name + " anda salado hoy. \n Una patrulla se lo \n llevó pa' la modelo", 508, 160);
+				}
+				if (bank.launchwelcome) {
+					fill(0);
+					textFont(font);
+					textSize(14);
+					text("Bienvenido a Sincelejo \n como aca no hay nada te damos 810000\nagarra una moto sabiamente",
+							508, 160);
 				}
 				break;
 			}
@@ -426,10 +418,11 @@ public class GameSketch extends PApplet {
 			console.activate();
 		}
 		if (scene == 4) {
+
 			if (mouseX > 793 && mouseX < 939 && mouseY > 702 && mouseY < 718) {
 				bank.pay = false;
 				bank.fallontransport = false;
-				if (!bank.ofert) {
+				if (launch) {
 					if (!current.isBroken) {
 						if (!current.isPrisoner) {
 							if (!changeturn) {
@@ -441,63 +434,38 @@ public class GameSketch extends PApplet {
 								} catch (IOException e) {
 									e.printStackTrace();
 								}
-								if (!current.result.isPair && !current.isPrisoner) {
+								if (current.result.isPair) {
+									changeturn = false;
+									current.numpairs++;
+								} else {
+									launch = false;
+									changeturn = true;
+									current.numpairs = 0;
+								}
+								if (current.numpairs == 3) {
+									try {
+										bank.request("gojail", current);
+									} catch (IOException e) {
+										e.printStackTrace();
+									}
 									changeturn = true;
 								}
-
 							}
 						}
 					}
+					
 				}
 			}
-			if (bank.ofert && mouseX > 195 && mouseX < 283 && mouseY > 422 && mouseY < 472) {
-				if (!current.isPrisoner) {
-					try {
-						bank.tranferProperty(current.position, current);
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				} else {
-					try {
-						bank.request("exitjail", current);
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-
-				}
-				bank.ofert = false;
-			} else if (bank.ofert && mouseX > 486 && mouseX < 574 && mouseY > 422 && mouseY < 472) {
-				bank.ofert = false;
-				current.rollDices();
-				if (current.result.isPair) {
-					try {
-						bank.request("exitjailfree", current);
-					} catch (IOException e) {
-
-						e.printStackTrace();
-					}
-					try {
-						current.moveAround(true);
-					} catch (IOException e) {
-
-						e.printStackTrace();
-					}
-				} else {
-					current.turnsInJail++;
-					System.out.println("f");
-					current = current.next;
-					changeturn = false;
-				}
-				bank.ofert = false;
-			}
-
 			if (mouseX > 793 && mouseX < 939 && mouseY > 729 && mouseY < 745) {
+				bank.launchluck = false;
+				bank.pay = false;
+				bank.fallontransport = false;
+				bank.launchArk = false;
+				launch = true;
+				bank.launchArk = false;
+				bank.launchjail = false;
 				if (changeturn) {
 					image(loadImage("src/images/change.png"), 794, 731);
-					bank.launchluck = false;
-					bank.pay = false;
-					bank.fallontransport = false;
-					bank.launchArk = false;
 					current = current.next;
 					current.result.results = current.prev.result.results;
 					changeturn = false;
@@ -513,6 +481,48 @@ public class GameSketch extends PApplet {
 					sleep = true;
 				}
 			}
+			if (bank.ofert && mouseX > 195 && mouseX < 283 && mouseY > 422 && mouseY < 472) {
+				if (!current.isPrisoner) {
+					try {
+						bank.tranferProperty(current.position, current);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				} else {
+					try {
+						bank.request("exitjail", current);
+						changeturn = true;
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+
+				}
+				bank.ofert = false;
+			} else if (bank.ofert && mouseX > 486 && mouseX < 574 && mouseY > 422 && mouseY < 472) {
+				if (current.isPrisoner) {
+					current.rollDices();
+					if (current.result.isPair) {
+						try {
+							bank.request("exitjailfree", current);
+						} catch (IOException e) {
+
+							e.printStackTrace();
+						}
+						try {
+							current.moveAround(true);
+						} catch (IOException e) {
+
+							e.printStackTrace();
+						}
+					} else {
+						current.turnsInJail++;
+						System.out.println("f");
+						current = current.next;
+						changeturn = false;
+					}
+				}
+				bank.ofert = false;
+			}
 
 			if ((bank.launchluck || bank.launchArk) && mouseX > 357 && mouseX < 440 && mouseY > 439 && mouseY < 464) {
 				bank.launchluck = false;
@@ -527,28 +537,28 @@ public class GameSketch extends PApplet {
 
 	public void loadPlayer() throws IOException {
 
-		Player player1 = new Player(input[1], bank.board, bank, "piece1.png");
+		Player player1 = new Player(input[1], bank.board, bank);
 		lista.addPlayer(player1);
 		switch (numPlayers) {
 			case 2: {
-				Player player2 = new Player(input[2], bank.board, bank, "piece2.png");
+				Player player2 = new Player(input[2], bank.board, bank);
 				lista.addPlayer(player2);
 				break;
 			}
 			case 3: {
-				Player player2 = new Player(input[2], bank.board, bank, "piece2.png");
+				Player player2 = new Player(input[2], bank.board, bank);
 				lista.addPlayer(player2);
-				Player player3 = new Player(input[3], bank.board, bank, "piece3.png");
+				Player player3 = new Player(input[3], bank.board, bank);
 				lista.addPlayer(player3);
 
 				break;
 			}
 			case 4: {
-				Player player2 = new Player(input[2], bank.board, bank, "piece2.png");
+				Player player2 = new Player(input[2], bank.board, bank);
 				lista.addPlayer(player2);
-				Player player3 = new Player(input[3], bank.board, bank, "piece3.png");
+				Player player3 = new Player(input[3], bank.board, bank);
 				lista.addPlayer(player3);
-				Player player4 = new Player(input[4], bank.board, bank, "piece4.png");
+				Player player4 = new Player(input[4], bank.board, bank);
 				lista.addPlayer(player4);
 				break;
 			}

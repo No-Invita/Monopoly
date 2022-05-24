@@ -29,6 +29,7 @@ public class Player {
 	public int transport;
 	public int outjail;
 	public int num_properties;
+	public int numpairs;
 	public Pieces piece;
 	public boolean boleano = false;
 	public boolean movearound;
@@ -39,7 +40,7 @@ public class Player {
 	public String[] coords;
 	public boolean teleport = false;
 
-	public Player(String name, Board board, Bank bank, String path)
+	public Player(String name, Board board, Bank bank)
 			throws IOException {
 		this.name = name;
 		this.money = 6000000;
@@ -53,7 +54,8 @@ public class Player {
 		this.outjail = 0;
 		this.prev = this;
 		this.num_properties = 0;
-		this.piece = new Pieces(path);
+		this.numpairs = 0;
+		this.piece = new Pieces();
 		next = this;
 		this.movearound = true;
 		WriteFile.createFile(properties);
@@ -88,6 +90,7 @@ public class Player {
 
 	public void goJail() throws IOException {
 		bank.request("gojail", this);
+
 	}
 
 	public boolean isInGo() {
@@ -96,7 +99,7 @@ public class Player {
 
 	public void moveAround() throws IOException {
 		rollDices();
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < 2; i++) {
 			moveForward();
 		}
 		System.out.println("Destino: " + position.name);
@@ -108,7 +111,7 @@ public class Player {
 			moveForward();
 		}
 		System.out.println("Destino: " + position.name);
-		//bank.request("buy", this);
+		// bank.request("buy", this);
 	}
 
 	public void moveBackward() {
@@ -116,9 +119,13 @@ public class Player {
 	}
 
 	public void moveBackward(int x) {
+		Card aux = position;
+		for (int i = 0; i < x; i++) {
+			aux = aux.prev;
+		}
 		do {
-			position = position.prev;
-		} while (position.index != position.index - x);
+			moveBackward();
+		} while (position.index != aux.index);
 	}
 
 	public void moveForward() throws IOException {
@@ -226,7 +233,7 @@ public class Player {
 
 			if (this.piece.posx < Integer.parseInt(coords[0])) {
 				this.piece.posx = this.piece.posx + 1;
-			
+
 			}
 
 		} else if (this.move.equals("Down")) {
