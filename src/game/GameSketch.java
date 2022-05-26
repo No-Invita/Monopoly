@@ -233,7 +233,7 @@ public class GameSketch extends PApplet {
 							image(eliminated, 817, 376);
 						}
 						text(lista.tail.name, 812, 352);
-						image(loadImage(lista.tail.avatar), 810, 211);
+						image(loadImage(lista.tail.avatar), 810, 356);
 
 						switch (current.turno) {
 							case 1:
