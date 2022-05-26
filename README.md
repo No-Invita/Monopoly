@@ -8,4 +8,4 @@ Johan Vergara Vega
 
 Luis Llerena Trujillo
 
-Fabian Pallares
+Fabian Pallares Garcia
