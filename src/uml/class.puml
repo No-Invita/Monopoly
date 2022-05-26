@@ -1,0 +1,209 @@
+ @startuml
+' Split into 4 pages
+page 4x2
+skinparam pageMargin 10
+skinparam pageExternalColor gray
+skinparam pageBorderColor blac
+class Board {
+  + start
+  +end
+  +index
+  +addBox()
+  -determineType()
+  +loadBoard()
+}
+
+class Bank{
+  +taxeMoney
+  +Leer
+  +luck
+  +ark
+  +playerList
+  +board
+  +buy
+  +fallontransport
+  +pay
+  +paying
+  +fallonservices
+  +launchluck
+  +card
+  +ofert
+  +launchjail
+  +launchwelcome
+  +demandMoney()
+  +demortgageProperty()
+  +demandMoneyForJailExit()
+  +mortgageProperty()
+  +offerProperty()
+  +pay()
+  +payGo()
+  +removeProperty()
+  +request()
+  +transferMoney()
+  +tranferProperty()
+  
+}
+
+package dices <<rectangle>>{
+    class dices{
+      {static} +dices
+      {static} +pahtDices
+      {static} +upLoad()
+      {static} +max_value
+      {static} +rollDices()
+      {static} +isPair() 
+    }
+    class dicesResult{
+        +results
+        +isPair
+        +result
+        +pathDices
+        +display()
+      }
+    dicesResult o-- dices : aggregation
+  }
+package util <<rectangle>>{
+  class DeleteRegister{
+    + {static} deleteRegister()
+  }
+  
+  class ReadFile{
+    + {static} read()
+  }
+  class WriteFile{
+  + {static} appendall()
+  + {static} createFile()
+  + {static} write()
+  + {static} writeall()
+}
+}
+
+package cards <<rectangle>>{
+  abstract class Card{
+    +name
+    +isOwnable
+    +isOwned
+    +isMortgable
+    +isMortgabled
+    +selling_price
+    +rental_price
+    +type
+    +owner
+    +index
+    +next
+    +prev
+  }
+  
+  class Ark{}
+  Card <|--	Ark : extends
+  class FreeStop{}
+  Card <|--	FreeStop : extends
+  class Go{}
+  Card <|--	Go : extends
+  class GoToJail{}
+  Card <|--	GoToJail : extends
+  class Jail{}
+  Card <|--	Jail : extends
+  class Luck{}
+  Card <|--	Luck : extends
+  class Ownership{}
+  Card <|--	Ownership : extends
+  class Service{}
+  Card <|--	Service : extends
+  class Taxes{}
+  Card <|--	Taxes : extends
+  class Transport{}
+  Card <|--	Transport : extends
+}
+
+package pieces <<rectangle>>{
+  class Pieces{
+    +distancex
+    +distancey
+    +posx
+    +posy
+    +topex
+    +topey
+  } 
+}
+
+package player <<rectangle>>{
+  class Player{
+    +name
+    +turno
+    +money
+    +position
+    +isPrisoner
+    +turnsInJail
+    +isBroken
+    +next
+    +prev
+    +result
+    +properties
+    +bank
+    +services
+    +transport
+    +outjail
+    +num_properties
+    +numpairs
+    +piece
+    +boleano
+    +movearound
+    -move
+    +coords
+    +coor
+    +teleport
+    +getMoney()
+    +giveMoney()
+    +goJail()
+    +isInGo()
+    +moveAround()
+    +moveAround()
+    +moveBackward()
+    +moveBackward()
+    +moveForward()
+    +buyProperty()
+    +moveTo()
+    +movePiece()
+    +playInJail()
+    +rollDices()
+  }
+  PlayerList *-- Player : composition
+  class PlayerList{
+    +playersNumber
+    +head
+    +tail
+    +result
+    +cordsx
+    +cordsy
+    +addPlayer()
+    +asingcoords()
+    +display()
+  }
+  
+}
+
+package specialcards{
+  class CardList{
+    +head
+    +tail
+    +isPicked
+    +size
+    +add()
+    +display()
+    +loadList()
+    +pickRandomNode()
+  }
+  
+  CardList *-- CardNode
+  class CardNode{
+    +description
+    +type
+    +param
+    +next
+    +prev
+  }
+}
+
+
+@enduml
