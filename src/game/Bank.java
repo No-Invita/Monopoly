@@ -264,8 +264,7 @@ public class Bank {
 			receiver.getMoney(amount);
 
 		} else {
-
-			System.out.println("not enough money");
+			payer.isBroken = true;
 		}
 	}
 
@@ -292,14 +291,5 @@ public class Bank {
 			// tienes suficiente nero
 		}
 	}
-
-	// public void negociar(Player emisor, Player receptor, String
-	// index_ownwership_emisor, int index_ownwership_receptor,
-	// int amount_emisor, float amount_receptor) throws IOException {
-	// //String proper = DeleteRegister.deleteRegister(emisor.properties,
-	// index_ownwership_emisor);
-	// //WriteFile.write(receptor.properties, proper,
-	// receptor.num_properties,proper);
-	// }
 
 }

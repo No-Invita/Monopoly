@@ -74,7 +74,7 @@ public class Player {
 			this.money -= amount;
 
 		} else {
-
+			this.isBroken = true;
 		}
 	}
 
