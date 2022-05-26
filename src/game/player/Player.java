@@ -93,7 +93,7 @@ public class Player {
 			moveForward();
 		}
 		System.out.println("Destino: " + position.name);
-		
+
 	}
 
 	public void moveAround(boolean x) throws IOException {
@@ -101,7 +101,7 @@ public class Player {
 			moveForward();
 		}
 		System.out.println("Destino: " + position.name);
-	
+
 	}
 
 	public void moveBackward() {
@@ -131,25 +131,29 @@ public class Player {
 		Card search = position;
 		int i = 0;
 		int j = 0;
-		if (pos == 0) {
-			do {
-				aux = aux.next;
-				i++;
+		if (position.type.equals("ark")) {
+			if (pos == 0) {
+				do {
+					aux = aux.next;
+					i++;
 
-			} while (!aux.type.equals("transport"));
-			do {
-				search = search.prev;
-				j++;
-				System.out.println("----" + aux.type + "----");
-			} while (!search.type.equals("transport"));
-			if (i <= j) {
+				} while (!aux.type.equals("transport"));
 				do {
-					moveForward();
-				} while (position.index != aux.index);
+					search = search.prev;
+					j++;
+					System.out.println("----" + aux.type + "----");
+				} while (!search.type.equals("transport"));
+				if (i <= j) {
+					do {
+						moveForward();
+					} while (position.index != aux.index);
+				} else {
+					do {
+						moveBackward();
+					} while (position.index != search.index);
+
+				}
 			} else {
-				do {
-					moveBackward();
-				} while (position.index != search.index);
 
 			}
 		} else {

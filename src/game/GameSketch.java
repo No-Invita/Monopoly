@@ -578,6 +578,7 @@ public class GameSketch extends PApplet {
 				bank.launchluck = false;
 				bank.launchjail = false;
 				bank.launchexitjailwithcard = false;
+				bank.launchwelcome = false;
 				if (launch) {
 					if (!current.isBroken) {
 						if (!current.isPrisoner) {
@@ -621,6 +622,7 @@ public class GameSketch extends PApplet {
 				bank.launchArk = false;
 				bank.launchjail = false;
 				bank.launchexitjailwithcard = false;
+				bank.launchwelcome = false;
 				if (changeturn) {
 					launch = true;
 					image(loadImage("src/images/change.png"), 794, 731);
