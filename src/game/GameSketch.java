@@ -11,24 +11,30 @@ import game.player.PlayerList;
 import game.dices.dices;
 
 public class GameSketch extends PApplet {
-	int scene = 1, numPlayers = 1, index = 1;
+	int scene = 1, numPlayers = 1, index = 1, av, subescena;
 
 	String[] input = new String[5];
+	String[] avatars = { "luis.png", "uso.png", "diome.png", "gel.png" };
+	String[] chooseavatars = new String[4];
 	PImage[] dados = new PImage[6];
+
 	PImage bg, sceneStart, sceneChoosePLayers, sceneInputNames, ofert, player;
 
 	PImage piece1, piece2, piece3, piece4, dialog, ark, turn1D, turn2D, turn3D, turn4D,
-			ofertexitjail, turn1L, turn2L, turn3L, turn4L, showownerships, luck;
+			ofertexitjail, turn1L, turn2L, turn3L, turn4L, showownerships, luck, bars, chooseAvatar, selection,
+			eliminated, lucho, gel, diome, uso, orden;
 
 	boolean changeturn = false, loadplayers = false, move = false, launch = true, sleep = false,
-			ownerships = false;
+			ownerships = false, showplayer1 = false, showplayer2 = false, showplayer3 = false, showplayer4;
 
 	Console console = new Console(360, 386, 24, this);
 	Keyboard teclado = new Keyboard(this, console);
 	PlayerList lista;
 	Bank bank;
 	Player current;
-	PFont font;;
+	PFont font;
+
+	private boolean showorden = true;
 
 	public GameSketch(Bank banco) {
 		this.bank = banco;
@@ -69,7 +75,12 @@ public class GameSketch extends PApplet {
 		turn2L = loadImage("src/images/turn2Light.png");
 		turn3L = loadImage("src/images/turn3Light.png");
 		turn4L = loadImage("src/images/turn4Light.png");
-		showownerships = loadImage("src/images/showownerships.png");
+		chooseAvatar = loadImage("src/images/chooseavatars.png");
+		selection = loadImage("src/images/choose.png");
+		eliminated = loadImage("src/images/delete.png");
+		showownerships = loadImage("src/images/show.png");
+		bars = loadImage("src/images/jail.png");
+		orden = loadImage("src/images/orden.png");
 		dices.upLoad();
 		for (int i = 0; i < dices.dices.length; i++) {
 			dados[i] = loadImage(dices.dices[i]);
@@ -80,6 +91,7 @@ public class GameSketch extends PApplet {
 	public void draw() {
 
 		switch (scene) {
+
 			case 1: {
 				image(sceneStart, 0, 0);
 				fill(0);
@@ -105,6 +117,28 @@ public class GameSketch extends PApplet {
 				textFont(font);
 				text("Nombre del jugador #" + index, 289, 357);
 				console.display();
+				if (subescena == 1) {
+					image(chooseAvatar, 0, 0);
+					textFont(font);
+					textSize(33);
+					text("SELECCIONA TU AVATAR", 330, 90);
+					switch (av) {
+						case 1:
+							image(selection, 173, 164);
+							break;
+						case 2:
+							image(selection, 522, 165);
+							break;
+						case 3:
+							image(selection, 173, 433);
+							break;
+						case 4:
+							image(selection, 522, 433);
+							break;
+
+					}
+					break;
+				}
 				break;
 			}
 			case 4: {
@@ -117,34 +151,47 @@ public class GameSketch extends PApplet {
 					}
 					loadplayers = true;
 				}
-				// dispaly te board
+
+				// display board
 				image(bg, 0, 0);
 				image(dialog, 452, 117);
-				// display piece of player 1
-				image(piece1, lista.head.piece.posx, lista.head.piece.posy);
-				// avatar of player 1
-				image(player, 809, 54);
-				// Display the money and name of player 1
+				if (showorden) {
+					image(orden, 223, 117);
+					fill(0);
+					textFont(font);
+					textSize(22);
+					text("Por alguna razón del destino \nel orden a jugar es: \n"+lista.display(), 273, 300);
+				}
+				// player 1
 				fill(0);
 				textFont(font);
 				textSize(18);
+				image(player, 809, 54);
+				if (!lista.head.isBroken) {
+					image(piece1, lista.head.piece.posx, lista.head.piece.posy);
+					text("$" + lista.head.money, 830, 151);
+					image(turn1L, 775, 88);
+
+				} else {
+					image(eliminated, 817, 99);
+				}
 				text(lista.head.name, 812, 69);
-				text("$" + lista.head.money, 830, 151);
-				// Check the num of players
+				image(loadImage(lista.head.avatar), 810, 73);
 
 				switch (numPlayers) {
 					case 2: {
-						// diece of player 2
-						image(piece2, lista.tail.piece.posx, lista.tail.piece.posy);
-						// avatar of player 2
+						// player 2
 						image(player, 809, 192);
-						// name of player 2
-						text(lista.head.next.name, 812, 207);
-						// money of player 2
-						text("$" + lista.head.next.money, 830, 289);
+						if (!lista.tail.isBroken) {
+							image(piece2, lista.tail.piece.posx, lista.tail.piece.posy);
+							text("$" + lista.tail.money, 830, 289);
+							image(turn2L, 775, 230);
 
-						image(turn1L, 775, 88);
-						image(turn2L, 775, 230);
+						} else {
+							image(eliminated, 817, 231);
+						}
+						text(lista.tail.name, 812, 207);
+						image(loadImage(lista.tail.avatar), 810, 211);
 
 						switch (current.turno) {
 							case 1:
@@ -154,29 +201,39 @@ public class GameSketch extends PApplet {
 								image(turn2D, 775, 230);
 								break;
 						}
+						if (lista.head.isPrisoner) {
+							image(bars, 809, 72);
+						}
+						if (lista.tail.isPrisoner) {
+							image(bars, 809, 210);
+						}
+
 						break;
 					}
 					case 3: {
-						// avatar of player 2
+						// Player 2
 						image(player, 809, 192);
-						// avatar player 3
-						image(player, 809, 337);
-						// display the piece of player 2
-						image(piece2, lista.head.next.piece.posx, lista.head.next.piece.posy);
-						// name of player 2
+						if (!lista.head.next.isBroken) {
+							image(piece2, lista.head.next.piece.posx, lista.head.next.piece.posy);
+							text("$" + lista.head.next.money, 830, 289);
+							image(turn2L, 775, 230);
+						} else {
+							image(eliminated, 817, 231);
+						}
 						text(lista.head.next.name, 812, 207);
-						// money player 2
-						text("$" + lista.head.next.money, 830, 289);
-						// piece of player 3
-						image(piece3, lista.tail.piece.posx, lista.tail.piece.posy);
-						// money player 3
-						text("$" + lista.head.next.next.money, 830, 434);
-						// name player 3
-						text(lista.tail.name, 812, 352);
+						image(loadImage(lista.head.next.avatar), 810, 211);
 
-						image(turn1L, 775, 88);
-						image(turn2L, 775, 230);
-						image(turn3L, 775, 375);
+						// player 3
+						image(player, 809, 337);
+						if (!lista.tail.isBroken) {
+							image(piece3, lista.tail.piece.posx, lista.tail.piece.posy);
+							text("$" + lista.tail.money, 830, 434);
+							image(turn3L, 775, 375);
+						} else {
+							image(eliminated, 817, 376);
+						}
+						text(lista.tail.name, 812, 352);
+						image(loadImage(lista.tail.avatar), 810, 211);
 
 						switch (current.turno) {
 							case 1:
@@ -189,38 +246,54 @@ public class GameSketch extends PApplet {
 								image(turn3D, 775, 375);
 								break;
 						}
+						if (lista.head.isPrisoner) {
+							image(bars, 809, 72);
+						}
+						if (lista.head.next.isPrisoner) {
+							image(bars, 809, 210);
+						}
+						if (lista.tail.isPrisoner) {
+							image(bars, 809, 355);
+						}
+
 						break;
 					}
 					case 4: {
-						// display the piece of player 2
-						image(piece2, lista.head.next.piece.posx, lista.head.next.piece.posy);
-						// display the piece of player 3
-						image(piece3, lista.tail.prev.piece.posx, lista.tail.prev.piece.posy);
-						// display the piece of player 4
-						image(piece4, lista.tail.piece.posx, lista.tail.piece.posy);
-						// avatar of player 2
+						// player 2
 						image(player, 809, 192);
-						// avatar of player 3
-						image(player, 809, 337);
-						// avatar of player 4
-						image(player, 809, 482);
-						// name of player 2
+						if (!lista.head.next.isBroken) {
+							image(piece2, lista.head.next.piece.posx, lista.head.next.piece.posy);
+							text("$" + lista.head.next.money, 830, 289);
+							image(turn2L, 775, 230);
+						} else {
+							image(eliminated, 817, 231);
+						}
 						text(lista.head.next.name, 812, 207);
-						// name of player 3
-						text(lista.head.next.next.name, 812, 352);
-						// name of player 4
-						text(lista.tail.name, 812, 497);
-						// money player 2
-						text("$" + lista.head.next.money, 830, 289);
-						// money player 3
-						text("$" + lista.head.next.next.money, 830, 434);
-						// money player 4
-						text("$" + lista.tail.money, 830, 579);
+						image(loadImage(lista.head.next.avatar), 810, 211);
 
-						image(turn1L, 775, 88);
-						image(turn2L, 775, 230);
-						image(turn3L, 775, 375);
-						image(turn4L, 775, 520);
+						// player 3
+						image(player, 809, 337);
+						if (!lista.tail.prev.isBroken) {
+							image(piece3, lista.tail.prev.piece.posx, lista.tail.prev.piece.posy);
+							text("$" + lista.tail.prev.money, 830, 434);
+							image(turn3L, 775, 375);
+						} else {
+							image(eliminated, 817, 376);
+						}
+						text(lista.tail.prev.name, 812, 352);
+						image(loadImage(lista.tail.prev.avatar), 810, 356);
+
+						// player 4
+						image(player, 809, 482);
+						if (!lista.tail.isBroken) {
+							image(piece4, lista.tail.piece.posx, lista.tail.piece.posy);
+							text("$" + lista.tail.money, 830, 579);
+							image(turn4L, 775, 520);
+						} else {
+							image(eliminated, 817, 521);
+						}
+						text(lista.tail.name, 812, 497);
+						image(loadImage(lista.tail.avatar), 810, 501);
 
 						switch (current.turno) {
 							case 1:
@@ -236,12 +309,23 @@ public class GameSketch extends PApplet {
 								image(turn4D, 775, 520);
 								break;
 						}
+						if (lista.head.isPrisoner) {
+							image(bars, 809, 72);
+						}
+						if (lista.head.next.isPrisoner) {
+							image(bars, 809, 210);
+						}
+						if (lista.tail.prev.isPrisoner) {
+							image(bars, 809, 355);
+						}
+						if (lista.tail.isPrisoner) {
+							image(bars, 809, 501);
+						}
 
 						break;
+
 					}
 				}
-
-				// Display dices
 				image(dados[current.result.results[0] - 1], 793, 622);
 				image(dados[current.result.results[1] - 1], 869, 622);
 
@@ -260,6 +344,11 @@ public class GameSketch extends PApplet {
 						} catch (IOException e1) {
 							e1.printStackTrace();
 						}
+						if (!current.result.isPair) {
+							changeturn = true;
+						} else {
+							launch = true;
+						}
 						move = false;
 					}
 				}
@@ -270,7 +359,7 @@ public class GameSketch extends PApplet {
 						textFont(font);
 						textSize(24);
 						image(ofert, 145, 253);
-						text("¿Deseas comprar " + current.position.name + " por \ntan solo "
+						text("¿Deseas comprar " + current.position.name + " por \ntan solo $"
 								+ current.position.selling_price + " barritas?", 190, 315);
 						{
 							fill(255, 255, 255);
@@ -282,9 +371,20 @@ public class GameSketch extends PApplet {
 						textFont(font);
 						textSize(24);
 						image(ofertexitjail, 145, 253);
-						text("¿Deseas Salir de le carcel por \ntan solo "
-								+ 200000 + " barritas?", 190, 315);
+						text("¿Deseas Salir de le carcel por \ntan solo $200.000 barritas?", 190, 315);
+						{
+							fill(255, 255, 255);
+							text("Sisas", 223, 453);
+							text("Nega", 510, 453);
+						}
 					}
+				}
+				if (current.launch_ofert_with_card) {
+					fill(0);
+					textFont(font);
+					textSize(24);
+					image(ofertexitjail, 145, 253);
+					text("¿Deseas utilizar la tarjeta \npara salir de la carcél?", 190, 315);
 				}
 
 				if (bank.fallontransport) {
@@ -293,8 +393,9 @@ public class GameSketch extends PApplet {
 					fill(0);
 					textFont(font);
 					textSize(15);
-					text(current.name + " le transfiere \n "
-							+ current.position.rental_price * current.position.owner.transport + " barras a\n " +
+					text(current.name + " le transfiere \n$ "
+							+ current.position.rental_price * current.position.owner.transport + " barras a\n "
+							+
 							current.position.owner.name
 							+ " porque tiene\n " + current.position.owner.transport
 							+ " transportes", 512, 152);
@@ -306,10 +407,11 @@ public class GameSketch extends PApplet {
 					fill(0);
 					textFont(font);
 					textSize(14);
-					text(current.name + " paga " + bank.paying + " \na "
+					text(current.name + " paga $" + bank.paying + " \na "
 							+ current.position.owner.name
 							+ " porque tiene " + current.position.owner.services
-							+ "\nservicios y el resultado\n de los dados fue " + current.result.result, 510, 152);
+							+ "\nservicios y el resultado\n de los dados fue " + current.result.result, 510,
+							152);
 				}
 
 				if (bank.pay) {
@@ -320,14 +422,15 @@ public class GameSketch extends PApplet {
 					textSize(15);
 					switch (current.position.type) {
 						case "taxe": {
-							text("Joa no te tocaba, suelta\n" + current.position.rental_price
+							text("Joa no te tocaba, suelta\n$" + current.position.rental_price
 									+ " barras pa \nlos tombos", 510,
 									160);
 							break;
 						}
 						default: {
 							textSize(14);
-							text(current.name + " transfiere " + current.position.rental_price + " \n barras a "
+							text(current.name + " transfiere $" + current.position.rental_price
+									+ " \n barras a "
 									+ current.position.owner.name + " por \n meterse en patio ajeno", 508, 160);
 							break;
 						}
@@ -360,16 +463,63 @@ public class GameSketch extends PApplet {
 					fill(0);
 					textFont(font);
 					textSize(15);
-					text(current.name + " anda salado hoy. \n Una patrulla se lo \n llevó pa' la modelo", 508, 160);
+					text(current.name + " anda salado hoy. \n Una patrulla se lo \n llevó pa' la modelo", 508,
+							160);
 				}
-				if (bank.launchwelcome) {
+				if (bank.launchwelcome && !bank.ofert) {
 					fill(0);
 					textFont(font);
 					textSize(14);
-					text("Bienvenido a Sincelejo \n como aca no hay nada te damos 810000\nagarra una moto sabiamente",
-							508, 160);
+					text("Bienvenido a Sincelejo. \nComo aquí no hay nada te \ndamos $810.000, coge una \nmoto sabiamente",
+							508, 152);
 				}
-				break;
+				if (bank.luckexitjail) {
+					fill(0);
+					textFont(font);
+					textSize(14);
+					text("Joa tu si eres de buena\n Sales de la carcel\npor sacar doble", 508, 160);
+				}
+				if (bank.exitjailoverturn) {
+					fill(0);
+					textFont(font);
+					textSize(14);
+					text("Ya no te queremos aquí\n Sales de la carcel \npagando $200.000", 508, 160);
+					launch = true;
+				}
+				if (showplayer1) {
+					image(showownerships, 223, 117);
+					fill(0);
+					textFont(font);
+					textSize(20);
+					text(lista.head.showownerships(), 300, 300);
+				}
+				if (showplayer2) {
+					image(showownerships, 223, 117);
+					fill(0);
+					textFont(font);
+					textSize(20);
+					text(lista.head.next.showownerships(), 300, 300);
+				}
+				if (showplayer3) {
+					image(showownerships, 223, 117);
+					fill(0);
+					textFont(font);
+					textSize(20);
+					text(lista.tail.prev.showownerships(), 300, 300);
+				}
+				if (showplayer4) {
+					image(showownerships, 223, 117);
+					fill(0);
+					textFont(font);
+					textSize(20);
+					text(lista.tail.showownerships(), 300, 300);
+				}
+				if (current.isBroken == true) {
+					fill(0);
+					textFont(font);
+					textSize(15);
+					text(current.name + " quedó pelao'. \nSe va pa su casa", 508, 160);
+				}
 			}
 		}
 	}
@@ -387,13 +537,12 @@ public class GameSketch extends PApplet {
 			if (!console.chars.equals("")) {
 				if (index <= numPlayers) {
 					input[index] = console.chars;
-					if (index == numPlayers) {
-						scene = 4;
-					}
-
+					console.reset();
+					subescena = 1;
+				} else {
+					scene = 4;
 				}
-				console.reset();
-				index++;
+
 			}
 		}
 		if (key == ' ' && scene == 1) {
@@ -418,10 +567,17 @@ public class GameSketch extends PApplet {
 			console.activate();
 		}
 		if (scene == 4) {
-
+			if (mouseX > 336 && mouseX < 336 + 152 && mouseY > 582 && mouseY < 582 + 37) {
+				showorden = false;
+			}
 			if (mouseX > 793 && mouseX < 939 && mouseY > 702 && mouseY < 718) {
+				bank.launchluck = false;
 				bank.pay = false;
 				bank.fallontransport = false;
+				bank.launchArk = false;
+				bank.launchluck = false;
+				bank.launchjail = false;
+				bank.launchexitjailwithcard = false;
 				if (launch) {
 					if (!current.isBroken) {
 						if (!current.isPrisoner) {
@@ -439,7 +595,6 @@ public class GameSketch extends PApplet {
 									current.numpairs++;
 								} else {
 									launch = false;
-									changeturn = true;
 									current.numpairs = 0;
 								}
 								if (current.numpairs == 3) {
@@ -447,24 +602,27 @@ public class GameSketch extends PApplet {
 										bank.request("gojail", current);
 									} catch (IOException e) {
 										e.printStackTrace();
+										changeturn = true;
 									}
-									changeturn = true;
+
 								}
 							}
 						}
 					}
-					
+					launch = false;
+
 				}
 			}
 			if (mouseX > 793 && mouseX < 939 && mouseY > 729 && mouseY < 745) {
 				bank.launchluck = false;
 				bank.pay = false;
 				bank.fallontransport = false;
-				bank.launchArk = false;
-				launch = true;
+				bank.launchluck = false;
 				bank.launchArk = false;
 				bank.launchjail = false;
+				bank.launchexitjailwithcard = false;
 				if (changeturn) {
+					launch = true;
 					image(loadImage("src/images/change.png"), 794, 731);
 					current = current.next;
 					current.result.results = current.prev.result.results;
@@ -476,11 +634,40 @@ public class GameSketch extends PApplet {
 							e.printStackTrace();
 						}
 					}
-
 				} else {
-					sleep = true;
+					if (current.result.isPair) {
+						sleep = true;
+					}
+
 				}
 			}
+			if (bank.launchexitjailwithcard && mouseX > 195 && mouseX < 283 && mouseY > 422 && mouseY < 472) {
+				try {
+					bank.request("exitjailwithcard", current);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				bank.launchexitjailwithcard = false;
+			} else if (bank.launchexitjailwithcard && mouseX > 486 && mouseX < 574 && mouseY > 422 && mouseY < 472) {
+				current.rollDices();
+				if (current.result.isPair) {
+					try {
+						bank.request("exitjailfree", current);
+						move = true;
+					} catch (IOException e) {
+
+						e.printStackTrace();
+					}
+				} else {
+					current.turnsInJail++;
+					System.out.println("f");
+
+				}
+				bank.launchexitjailwithcard = false;
+				changeturn = true;
+
+			}
+
 			if (bank.ofert && mouseX > 195 && mouseX < 283 && mouseY > 422 && mouseY < 472) {
 				if (!current.isPrisoner) {
 					try {
@@ -491,7 +678,10 @@ public class GameSketch extends PApplet {
 				} else {
 					try {
 						bank.request("exitjail", current);
-						changeturn = true;
+						move = true;
+						if (!current.result.isPair) {
+							changeturn = true;
+						}
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -503,13 +693,8 @@ public class GameSketch extends PApplet {
 					current.rollDices();
 					if (current.result.isPair) {
 						try {
+							move = true;
 							bank.request("exitjailfree", current);
-						} catch (IOException e) {
-
-							e.printStackTrace();
-						}
-						try {
-							current.moveAround(true);
 						} catch (IOException e) {
 
 							e.printStackTrace();
@@ -517,9 +702,9 @@ public class GameSketch extends PApplet {
 					} else {
 						current.turnsInJail++;
 						System.out.println("f");
-						current = current.next;
-						changeturn = false;
+						// current = current.next;
 					}
+					changeturn = true;
 				}
 				bank.ofert = false;
 			}
@@ -531,34 +716,90 @@ public class GameSketch extends PApplet {
 				current.piece.posy = Integer.parseInt(current.coor[current.position.index].split(",")[1]);
 				current.movearound = true;
 			}
+
+			if (mouseX > 809 && mouseX < 809 + 118 && mouseY > 154 && mouseY < 154 + 18) {
+				if (!showplayer1 && lista.head.num_properties > 0) {
+					showplayer1 = true;
+				} else {
+					showplayer1 = false;
+				}
+
+			}
+
+			if (mouseX > 809 && mouseX < 809 + 118 && mouseY > 292 && mouseY < 292 + 18) {
+				if (!showplayer2 && lista.head.next.num_properties > 0) {
+					showplayer2 = true;
+				} else {
+					showplayer2 = false;
+				}
+			}
+
+			if (mouseX > 809 && mouseX < 809 + 118 && mouseY > 437 && mouseY < 437 + 18) {
+				if (!showplayer3 && lista.tail.prev.num_properties > 0) {
+					showplayer3 = true;
+				} else {
+					showplayer3 = false;
+				}
+			}
+
+			if (mouseX > 809 && mouseX < 809 + 118 && mouseY > 582 && mouseY < 582 + 18) {
+				if (!showplayer4 && lista.tail.num_properties > 0) {
+					showplayer4 = true;
+				} else {
+					showplayer4 = false;
+				}
+			}
+
+		}
+		if (subescena == 1) {
+			if (mouseX > 181 && mouseX < 181 + 250 && mouseY > 172 && mouseY < 172 + 155) {
+				av = 1;
+			} else if (mouseX > 530 && mouseX < 530 + 250 && mouseY > 172 && mouseY < 172 + 156) {
+				av = 2;
+			} else if (mouseX > 181 && mouseX < 181 + 250 && mouseY > 441 && mouseY < 441 + 155) {
+				av = 3;
+			} else if (mouseX > 530 && mouseX < 530 + 250 && mouseY > 441 && mouseY < 441 + 155) {
+				av = 4;
+			}
+			// accep button
+			if (mouseX > 428 && mouseX < 428 + 104 && mouseY > 670 && mouseY < 670 + 37) {
+				chooseavatars[index - 1] = avatars[av - 1];
+				index++;
+				subescena = 0;
+
+				if (index == numPlayers + 1) {
+					scene = 4;
+				}
+			}
+
 		}
 
 	}
 
 	public void loadPlayer() throws IOException {
 
-		Player player1 = new Player(input[1], bank.board, bank);
+		Player player1 = new Player(input[1], bank.board, bank, chooseavatars[0]);
 		lista.addPlayer(player1);
 		switch (numPlayers) {
 			case 2: {
-				Player player2 = new Player(input[2], bank.board, bank);
+				Player player2 = new Player(input[2], bank.board, bank, chooseavatars[1]);
 				lista.addPlayer(player2);
 				break;
 			}
 			case 3: {
-				Player player2 = new Player(input[2], bank.board, bank);
+				Player player2 = new Player(input[2], bank.board, bank, chooseavatars[1]);
 				lista.addPlayer(player2);
-				Player player3 = new Player(input[3], bank.board, bank);
+				Player player3 = new Player(input[3], bank.board, bank, chooseavatars[2]);
 				lista.addPlayer(player3);
 
 				break;
 			}
 			case 4: {
-				Player player2 = new Player(input[2], bank.board, bank);
+				Player player2 = new Player(input[2], bank.board, bank, chooseavatars[1]);
 				lista.addPlayer(player2);
-				Player player3 = new Player(input[3], bank.board, bank);
+				Player player3 = new Player(input[3], bank.board, bank, chooseavatars[2]);
 				lista.addPlayer(player3);
-				Player player4 = new Player(input[4], bank.board, bank);
+				Player player4 = new Player(input[4], bank.board, bank, chooseavatars[3]);
 				lista.addPlayer(player4);
 				break;
 			}

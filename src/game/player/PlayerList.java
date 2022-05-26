@@ -10,6 +10,7 @@ public class PlayerList {
     public dicesResult result;
     public int[] cordsx = new int[4];
     public int[] cordsy = new int[4];
+    public String lista;
     int mayor = 0;
     int i = 0;
     int j = 0;
@@ -58,7 +59,6 @@ public class PlayerList {
         mayor = tail.result.result;
         this.playersNumber++;
 
-
     }
 
     public void asingcoords() {
@@ -70,7 +70,7 @@ public class PlayerList {
         cordsy[1] = 711;
         Player current = head;
         do {
-            current.turno = i+1;
+            current.turno = i + 1;
             current.piece.posx = cordsx[i];
             current.piece.posy = cordsy[j];
             current.piece.topex = current.piece.posx - 673;
@@ -84,13 +84,32 @@ public class PlayerList {
 
     }
 
-    public void display() {
+    public void deletePlayer(Player player) {
         Player current = head;
+        while (current != player) {
+            current = current.next;
+        }
+        if (current == player) {
+            current.prev.next = current.next;
+            current.next.prev = current.prev;
+            if (current == head) {
+                head = current.next;
 
+            } else if (current == tail) {
+                tail = current.prev;
+            }
+
+        }
+    }
+
+    public String display() {
+        Player current = head;
+        lista = "";
         do {
-            System.out.print(current.name + " -> ");
+            lista += current.name + "\n";
             current = current.next;
         } while (current != head);
+        return lista;
     }
 
 }

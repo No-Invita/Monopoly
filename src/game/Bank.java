@@ -23,9 +23,13 @@ public class Bank {
 	int paying = 0;
 	boolean fallonservices;
 	boolean launchluck, launchArk;
+	public boolean launchexitjailwithcard;
 	CardNode card;
 	public boolean launchjail;
 	public boolean launchwelcome;
+	public boolean luckexitjail;
+	public boolean exitjailoverturn;
+	public boolean broken;
 
 	public Bank(CardList luck, CardList ark, PlayerList playerList, Board board) {
 		this.luck = luck;
@@ -37,7 +41,12 @@ public class Bank {
 	}
 
 	public void demandMoney(int amount, Player player) {
-		player.giveMoney(amount);
+		if (amount <= player.money) {
+			player.giveMoney(amount);
+		} else {
+			player.isBroken = true;
+			broken = true;
+		}
 	}
 
 	public void demortgageProperty(Card property, Player player) {
@@ -125,8 +134,6 @@ public class Bank {
 							break;
 						}
 						case "luck": {
-							// Leees la tarjeta de fortuna
-							System.out.println("Estas en suerte");
 							card = luck.pickRandomNode();
 							System.out.println(card.description);
 							launchluck = true;
@@ -139,7 +146,6 @@ public class Bank {
 								}
 								case "recibir": {
 									pay(card.param, player);
-									System.out.println("recibí " + card.param);
 									break;
 								}
 								case "salir": {
@@ -156,7 +162,6 @@ public class Bank {
 								}
 								case "mover a": {
 									player.moveTo(card.param);
-									System.out.println("Me moví hasta " + player.position.name);
 									break;
 								}
 							}
@@ -174,8 +179,10 @@ public class Bank {
 									break;
 								}
 								case "dar": {
+
 									demandMoney(card.param, player);
 									System.out.println("pagué " + card.param);
+
 									break;
 								}
 								case "recibir": {
@@ -193,6 +200,10 @@ public class Bank {
 								}
 								case "moverse atras": {
 									player.moveBackward(card.param);
+									player.piece.posx = Integer
+											.parseInt(player.coor[player.position.index].split(",")[0]);
+									player.piece.posy = Integer
+											.parseInt(player.coor[player.position.index].split(",")[1]);
 									break;
 								}
 							}
@@ -208,8 +219,8 @@ public class Bank {
 				break;
 			}
 			case "go": {
-				launchwelcome = true;
 				payGo(player);
+				launchwelcome = true;
 				break;
 			}
 			case "gojail": {
@@ -227,19 +238,18 @@ public class Bank {
 				demandMoneyForJailExit(player);
 				player.isPrisoner = false;
 				player.turnsInJail = 0;
-				player.moveAround();
+				exitjailoverturn = true;
 				break;
 			}
 			case "exitjailfree": {
-				System.out.println("saliste de la carcel gratis");
+				player.moveAround(true);
 				player.isPrisoner = false;
 				player.turnsInJail = 0;
+				luckexitjail = true;
 				break;
 			}
 			case "exitjailwithcard": {
-				System.out.println("saliste de la carcel gratis con tarjeta");
-				player.isPrisoner = false;
-				player.turnsInJail = 0;
+				player.moveAround();
 				player.outjail = 0;
 				luck.isPicked = false;
 				break;
@@ -254,13 +264,13 @@ public class Bank {
 			receiver.getMoney(amount);
 
 		} else {
+
 			System.out.println("not enough money");
 		}
 	}
 
 	public void tranferProperty(Card property, Player player) throws IOException {
 		if (player.money >= property.selling_price) {
-
 			demandMoney(property.selling_price, player);
 			property.owner = player;
 			property.isOwned = true;
@@ -278,7 +288,8 @@ public class Bank {
 				}
 			}
 		} else {
-			System.out.println("not enough money");
+			// Aqui va una imagen que te indique no puedes comparar la propiedad ya que no
+			// tienes suficiente nero
 		}
 	}
 

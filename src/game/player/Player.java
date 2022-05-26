@@ -33,14 +33,16 @@ public class Player {
 	public Pieces piece;
 	public boolean boleano = false;
 	public boolean movearound;
+	public String avatar;
 	Scanner Leer = new Scanner(System.in);
 	private String move;
 
 	public String[] coor = new String[40];
 	public String[] coords;
 	public boolean teleport = false;
+	public boolean launch_ofert_with_card;
 
-	public Player(String name, Board board, Bank bank)
+	public Player(String name, Board board, Bank bank, String avatar)
 			throws IOException {
 		this.name = name;
 		this.money = 6000000;
@@ -58,6 +60,7 @@ public class Player {
 		this.piece = new Pieces();
 		next = this;
 		this.movearound = true;
+		this.avatar = "src/images/avatar/" + avatar;
 		WriteFile.createFile(properties);
 	}
 
@@ -69,21 +72,8 @@ public class Player {
 	public void giveMoney(int amount) {
 		if (amount <= this.money) {
 			this.money -= amount;
-			System.out.println("Ahora tengo " + this.money);
-		} else {
-			System.out.println("No tienedes suficiente dinero. Debes vender propiedades o hipotecarlas");
-			if (this.num_properties > 0) {
-				System.out.println("¿Deseas  negociar o hipotecar?\n1.Negociar\n2.Hipotecar");
-				int choose = Leer.nextInt();
-				switch (choose) {
-					case 1: {
 
-						break;
-					}
-					default:
-						break;
-				}
-			}
+		} else {
 
 		}
 	}
@@ -99,19 +89,19 @@ public class Player {
 
 	public void moveAround() throws IOException {
 		rollDices();
-		for (int i = 0; i < 2; i++) {
-			moveForward();
-		}
-		System.out.println("Destino: " + position.name);
-		// bank.request("buy", this);
-	}
-
-	public void moveAround(boolean x) throws IOException {
 		for (int i = 0; i < result.result; i++) {
 			moveForward();
 		}
 		System.out.println("Destino: " + position.name);
-		// bank.request("buy", this);
+		
+	}
+
+	public void moveAround(boolean x) throws IOException {
+		for (int i = 0; i < this.result.result; i++) {
+			moveForward();
+		}
+		System.out.println("Destino: " + position.name);
+	
 	}
 
 	public void moveBackward() {
@@ -250,33 +240,10 @@ public class Player {
 			if (this.outjail != 1) {
 				bank.ofert = true;
 			} else {
-				System.out.println("deseas usar la tarjeta de salir de la carcel? \t1: si \t2:no");
-				int salir = Leer.nextInt();
-				if (salir == 1) {
-					bank.request("exitjailwithcard", this);
-					moveForward();
-				} else if (salir == 2) {
-					System.out.println("¿desea salir de la carcel pagando 200000? \t1: si \t2:no");
-					salir = Leer.nextInt();
-					if (salir == 1) {
-						bank.request("exitjail", this);
-						System.out.println("saliste de la carcel");
-					} else {
-						rollDices();
-						if (result.isPair) {
-							bank.request("exitjailfree", this);
-							moveAround(true);
-						} else {
-							System.out.println("ni modo no saliste de la carcel");
-							turnsInJail++;
-						}
-					}
-				}
+				bank.launchexitjailwithcard = true;
 			}
 		} else {
-			System.out.println("te toca salir de la carcel pagando 200000");
 			bank.request("exitjail", this);
-			this.moveForward();
 		}
 	}
 
@@ -284,6 +251,15 @@ public class Player {
 		dicesResult result = dices.rollDices();
 		result.display();
 		return this.result = result;
+	}
+
+	public String showownerships() {
+		String display = "";
+		String[] allownerships = ReadFile.read(properties);
+		for (String linea : allownerships) {
+			display += linea.split(",")[0] + ". " + linea.split(",")[1] + "\n";
+		}
+		return display;
 	}
 
 	public void buyProperty(String name) throws IOException {
